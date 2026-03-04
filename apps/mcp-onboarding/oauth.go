@@ -56,6 +56,7 @@ func (s *OAuthServer) RegisterRoutes(mux *http.ServeMux) {
 }
 
 func (s *OAuthServer) handleAuthServerMetadata(w http.ResponseWriter, _ *http.Request) {
+	slog.Debug("serving authorization server metadata", "base_url", s.BaseURL)
 	metadata := AuthorizationServerMetadata{
 		Issuer:                            s.BaseURL,
 		AuthorizationEndpoint:             s.BaseURL + "/oauth/authorize",
@@ -256,6 +257,7 @@ func (s *OAuthServer) handleAuthorizationCodeGrant(w http.ResponseWriter, r *htt
 	s.Store.DeleteAuthCode(code)
 
 	if time.Since(authCode.CreatedAt) > 10*time.Minute {
+		slog.Debug("auth code expired", "age", time.Since(authCode.CreatedAt))
 		s.writeTokenError(w, "invalid_grant", "Authorization code expired")
 		return
 	}
