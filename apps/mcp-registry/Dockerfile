@@ -7,7 +7,7 @@ LABEL io.modelcontextprotocol.server.name="io.github.navikt/mcp-registry"
 
 WORKDIR /app
 
-COPY go.mod ./
+COPY go.mod go.sum ./
 RUN go mod download
 
 COPY *.go ./

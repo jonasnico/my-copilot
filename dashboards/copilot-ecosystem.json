@@ -702,11 +702,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -725,13 +728,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(token_store_size{namespace=\"$namespace\", app=\"mcp-onboarding\", type=\"active_tokens\"})",
@@ -752,11 +762,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "blue"
+                "color": "blue",
+                "value": 0
               }
             ]
           },
@@ -775,13 +788,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(token_store_size{namespace=\"$namespace\", app=\"mcp-onboarding\", type=\"refresh_tokens\"})",
@@ -802,11 +822,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -825,13 +848,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(token_store_size{namespace=\"$namespace\", app=\"mcp-onboarding\", type=\"client_registrations\"})",
@@ -852,11 +882,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -875,13 +908,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(increase(authenticated_users_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[24h]))",
@@ -902,11 +942,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -925,13 +968,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(increase(mcp_tool_calls_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[24h]))",
@@ -952,12 +1002,16 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "max": 1,
+          "min": 0,
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "yellow",
@@ -984,13 +1038,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(rate(mcp_tool_calls_total{namespace=\"$namespace\", app=\"mcp-onboarding\", status=\"error\"}[1h])) / sum(rate(mcp_tool_calls_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[1h]))",
@@ -1011,11 +1072,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1034,13 +1098,20 @@
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(increase(registry_server_lookups_total{namespace=\"$namespace\", app=\"mcp-registry\"}[24h]))",
@@ -1063,13 +1134,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -1088,13 +1197,16 @@
             "sum"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (stage, result) (increase(oauth_flows_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[$__rate_interval]))",
@@ -1117,12 +1229,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -1187,13 +1338,16 @@
             "sum"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (result) (increase(oauth_flows_total{namespace=\"$namespace\", app=\"mcp-onboarding\", stage=\"callback\"}[$__rate_interval]))",
@@ -1216,12 +1370,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -1241,14 +1434,17 @@
           ],
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "sortBy": "Total",
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (tool) (increase(mcp_tool_calls_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[$__rate_interval]))",
@@ -1271,12 +1467,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -1326,13 +1561,16 @@
             "sum"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (status) (increase(mcp_tool_calls_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[$__rate_interval]))",
@@ -1355,14 +1593,53 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
           },
+          "mappings": [],
           "noValue": "—",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "reqps"
         },
         "overrides": []
@@ -1382,14 +1659,17 @@
           ],
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (path) (rate(http_requests_total{namespace=\"$namespace\", app=\"mcp-onboarding\"}[$__rate_interval]))",
@@ -1412,15 +1692,53 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
           },
+          "mappings": [],
           "noValue": "—",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "s"
         },
         "overrides": []
@@ -1439,13 +1757,16 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "histogram_quantile(0.95, sum by (path, le) (rate(http_request_duration_seconds_bucket{namespace=\"$namespace\", app=\"mcp-onboarding\"}[$__rate_interval])))",
@@ -1481,12 +1802,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -1506,14 +1866,17 @@
           ],
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "sortBy": "Total",
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (server) (increase(registry_server_lookups_total{namespace=\"$namespace\", app=\"mcp-registry\"}[$__rate_interval]))",
@@ -1534,10 +1897,13 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1554,17 +1920,29 @@
       "id": 34,
       "options": {
         "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "sum"
-          ]
+          ],
+          "fields": "",
+          "values": false
         },
         "showUnfilled": true,
         "sizing": "auto",
         "valueMode": "color"
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (server) (increase(registry_server_lookups_total{namespace=\"$namespace\", app=\"mcp-registry\", result=\"found\"}[$__range]))",
@@ -1587,14 +1965,53 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
           },
+          "mappings": [],
           "noValue": "—",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "reqps"
         },
         "overrides": []
@@ -1614,14 +2031,17 @@
           ],
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (path) (rate(http_requests_total{namespace=\"$namespace\", app=\"mcp-registry\"}[$__rate_interval]))",
@@ -1644,15 +2064,53 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
           },
+          "mappings": [],
           "noValue": "—",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "s"
         },
         "overrides": []
@@ -1671,13 +2129,16 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "histogram_quantile(0.95, sum by (path, le) (rate(http_request_duration_seconds_bucket{namespace=\"$namespace\", app=\"mcp-registry\"}[$__rate_interval])))",
@@ -1712,11 +2173,14 @@
             "fixedColor": "blue",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "blue"
+                "color": "blue",
+                "value": 0
               }
             ]
           },
@@ -1734,12 +2198,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_total{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -1761,11 +2234,14 @@
             "fixedColor": "green",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1783,12 +2259,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_active_this_cycle{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -1810,11 +2295,14 @@
             "fixedColor": "orange",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "orange"
+                "color": "orange",
+                "value": 0
               }
             ]
           },
@@ -1832,12 +2320,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_inactive_this_cycle{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -1859,11 +2356,14 @@
             "fixedColor": "semi-dark-green",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-green"
+                "color": "semi-dark-green",
+                "value": 0
               }
             ]
           },
@@ -1881,12 +2381,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_added_this_cycle{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -1908,11 +2417,14 @@
             "fixedColor": "yellow",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "yellow"
+                "color": "yellow",
+                "value": 0
               }
             ]
           },
@@ -1930,12 +2442,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_pending_invitation{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -1957,11 +2478,14 @@
             "fixedColor": "red",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": 0
               }
             ]
           },
@@ -1979,12 +2503,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_pending_cancellation{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -2006,11 +2539,14 @@
             "fixedColor": "purple",
             "mode": "fixed"
           },
+          "mappings": [],
           "noValue": "—",
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
-                "color": "purple"
+                "color": "purple",
+                "value": 0
               }
             ]
           },
@@ -2028,12 +2564,21 @@
       "options": {
         "colorMode": "value",
         "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
-          ]
-        }
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum(increase(mycopilot_page_views_total{namespace=\"$namespace\", app=\"my-copilot\"}[24h]))",
@@ -2056,12 +2601,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "bars",
             "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
             "stacking": {
+              "group": "A",
               "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -2081,14 +2665,17 @@
           ],
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "sortBy": "Total",
           "sortDesc": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (page) (increase(mycopilot_page_views_total{namespace=\"$namespace\", app=\"my-copilot\"}[$__rate_interval]))",
@@ -2111,14 +2698,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
+              "group": "A",
               "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -2137,13 +2761,16 @@
             "lastNotNull"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "max(copilot_seats_total{namespace=\"$namespace\", app=\"my-copilot\"})",
@@ -2204,12 +2831,53 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
-            "showPoints": "auto"
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
+          "mappings": [],
           "max": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "percentunit"
         },
         "overrides": []
@@ -2228,13 +2896,16 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (container) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container!=\"\", container!=\"POD\"}[$__rate_interval])) / sum by (container) (kube_pod_container_resource_requests{namespace=\"$namespace\", resource=\"cpu\", container!=\"\"})",
@@ -2257,10 +2928,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
-            "showPoints": "auto"
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "bytes"
         },
@@ -2280,13 +2992,16 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (container) (container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", container!=\"POD\"})",
@@ -2314,10 +3029,51 @@
           },
           "custom": {
             "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
             "lineWidth": 2,
-            "showPoints": "auto"
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
           "unit": "short"
         },
@@ -2337,13 +3093,16 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "desc"
         }
       },
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "expr": "sum by (container) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\"}[$__rate_interval]))",
@@ -2704,5 +3463,5 @@
   "timezone": "browser",
   "title": "Copilot Ecosystem",
   "uid": "copilot-ecosystem",
-  "version": 4
+  "version": 5
 }
