@@ -13,7 +13,7 @@ RUN go mod download
 COPY *.go ./
 COPY allowlist.json ./
 
-RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o main .
+RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -trimpath -ldflags="-s -w" -o main .
 
 FROM gcr.io/distroless/static-debian12:nonroot
 

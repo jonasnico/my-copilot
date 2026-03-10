@@ -19,7 +19,7 @@ updates:
     directory: "/apps/my-copilot"
     schedule:
       interval: "weekly"
-      day: "tuesday"
+      day: "monday"
       time: "06:00"
       timezone: "Europe/Oslo"
     groups:
@@ -42,16 +42,30 @@ updates:
           - "@navikt/*"
     open-pull-requests-limit: 5
 
+  # copilot-metrics (Go)
+  - package-ecosystem: "gomod"
+    directory: "/apps/copilot-metrics"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Oslo"
+    groups:
+      copilot-metrics-go:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+
   # mcp-onboarding (Go)
   - package-ecosystem: "gomod"
     directory: "/apps/mcp-onboarding"
     schedule:
       interval: "weekly"
-      day: "wednesday"
+      day: "monday"
       time: "06:00"
       timezone: "Europe/Oslo"
     groups:
-      go-dependencies:
+      mcp-onboarding-go:
         patterns:
           - "*"
     open-pull-requests-limit: 5
@@ -61,11 +75,11 @@ updates:
     directory: "/apps/mcp-registry"
     schedule:
       interval: "weekly"
-      day: "wednesday"
+      day: "monday"
       time: "06:00"
       timezone: "Europe/Oslo"
     groups:
-      go-dependencies:
+      mcp-registry-go:
         patterns:
           - "*"
     open-pull-requests-limit: 5
