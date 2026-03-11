@@ -22,7 +22,12 @@ const base = {
 };
 
 const agent: Agent = { ...base, type: "agent", name: "nais-platform", tools: ["run_in_terminal", "read_file"] };
-const instruction: Instruction = { ...base, type: "instruction", name: "nextjs-aksel.instructions.md", applyTo: "src/**/*.tsx" };
+const instruction: Instruction = {
+  ...base,
+  type: "instruction",
+  name: "nextjs-aksel.instructions.md",
+  applyTo: "src/**/*.tsx",
+};
 const prompt: Prompt = { ...base, type: "prompt", name: "code-review.prompt.md", invocation: "/code-review" };
 const skill: Skill = { ...base, type: "skill", name: "aksel-spacing" };
 
@@ -143,7 +148,9 @@ describe("getToolCount", () => {
 describe("getManualInstallCommand", () => {
   it("generates curl command for agent", () => {
     const cmd = getManualInstallCommand(agent);
-    expect(cmd).toBe("mkdir -p .github/agents && curl -sO --output-dir .github/agents https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/nais.agent.md");
+    expect(cmd).toBe(
+      "mkdir -p .github/agents && curl -sO --output-dir .github/agents https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/nais.agent.md"
+    );
   });
 
   it("generates curl command for instruction", () => {
@@ -158,7 +165,9 @@ describe("getManualInstallCommand", () => {
 
   it("creates skill-specific subdirectory", () => {
     const cmd = getManualInstallCommand(skill);
-    expect(cmd).toBe("mkdir -p .github/skills/aksel-spacing && curl -sO --output-dir .github/skills/aksel-spacing https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/nais.agent.md");
+    expect(cmd).toBe(
+      "mkdir -p .github/skills/aksel-spacing && curl -sO --output-dir .github/skills/aksel-spacing https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/nais.agent.md"
+    );
   });
 
   it("returns empty string for mcp", () => {

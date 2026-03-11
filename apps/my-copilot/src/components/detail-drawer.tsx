@@ -31,10 +31,13 @@ function ExclusiveAccordion({ children }: { children: React.ReactNode }) {
       {items.map((child, i) => {
         if (!React.isValidElement(child)) return child;
         const key = (child.key as string) ?? String(i);
-        return React.cloneElement(child as React.ReactElement<{ open: boolean; onOpenChange: (open: boolean) => void }>, {
-          open: openItem === key,
-          onOpenChange: (isOpen: boolean) => setOpenItem(isOpen ? key : null),
-        });
+        return React.cloneElement(
+          child as React.ReactElement<{ open: boolean; onOpenChange: (open: boolean) => void }>,
+          {
+            open: openItem === key,
+            onOpenChange: (isOpen: boolean) => setOpenItem(isOpen ? key : null),
+          }
+        );
       })}
     </Accordion>
   );
