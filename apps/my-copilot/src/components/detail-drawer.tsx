@@ -3,180 +3,20 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon, ExternalLinkIcon, DownloadIcon } from "@navikt/aksel-icons";
 import { Alert, Box, BodyShort, Heading, Tag, HStack, VStack, CopyButton, Accordion } from "@navikt/ds-react";
-import type { AnyCustomization, CustomizationType } from "@/lib/customization-types";
+import type { AnyCustomization } from "@/lib/customization-types";
 import { DOMAIN_CONFIGS, TYPE_LABELS } from "@/lib/customization-types";
+import {
+  transportLabel,
+  getManualInstallCommand,
+  getMcpServerConfig,
+  getVsCodeAddMcpCommand,
+  getMcpAddFields,
+} from "@/lib/install-commands";
 
 interface DetailDrawerProps {
   item: AnyCustomization | null;
   open: boolean;
   onClose: () => void;
-}
-
-function transportLabel(type: string): string {
-  switch (type) {
-    case "streamable-http":
-      return "Streamable HTTP";
-    case "sse":
-      return "SSE";
-    case "stdio":
-      return "stdio";
-    default:
-      return type;
-  }
-}
-
-const INSTALL_DIRS: Record<Exclude<CustomizationType, "mcp">, string> = {
-  agent: ".github/agents",
-  instruction: ".github/instructions",
-  prompt: ".github/prompts",
-  skill: ".github/skills",
-};
-
-function getManualInstallCommand(item: AnyCustomization): string {
-  if (item.type === "mcp") return "";
-  if (item.type === "skill") {
-    const skillDir = `.github/skills/${item.name}`;
-    return `mkdir -p ${skillDir} && curl -sO --output-dir ${skillDir} ${item.rawGitHubUrl}`;
-  }
-  const dir = INSTALL_DIRS[item.type];
-  return `mkdir -p ${dir} && curl -sO --output-dir ${dir} ${item.rawGitHubUrl}`;
-}
-
-function getMcpCliCommand(item: AnyCustomization): string {
-  if (item.type !== "mcp") return "";
-  const serverName = item.name.split("/").pop() ?? item.name;
-
-  if (item.packages && item.packages.length > 0) {
-    const pkg = item.packages[0];
-    const runtime = pkg.registryType === "npm" ? "npx" : pkg.registryType === "pypi" ? "uvx" : null;
-    if (!runtime) return "";
-    const args: string[] = pkg.registryType === "npm" ? ["-y", pkg.identifier] : [pkg.identifier];
-    if (pkg.packageArguments) {
-      for (const arg of pkg.packageArguments) {
-        if (arg.name) args.push(arg.name);
-        if (arg.value) args.push(arg.value);
-      }
-    }
-    const entry: Record<string, unknown> = { command: runtime, args };
-    if (pkg.environmentVariables) {
-      const env: Record<string, string> = {};
-      for (const v of pkg.environmentVariables) {
-        env[v.name] = v.isSecret ? "" : (v.description ?? "");
-      }
-      if (Object.keys(env).length > 0) entry.env = env;
-    }
-    return JSON.stringify({ [serverName]: entry }, null, 2);
-  }
-
-  if (item.remotes.length > 0) {
-    const config = { [serverName]: { type: "http", url: item.remotes[0].url } };
-    return JSON.stringify(config, null, 2);
-  }
-
-  return "";
-}
-
-function getMcpSettingsJsonCommand(item: AnyCustomization): string {
-  if (item.type !== "mcp") return "";
-  const serverName = item.name.split("/").pop() ?? item.name;
-
-  if (item.packages && item.packages.length > 0) {
-    const pkg = item.packages[0];
-    const runtime = pkg.registryType === "npm" ? "npx" : pkg.registryType === "pypi" ? "uvx" : null;
-    if (!runtime) return "";
-    const args: string[] = pkg.registryType === "npm" ? ["-y", pkg.identifier] : [pkg.identifier];
-    if (pkg.packageArguments) {
-      for (const arg of pkg.packageArguments) {
-        if (arg.name) args.push(arg.name);
-        if (arg.value) args.push(arg.value);
-      }
-    }
-    const entry: Record<string, unknown> = { command: runtime, args };
-    if (pkg.environmentVariables) {
-      const env: Record<string, string> = {};
-      for (const v of pkg.environmentVariables) {
-        env[v.name] = v.isSecret ? "" : (v.description ?? "");
-      }
-      if (Object.keys(env).length > 0) entry.env = env;
-    }
-    return JSON.stringify({ [serverName]: entry }, null, 2);
-  }
-
-  if (item.remotes.length > 0) {
-    const config = { [serverName]: { type: "http", url: item.remotes[0].url } };
-    return JSON.stringify(config, null, 2);
-  }
-
-  return "";
-}
-
-function getVsCodeAddMcpCommand(item: AnyCustomization): string {
-  if (item.type !== "mcp") return "";
-
-  if (item.packages && item.packages.length > 0) {
-    const pkg = item.packages[0];
-    const runtime = pkg.registryType === "npm" ? "npx" : pkg.registryType === "pypi" ? "uvx" : null;
-    if (!runtime) return "";
-
-    const args: string[] = pkg.registryType === "npm" ? ["-y", pkg.identifier] : [pkg.identifier];
-    if (pkg.packageArguments) {
-      for (const arg of pkg.packageArguments) {
-        if (arg.name) args.push(arg.name);
-        if (arg.value) args.push(arg.value);
-      }
-    }
-
-    const serverName = item.name.split("/").pop() ?? item.name;
-    const config: Record<string, unknown> = { name: serverName, command: runtime, args };
-
-    if (pkg.environmentVariables) {
-      const env: Record<string, string> = {};
-      for (const v of pkg.environmentVariables) {
-        env[v.name] = v.isSecret ? `\${input:${v.name}}` : (v.description ?? "");
-      }
-      if (Object.keys(env).length > 0) config.env = env;
-    }
-
-    return `code --add-mcp '${JSON.stringify(config)}'`;
-  }
-
-  if (item.remotes.length > 0) {
-    const serverName = item.name.split("/").pop() ?? item.name;
-    const config = { name: serverName, type: "http", url: item.remotes[0].url };
-    return `code --add-mcp '${JSON.stringify(config)}'`;
-  }
-
-  return "";
-}
-
-function getMcpAddFields(
-  item: AnyCustomization
-): { name: string; type: string; url?: string; command?: string; env?: string } | null {
-  if (item.type !== "mcp") return null;
-  const name = item.name.split("/").pop() ?? item.name;
-
-  if (item.remotes.length > 0) {
-    return { name, type: "HTTP", url: item.remotes[0].url };
-  }
-
-  if (item.packages && item.packages.length > 0) {
-    const pkg = item.packages[0];
-    const runtime = pkg.registryType === "npm" ? "npx" : pkg.registryType === "pypi" ? "uvx" : null;
-    if (!runtime) return null;
-    const args: string[] = pkg.registryType === "npm" ? ["-y", pkg.identifier] : [pkg.identifier];
-    if (pkg.packageArguments) {
-      for (const arg of pkg.packageArguments) {
-        if (arg.name) args.push(arg.name);
-        if (arg.value) args.push(arg.value);
-      }
-    }
-    const envVars = pkg.environmentVariables
-      ?.map((v) => `${v.name}=${v.isSecret ? "..." : (v.description ?? "")}`)
-      .join(", ");
-    return { name, type: "STDIO", command: `${runtime} ${args.join(" ")}`, env: envVars };
-  }
-
-  return null;
 }
 
 function McpDetails({ item }: { item: AnyCustomization }) {
@@ -340,16 +180,16 @@ function McpDetails({ item }: { item: AnyCustomization }) {
                 </BodyShort>
                 <div className="relative">
                   <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
-                    {getMcpSettingsJsonCommand(item)}
+                    {getMcpServerConfig(item)}
                   </pre>
                   <div className="absolute top-1 right-1">
-                    <CopyButton size="xsmall" copyText={getMcpSettingsJsonCommand(item)} />
+                    <CopyButton size="xsmall" copyText={getMcpServerConfig(item)} />
                   </div>
                 </div>
               </VStack>
             </Accordion.Content>
           </Accordion.Item>
-          {getMcpCliCommand(item) && (
+          {getMcpServerConfig(item) && (
             <Accordion.Item>
               <Accordion.Header>Copilot CLI</Accordion.Header>
               <Accordion.Content>
@@ -400,10 +240,10 @@ function McpDetails({ item }: { item: AnyCustomization }) {
                   </BodyShort>
                   <div className="relative">
                     <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
-                      {getMcpCliCommand(item)}
+                      {getMcpServerConfig(item)}
                     </pre>
                     <div className="absolute top-1 right-1">
-                      <CopyButton size="xsmall" copyText={getMcpCliCommand(item)} />
+                      <CopyButton size="xsmall" copyText={getMcpServerConfig(item)} />
                     </div>
                   </div>
                 </VStack>
@@ -425,10 +265,10 @@ function McpDetails({ item }: { item: AnyCustomization }) {
                 </BodyShort>
                 <div className="relative">
                   <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
-                    {getMcpSettingsJsonCommand(item)}
+                    {getMcpServerConfig(item)}
                   </pre>
                   <div className="absolute top-1 right-1">
-                    <CopyButton size="xsmall" copyText={getMcpSettingsJsonCommand(item)} />
+                    <CopyButton size="xsmall" copyText={getMcpServerConfig(item)} />
                   </div>
                 </div>
                 {item.remotes.length > 0 && (

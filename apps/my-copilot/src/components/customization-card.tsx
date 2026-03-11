@@ -3,41 +3,14 @@
 import { Box, BodyShort, Heading, Tag, HStack, VStack } from "@navikt/ds-react";
 import { DownloadIcon, ChevronRightIcon, WrenchIcon } from "@navikt/aksel-icons";
 import { SiGnometerminal, SiIntellijidea, SiGithub } from "@icons-pack/react-simple-icons";
-import type { AnyCustomization, CustomizationType } from "@/lib/customization-types";
+import type { AnyCustomization } from "@/lib/customization-types";
 import { DOMAIN_CONFIGS, TYPE_LABELS } from "@/lib/customization-types";
+import { transportLabel, getToolCount, CLIENT_SUPPORT, CLIENT_LABELS } from "@/lib/install-commands";
 
 interface CustomizationCardProps {
   item: AnyCustomization;
   onClick?: () => void;
 }
-
-function transportLabel(type: string): string {
-  switch (type) {
-    case "streamable-http":
-      return "Streamable HTTP";
-    case "sse":
-      return "SSE";
-    case "stdio":
-      return "stdio";
-    default:
-      return type;
-  }
-}
-
-const CLIENT_SUPPORT: Record<CustomizationType, string[]> = {
-  instruction: ["vscode", "intellij", "cli", "github"],
-  agent: ["vscode", "intellij", "github"],
-  prompt: ["vscode", "intellij"],
-  skill: ["vscode"],
-  mcp: ["vscode", "intellij", "cli"],
-};
-
-const CLIENT_LABELS: Record<string, string> = {
-  vscode: "VS Code",
-  intellij: "IntelliJ",
-  cli: "Copilot CLI",
-  github: "GitHub.com",
-};
 
 function VSCodeIcon({ size = 16 }: { size?: number }) {
   return (
@@ -60,12 +33,6 @@ function ClientIcon({ client, size = 16 }: { client: string; size?: number }) {
     default:
       return null;
   }
-}
-
-function getToolCount(item: AnyCustomization): number {
-  if (item.type === "agent") return item.tools.length;
-  if (item.type === "mcp") return item.tools?.length ?? 0;
-  return 0;
 }
 
 export function CustomizationCard({ item, onClick }: CustomizationCardProps) {
