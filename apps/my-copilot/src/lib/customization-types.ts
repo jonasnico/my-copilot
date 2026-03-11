@@ -115,6 +115,6 @@ export const TYPE_LABELS: Record<CustomizationType, string> = {
   agent: "Agent",
   instruction: "Instruksjon",
   prompt: "Prompt",
-  skill: "Ferdighet",
+  skill: "Skill",
   mcp: "MCP Server",
 };

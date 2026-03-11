@@ -11,6 +11,7 @@ import {
   getMcpServerConfig,
   getVsCodeAddMcpCommand,
   getMcpAddFields,
+  CLIENT_SUPPORT,
 } from "@/lib/install-commands";
 
 interface DetailDrawerProps {
@@ -189,6 +190,36 @@ function McpDetails({ item }: { item: AnyCustomization }) {
               </VStack>
             </Accordion.Content>
           </Accordion.Item>
+          <Accordion.Item>
+            <Accordion.Header>IntelliJ</Accordion.Header>
+            <Accordion.Content>
+              <VStack gap="space-8">
+                <BodyShort size="small">
+                  Åpne Copilot Chat i IntelliJ og klikk på <strong>MCP-register-ikonet</strong> for å søke etter og
+                  installere serveren direkte fra registeret.
+                </BodyShort>
+                <BodyShort size="small" className="text-gray-500">
+                  Alternativt kan du legge til manuelt i{" "}
+                  <code className="text-xs bg-gray-100 rounded px-1">~/.config/github-copilot/intellij/mcp.json</code>{" "}
+                  under <code className="text-xs bg-gray-100 rounded px-1">&quot;servers&quot;</code>:
+                </BodyShort>
+                <div className="relative">
+                  <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
+                    {getMcpServerConfig(item)}
+                  </pre>
+                  <div className="absolute top-1 right-1">
+                    <CopyButton size="xsmall" copyText={getMcpServerConfig(item)} />
+                  </div>
+                </div>
+                {item.remotes.length > 0 && (
+                  <Alert variant="warning" size="small">
+                    IntelliJ støtter foreløpig ikke OAuth-autentisering for MCP-servere. Noen servere som krever
+                    innlogging vil derfor ikke fungere. Copilot-teamet i Nav følger med på dette.
+                  </Alert>
+                )}
+              </VStack>
+            </Accordion.Content>
+          </Accordion.Item>
           {getMcpServerConfig(item) && (
             <Accordion.Item>
               <Accordion.Header>Copilot CLI</Accordion.Header>
@@ -250,36 +281,6 @@ function McpDetails({ item }: { item: AnyCustomization }) {
               </Accordion.Content>
             </Accordion.Item>
           )}
-          <Accordion.Item>
-            <Accordion.Header>IntelliJ</Accordion.Header>
-            <Accordion.Content>
-              <VStack gap="space-8">
-                <BodyShort size="small">
-                  Åpne Copilot Chat i IntelliJ og klikk på <strong>MCP-register-ikonet</strong> for å søke etter og
-                  installere serveren direkte fra registeret.
-                </BodyShort>
-                <BodyShort size="small" className="text-gray-500">
-                  Alternativt kan du legge til manuelt i{" "}
-                  <code className="text-xs bg-gray-100 rounded px-1">~/.config/github-copilot/intellij/mcp.json</code>{" "}
-                  under <code className="text-xs bg-gray-100 rounded px-1">&quot;servers&quot;</code>:
-                </BodyShort>
-                <div className="relative">
-                  <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
-                    {getMcpServerConfig(item)}
-                  </pre>
-                  <div className="absolute top-1 right-1">
-                    <CopyButton size="xsmall" copyText={getMcpServerConfig(item)} />
-                  </div>
-                </div>
-                {item.remotes.length > 0 && (
-                  <Alert variant="warning" size="small">
-                    IntelliJ støtter foreløpig ikke OAuth-autentisering for MCP-servere. Noen servere som krever
-                    innlogging vil derfor ikke fungere. Copilot-teamet i Nav følger med på dette.
-                  </Alert>
-                )}
-              </VStack>
-            </Accordion.Content>
-          </Accordion.Item>
         </Accordion>
       </VStack>
     </VStack>
@@ -360,62 +361,54 @@ function StaticCustomizationDetails({ item }: { item: AnyCustomization }) {
               </VStack>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item>
-            <Accordion.Header>IntelliJ</Accordion.Header>
-            <Accordion.Content>
-              <VStack gap="space-8">
-                <BodyShort size="small">Kopier filen til prosjektet — samme plassering som for VS Code:</BodyShort>
-                <div className="relative">
-                  <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
-                    {getManualInstallCommand(item)}
-                  </pre>
-                  <div className="absolute top-1 right-1">
-                    <CopyButton size="xsmall" copyText={getManualInstallCommand(item)} />
+          {CLIENT_SUPPORT[item.type].includes("intellij") && (
+            <Accordion.Item>
+              <Accordion.Header>IntelliJ</Accordion.Header>
+              <Accordion.Content>
+                <VStack gap="space-8">
+                  <BodyShort size="small">Kopier filen til prosjektet — samme plassering som for VS Code:</BodyShort>
+                  <div className="relative">
+                    <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
+                      {getManualInstallCommand(item)}
+                    </pre>
+                    <div className="absolute top-1 right-1">
+                      <CopyButton size="xsmall" copyText={getManualInstallCommand(item)} />
+                    </div>
                   </div>
-                </div>
-                <BodyShort size="small" className="text-gray-500">
-                  {item.type === "skill"
-                    ? "Skills støttes foreløpig ikke i IntelliJ."
-                    : item.type === "agent"
+                  <BodyShort size="small" className="text-gray-500">
+                    {item.type === "agent"
                       ? "Støttes i Coding Agent-modus. Aktiver via Copilot Chat."
                       : item.type === "instruction"
                         ? `Lastes automatisk for filer som matcher ${item.applyTo}.`
-                        : `Kjør med ${item.invocation} i Copilot Chat.`}
-                </BodyShort>
-              </VStack>
-            </Accordion.Content>
-          </Accordion.Item>
-          <Accordion.Item>
-            <Accordion.Header>Copilot CLI</Accordion.Header>
-            <Accordion.Content>
-              <VStack gap="space-8">
-                {item.type === "instruction" || item.type === "agent" ? (
-                  <>
-                    <BodyShort size="small">Kopier filen til prosjektet:</BodyShort>
-                    <div className="relative">
-                      <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
-                        {getManualInstallCommand(item)}
-                      </pre>
-                      <div className="absolute top-1 right-1">
-                        <CopyButton size="xsmall" copyText={getManualInstallCommand(item)} />
-                      </div>
-                    </div>
-                    <BodyShort size="small" className="text-gray-500">
-                      {item.type === "instruction"
-                        ? "Lastes automatisk når du kjører copilot fra prosjektmappen."
-                        : "Agenter kan brukes av Copilot Coding Agent."}
-                    </BodyShort>
-                  </>
-                ) : (
-                  <BodyShort size="small" className="text-gray-500">
-                    {item.type === "prompt"
-                      ? "Prompts støttes foreløpig ikke i Copilot CLI."
-                      : "Skills støttes foreløpig ikke i Copilot CLI."}
+                        : item.type === "prompt"
+                          ? `Kjør med ${item.invocation} i Copilot Chat.`
+                          : null}
                   </BodyShort>
-                )}
-              </VStack>
-            </Accordion.Content>
-          </Accordion.Item>
+                </VStack>
+              </Accordion.Content>
+            </Accordion.Item>
+          )}
+          {CLIENT_SUPPORT[item.type].includes("cli") && (
+            <Accordion.Item>
+              <Accordion.Header>Copilot CLI</Accordion.Header>
+              <Accordion.Content>
+                <VStack gap="space-8">
+                  <BodyShort size="small">Kopier filen til prosjektet:</BodyShort>
+                  <div className="relative">
+                    <pre className="text-xs bg-gray-100 rounded p-2 pr-10 overflow-x-auto whitespace-pre-wrap break-all">
+                      {getManualInstallCommand(item)}
+                    </pre>
+                    <div className="absolute top-1 right-1">
+                      <CopyButton size="xsmall" copyText={getManualInstallCommand(item)} />
+                    </div>
+                  </div>
+                  <BodyShort size="small" className="text-gray-500">
+                    Lastes automatisk når du kjører copilot fra prosjektmappen.
+                  </BodyShort>
+                </VStack>
+              </Accordion.Content>
+            </Accordion.Item>
+          )}
         </Accordion>
       </VStack>
     </VStack>

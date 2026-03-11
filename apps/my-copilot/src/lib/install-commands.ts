@@ -9,10 +9,10 @@ export const INSTALL_DIRS: Record<Exclude<CustomizationType, "mcp">, string> = {
 
 export const CLIENT_SUPPORT: Record<CustomizationType, string[]> = {
   instruction: ["vscode", "intellij", "cli", "github"],
-  agent: ["vscode", "intellij", "github"],
-  prompt: ["vscode", "intellij"],
-  skill: ["vscode"],
-  mcp: ["vscode", "intellij", "cli"],
+  agent: ["vscode", "cli", "github"],
+  prompt: ["vscode", "intellij", "github"],
+  skill: ["vscode", "cli", "github"],
+  mcp: ["vscode", "intellij", "cli", "github"],
 };
 
 export const CLIENT_LABELS: Record<string, string> = {

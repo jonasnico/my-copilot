@@ -137,6 +137,22 @@ A shared Grafana dashboard is available at [`dashboards/copilot-ecosystem.json`]
 
 ## Install Instructions References
 
+### Client Support Matrix
+
+Based on the [official Copilot customization cheat sheet](https://docs.github.com/en/copilot/reference/customization-cheat-sheet#ide-and-surface-support):
+
+| Feature      | VS Code | IntelliJ | Copilot CLI | GitHub.com |
+| ------------ | ------- | -------- | ----------- | ---------- |
+| Instructions | ✓       | ✓        | ✓           | ✓          |
+| Agents       | ✓       | ✗        | ✓           | ✓          |
+| Prompts      | ✓       | ✓        | ✗           | ✓          |
+| Skills       | ✓       | ✗        | ✓           | ✓          |
+| MCP servers  | ✓       | ✓        | ✓           | ✓          |
+
+This matrix is implemented in `CLIENT_SUPPORT` in `src/lib/install-commands.ts` and determines which editor tabs appear in the install accordion.
+
+### References
+
 The customization detail drawer (`src/components/detail-drawer.tsx`) provides per-editor install instructions for all customization types. The following official references were used to build these instructions:
 
 ### VS Code
