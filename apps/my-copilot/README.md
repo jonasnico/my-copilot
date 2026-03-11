@@ -178,10 +178,11 @@ The customization detail drawer (`src/components/detail-drawer.tsx`) provides pe
   - Status: Public preview (nightly builds as of March 2026)
 - **MCP manual config path** (GitHub Copilot plugin): `~/.config/github-copilot/intellij/mcp.json`
   - Same `"servers"` format as VS Code's `.vscode/mcp.json`
-  - Source: <https://docs.github.com/en/copilot/customizing-copilot/extending-the-capabilities-of-github-copilot-in-your-organization>
+  - Source: <https://docs.github.com/en/copilot/how-tos/context/model-context-protocol/extending-copilot-chat-with-mcp?tool=jetbrains>
 - **No deep link support** for MCP registry install — browse-only via in-IDE UI
-- **No OAuth support** for MCP servers — only static headers and stdio transports
-  - Upstream issue: JetBrains LLM-25012
+- **OAuth support**: Official docs now state JetBrains supports OAuth and PAT for remote MCP servers
+  - Previously tracked as unsupported (JetBrains LLM-25012)
+  - Our install instructions still show a warning — verify and remove once confirmed working
 
 ### Copilot CLI
 
