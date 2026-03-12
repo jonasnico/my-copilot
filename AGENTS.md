@@ -71,6 +71,7 @@ docs/                 # Documentation
 - **Always use Aksel spacing tokens (Box, VStack, HStack), never Tailwind p-/m- utilities**
 - ESLint + Prettier + Knip for code quality
 - Jest for testing
+- **Norwegian UI text**: Follow `apps/my-copilot/ORDBOK.md` for terminology — keep English tech terms where there's no good Norwegian alternative, use simple words, avoid unnecessary anglicisms
 
 ## Git Workflow
 

@@ -1,6 +1,8 @@
 export type CustomizationType = "agent" | "instruction" | "prompt" | "skill" | "mcp";
 
-export type Domain = "platform" | "frontend" | "backend" | "auth" | "observability" | "general" | "testing" | "design";
+export type { Domain } from "./manifest-types";
+import type { Domain } from "./manifest-types";
+import type { UsageExample } from "./manifest-types";
 
 interface BaseCustomization {
   id: string;
@@ -12,6 +14,8 @@ interface BaseCustomization {
   rawGitHubUrl: string;
   installUrl: string | null;
   insidersInstallUrl: string | null;
+  tags?: string[];
+  examples?: UsageExample[];
 }
 
 export interface Agent extends BaseCustomization {

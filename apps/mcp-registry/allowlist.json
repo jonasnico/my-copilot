@@ -14,6 +14,16 @@
       },
       "tools": ["get_file_contents", "search_repositories", "create_issue", "list_issues", "create_pull_request", "list_pull_requests", "search_code", "get_commit", "list_commits", "create_branch", "list_branches"],
       "tags": ["developer-tools", "version-control", "github"],
+      "examples": [
+        {
+          "scenario": "Finn kode i et annet repo",
+          "prompt": "Søk etter autentiseringsmiddleware i navikt/fp-sak"
+        },
+        {
+          "scenario": "Opprett en issue",
+          "prompt": "Opprett en issue i navikt/dp-soknad om å oppgradere Kotlin-versjonen"
+        }
+      ],
       "remotes": [
         {
           "type": "streamable-http",
@@ -36,6 +46,16 @@
       },
       "tools": ["hello_world", "greet", "whoami", "echo", "get_time", "list_agents", "list_instructions", "list_prompts", "list_skills", "check_agent_readiness", "generate_agents_md"],
       "tags": ["developer-tools", "onboarding", "nav-internal"],
+      "examples": [
+        {
+          "scenario": "Sjekk om repoet er klart for agentmodus",
+          "prompt": "Kjør en agent-readiness-sjekk på navikt/dp-soknad"
+        },
+        {
+          "scenario": "Generer AGENTS.md",
+          "prompt": "Lag en AGENTS.md-fil for navikt/fp-sak"
+        }
+      ],
       "remotes": [
         {
           "type": "streamable-http",
@@ -57,6 +77,12 @@
       },
       "tools": ["get_design_context", "get_screenshot", "get_metadata", "get_figjam", "generate_diagram"],
       "tags": ["design", "frontend", "figma"],
+      "examples": [
+        {
+          "scenario": "Design til kode",
+          "prompt": "Hent designkontekst for søknadsskjemaet fra Figma og lag React-komponenter med Aksel"
+        }
+      ],
       "remotes": [
         {
           "type": "streamable-http",
@@ -78,6 +104,12 @@
       },
       "tools": ["getErrors", "getRouteInfo", "getDebugInfo", "getDocs"],
       "tags": ["frontend", "nextjs", "developer-tools"],
+      "examples": [
+        {
+          "scenario": "Feilsøk Next.js-app",
+          "prompt": "Vis feil og rute-informasjon fra Next.js dev-serveren i dp-soknad"
+        }
+      ],
       "packages": [
         {
           "registryType": "npm",
@@ -112,6 +144,12 @@
       },
       "tools": ["search_docs", "analyze_code"],
       "tags": ["frontend", "svelte", "documentation"],
+      "examples": [
+        {
+          "scenario": "Søk i Svelte-dokumentasjon",
+          "prompt": "Hvordan bruker jeg SvelteKit form actions?"
+        }
+      ],
       "remotes": [
         {
           "type": "streamable-http",
@@ -143,6 +181,12 @@
       },
       "tools": ["browser_navigate", "browser_click", "browser_type", "browser_snapshot", "browser_take_screenshot", "browser_wait"],
       "tags": ["testing", "browser-automation", "frontend"],
+      "examples": [
+        {
+          "scenario": "Test brukerflyt",
+          "prompt": "Naviger til søknadssiden og test at skjemavalidering fungerer"
+        }
+      ],
       "packages": [
         {
           "registryType": "npm",

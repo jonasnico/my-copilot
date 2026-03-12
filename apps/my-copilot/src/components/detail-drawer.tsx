@@ -3,9 +3,37 @@
 import React, { useState } from "react";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon, ExternalLinkIcon, DownloadIcon } from "@navikt/aksel-icons";
-import { Alert, Box, BodyShort, Heading, Tag, HStack, VStack, CopyButton, Accordion } from "@navikt/ds-react";
+import { Alert, Box, BodyShort, Button, Heading, Tag, HStack, VStack, CopyButton, Accordion } from "@navikt/ds-react";
 import type { AnyCustomization } from "@/lib/customization-types";
 import { DOMAIN_CONFIGS, TYPE_LABELS } from "@/lib/customization-types";
+
+const TOOLS_PREVIEW_COUNT = 5;
+
+function ToolList({ tools }: { tools: string[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const showToggle = tools.length > TOOLS_PREVIEW_COUNT;
+  const visible = expanded ? tools : tools.slice(0, TOOLS_PREVIEW_COUNT);
+
+  return (
+    <VStack gap="space-8">
+      <Heading size="xsmall" level="4">
+        Verktøy ({tools.length})
+      </Heading>
+      <HStack gap="space-4" wrap>
+        {visible.map((tool) => (
+          <Tag key={tool} size="xsmall" variant="neutral">
+            {tool}
+          </Tag>
+        ))}
+      </HStack>
+      {showToggle && (
+        <Button variant="tertiary" size="xsmall" onClick={() => setExpanded(!expanded)}>
+          {expanded ? "Vis færre" : `Vis alle ${tools.length} verktøy`}
+        </Button>
+      )}
+    </VStack>
+  );
+}
 import {
   transportLabel,
   getManualInstallCommand,
@@ -80,20 +108,7 @@ function McpDetails({ item }: { item: AnyCustomization }) {
         </VStack>
       )}
 
-      {item.tools && item.tools.length > 0 && (
-        <VStack gap="space-8">
-          <Heading size="xsmall" level="4">
-            Verktøy ({item.tools.length})
-          </Heading>
-          <HStack gap="space-4" wrap>
-            {item.tools.map((tool) => (
-              <Tag key={tool} size="xsmall" variant="neutral">
-                {tool}
-              </Tag>
-            ))}
-          </HStack>
-        </VStack>
-      )}
+      {item.tools && item.tools.length > 0 && <ToolList tools={item.tools} />}
 
       {item.tags && item.tags.length > 0 && (
         <VStack gap="space-8">
@@ -122,6 +137,31 @@ function McpDetails({ item }: { item: AnyCustomization }) {
               </Tag>
             ))}
           </HStack>
+        </VStack>
+      )}
+
+      {item.examples && item.examples.length > 0 && (
+        <VStack gap="space-8">
+          <Heading size="xsmall" level="4">
+            Eksempler
+          </Heading>
+          <VStack gap="space-8">
+            {item.examples.map((example, index) => (
+              <Box key={`${example.scenario}-${index}`} background="neutral-soft" borderRadius="8" padding="space-12">
+                <VStack gap="space-4">
+                  <BodyShort size="small" weight="semibold">
+                    {example.scenario}
+                  </BodyShort>
+                  <div className="relative">
+                    <code className="text-xs block pr-8 break-all">{example.prompt}</code>
+                    <div className="absolute top-0 right-0">
+                      <CopyButton size="xsmall" copyText={example.prompt} />
+                    </div>
+                  </div>
+                </VStack>
+              </Box>
+            ))}
+          </VStack>
         </VStack>
       )}
 
@@ -315,20 +355,7 @@ function StaticCustomizationDetails({ item }: { item: AnyCustomization }) {
 
   return (
     <VStack gap="space-16">
-      {item.type === "agent" && item.tools.length > 0 && (
-        <VStack gap="space-8">
-          <Heading size="xsmall" level="4">
-            Verktøy ({item.tools.length})
-          </Heading>
-          <HStack gap="space-4" wrap>
-            {item.tools.map((tool) => (
-              <Tag key={tool} size="xsmall" variant="neutral">
-                {tool}
-              </Tag>
-            ))}
-          </HStack>
-        </VStack>
-      )}
+      {item.type === "agent" && item.tools.length > 0 && <ToolList tools={item.tools} />}
 
       {item.type === "instruction" && (
         <VStack gap="space-8">
@@ -345,6 +372,31 @@ function StaticCustomizationDetails({ item }: { item: AnyCustomization }) {
             Aktivering
           </Heading>
           <code className="text-xs bg-gray-100 rounded px-2 py-1 inline-block">{item.invocation}</code>
+        </VStack>
+      )}
+
+      {item.examples && item.examples.length > 0 && (
+        <VStack gap="space-8">
+          <Heading size="xsmall" level="4">
+            Eksempler
+          </Heading>
+          <VStack gap="space-8">
+            {item.examples.map((example, index) => (
+              <Box key={`${example.scenario}-${index}`} background="neutral-soft" borderRadius="8" padding="space-12">
+                <VStack gap="space-4">
+                  <BodyShort size="small" weight="semibold">
+                    {example.scenario}
+                  </BodyShort>
+                  <div className="relative">
+                    <code className="text-xs block pr-8 break-all">{example.prompt}</code>
+                    <div className="absolute top-0 right-0">
+                      <CopyButton size="xsmall" copyText={example.prompt} />
+                    </div>
+                  </div>
+                </VStack>
+              </Box>
+            ))}
+          </VStack>
         </VStack>
       )}
 

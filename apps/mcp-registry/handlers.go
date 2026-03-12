@@ -106,8 +106,8 @@ func serversListHandler(w http.ResponseWriter, r *http.Request, config *Config) 
 			status = StatusActive
 		}
 		var navMeta *NavRegistryMeta
-		if len(s.Tools) > 0 || len(s.Tags) > 0 {
-			navMeta = &NavRegistryMeta{Tools: s.Tools, Tags: s.Tags}
+		if len(s.Tools) > 0 || len(s.Tags) > 0 || len(s.Examples) > 0 {
+			navMeta = &NavRegistryMeta{Tools: s.Tools, Tags: s.Tags, Examples: s.Examples}
 		}
 		servers = append(servers, ServerResponse{
 			Server: ServerJSON{

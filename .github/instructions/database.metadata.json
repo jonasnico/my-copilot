@@ -1,0 +1,10 @@
+{
+  "domain": "backend",
+  "tags": ["database", "flyway", "sql", "migration"],
+  "examples": [
+    {
+      "prompt": "Lag en Flyway-migrasjon som legger til en status-kolonne i vedtak-tabellen i dp-inntekt",
+      "scenario": "Database-migrasjon"
+    }
+  ]
+}

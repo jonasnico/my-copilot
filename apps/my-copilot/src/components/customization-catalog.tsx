@@ -38,10 +38,10 @@ export function CustomizationCatalog({ items }: CustomizationCatalogProps) {
 
   const [search, setSearch] = useState(initialSearch);
   const [selectedType, setSelectedType] = useState<CustomizationType | null>(
-    isValidType(initialType) ? initialType : null,
+    isValidType(initialType) ? initialType : null
   );
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(
-    isValidDomain(initialDomain, allDomains) ? initialDomain : null,
+    isValidDomain(initialDomain, allDomains) ? initialDomain : null
   );
   const [selectedItem, setSelectedItem] = useState<AnyCustomization | null>(() => {
     if (initialItem) {

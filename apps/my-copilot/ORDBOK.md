@@ -1,6 +1,6 @@
-# Ordbok – Copilot Statistikk
+# Ordbok – Copilot-portalen
 
-Terminologi brukt i statistikkdashboardet. Engelske faguttrykk brukes der det ikke finnes et godt norsk alternativ.
+Terminologi brukt i statistikkdashboardet og verktøykatalogen. Engelske faguttrykk brukes der det ikke finnes et godt norsk alternativ.
 
 ## Engelske termer vi beholder
 
@@ -11,10 +11,14 @@ Terminologi brukt i statistikkdashboardet. Engelske faguttrykk brukes der det ik
 | chat              | Copilot Chat                                       |
 | CLI               | Command Line Interface                             |
 | code review       | Gjennomgang av kode i pull requests                |
+| commit            | Git-operasjon — brukes som verb og substantiv      |
+| dashboard         | Visualiseringspanel (Grafana, statistikk)          |
+| GDPR              | EU-forordning for personvern                       |
 | inline            | Inline kodeforslag i editoren                      |
 | merge             | Slå sammen en pull request                         |
 | pull request (PR) | Endringsforslag i Git                              |
 | review            | Gjennomgang — brukes som verb og substantiv        |
+| skill             | Copilot-ferdighet — ikke oversett                  |
 | tokens            | Tekstenheter AI-modellen bruker (ca. 1 per 4 tegn) |
 
 ## Norske oversettelser
@@ -45,6 +49,17 @@ Terminologi brukt i statistikkdashboardet. Engelske faguttrykk brukes der det ik
 | suggestions          | forslag             | «Copilot review-forslag»             |
 | token usage          | tokenforbruk        | Undertittel: «Tokenforbruk»          |
 | trend                | trend               | «Adopsjonstrender»                   |
+
+## Verktøykatalog
+
+| Engelsk    | Norsk           | Eksempel i UI               |
+| ---------- | --------------- | --------------------------- |
+| edge cases | grensetilfeller | «Test med grensetilfeller»  |
+| examples   | eksempler       | Seksjonstittel: «Eksempler» |
+| install    | installer       | «Installer med ett klikk»   |
+| scaffold   | lag / opprett   | «Lag Aksel-komponent»       |
+| tags       | emneord         | Filteroverskrift: «Emneord» |
+| use case   | brukseksempel   | «Se brukseksempler»         |
 
 ## Skriveregler
 

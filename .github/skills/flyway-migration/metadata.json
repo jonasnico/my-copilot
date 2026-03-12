@@ -1,0 +1,10 @@
+{
+  "domain": "backend",
+  "tags": ["database", "flyway", "sql", "migration"],
+  "examples": [
+    {
+      "prompt": "Lag en Flyway-migrasjon som legger til en indeks på fødselsnummer",
+      "scenario": "Database-migrasjon med Flyway"
+    }
+  ]
+}

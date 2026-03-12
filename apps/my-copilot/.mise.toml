@@ -32,7 +32,7 @@ run = "pnpm dev"
 description = "Start Next.js development server"
 
 [tasks.generate]
-run = "pnpm generate"
+run = "pnpm generate && pnpm prettier --write src/lib/copilot-manifest.json"
 description = "Generate customizations manifest from .github files"
 
 [tasks."generate:check"]
@@ -42,6 +42,7 @@ run = '''
 set -e
 
 pnpm generate
+pnpm prettier --write src/lib/copilot-manifest.json
 
 if git diff --exit-code src/lib/copilot-manifest.json > /dev/null 2>&1; then
   echo "✅ Manifest is up to date"

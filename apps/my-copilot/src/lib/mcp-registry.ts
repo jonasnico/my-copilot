@@ -1,5 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 import type { Domain, McpServerCustomization } from "./customization-types";
+import type { UsageExample } from "./manifest-types";
 
 const MCP_REGISTRY_URL = process.env.MCP_REGISTRY_URL || "https://mcp-registry.nav.no";
 
@@ -29,6 +30,7 @@ interface ServerResponse {
     "io.github.navikt/registry"?: {
       tools?: string[];
       tags?: string[];
+      examples?: UsageExample[];
     };
   };
 }
@@ -96,6 +98,7 @@ export async function getMcpServers(): Promise<McpServerCustomization[]> {
       .map((s) => {
         const navMeta = s._meta["io.github.navikt/registry"];
         const tags = navMeta?.tags ?? [];
+        const examples = navMeta?.examples;
         return {
           id: `mcp-${s.server.name}`,
           name: formatServerName(s.server.name),
@@ -113,6 +116,7 @@ export async function getMcpServers(): Promise<McpServerCustomization[]> {
           tools: navMeta?.tools,
           tags,
           packages: s.server.packages,
+          ...(examples && examples.length > 0 && { examples }),
         };
       });
   } catch (error) {

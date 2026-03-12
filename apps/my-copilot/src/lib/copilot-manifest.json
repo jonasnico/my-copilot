@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-06T09:37:47.573Z",
+  "generatedAt": "2026-03-12T15:23:30.948Z",
   "items": [
     {
       "id": "aksel-agent",
@@ -30,6 +30,17 @@
         "io.github.navikt/github-mcp/search_pull_requests",
         "io.github.navikt/github-mcp/get_latest_release",
         "io.github.navikt/github-mcp/list_releases"
+      ],
+      "tags": ["aksel", "design-system", "nextjs", "react", "ui"],
+      "examples": [
+        {
+          "prompt": "@aksel-agent Konverter Tailwind-layouten i dp-soknad til Aksel spacing tokens",
+          "scenario": "Konverter Tailwind til Aksel"
+        },
+        {
+          "prompt": "@aksel-agent Lag et responsivt søknadsskjema for sosialhjelp-innsyn med HGrid og Box",
+          "scenario": "Responsivt søknadsskjema"
+        }
       ]
     },
     {
@@ -57,6 +68,17 @@
         "io.github.navikt/github-mcp/search_issues",
         "io.github.navikt/github-mcp/pull_request_read",
         "io.github.navikt/github-mcp/search_pull_requests"
+      ],
+      "tags": ["auth", "azure-ad", "tokenx", "id-porten", "security"],
+      "examples": [
+        {
+          "prompt": "@auth-agent Sett opp Azure AD-autentisering i fp-sak",
+          "scenario": "Azure AD-integrasjon"
+        },
+        {
+          "prompt": "@auth-agent Hvordan validerer jeg et ID-porten-token i dp-soknad?",
+          "scenario": "ID-porten-validering"
+        }
       ]
     },
     {
@@ -84,6 +106,17 @@
         "io.github.navikt/github-mcp/search_issues",
         "io.github.navikt/github-mcp/pull_request_read",
         "io.github.navikt/github-mcp/search_pull_requests"
+      ],
+      "tags": ["kafka", "events", "rapids-rivers", "streaming"],
+      "examples": [
+        {
+          "prompt": "@kafka-agent Lag en Rapids & Rivers consumer for sykmeldingshendelser i syfosmmanuell-backend",
+          "scenario": "Opprett event consumer"
+        },
+        {
+          "prompt": "@kafka-agent Design et event-skjema for dagpengevedtak i dp-inntekt",
+          "scenario": "Lag event-skjema"
+        }
       ]
     },
     {
@@ -115,6 +148,17 @@
         "io.github.navikt/github-mcp/get_latest_release",
         "io.github.navikt/github-mcp/list_releases",
         "io.github.navikt/github-mcp/list_tags"
+      ],
+      "tags": ["nais", "kubernetes", "deployment", "infrastructure"],
+      "examples": [
+        {
+          "prompt": "@nais-agent Lag et Nais-manifest for dp-soknad med PostgreSQL og Redis",
+          "scenario": "Opprett Nais-manifest"
+        },
+        {
+          "prompt": "@nais-agent Deployen av fp-sak feiler med OOMKilled, hva er galt?",
+          "scenario": "Feilsøk deployment"
+        }
       ]
     },
     {
@@ -142,6 +186,17 @@
         "io.github.navikt/github-mcp/search_issues",
         "io.github.navikt/github-mcp/pull_request_read",
         "io.github.navikt/github-mcp/search_pull_requests"
+      ],
+      "tags": ["observability", "metrics", "logging", "tracing", "prometheus"],
+      "examples": [
+        {
+          "prompt": "@observability-agent Sett opp Prometheus-metrikker for REST-endepunktene i mulighetsrommet",
+          "scenario": "Legg til metrikker"
+        },
+        {
+          "prompt": "@observability-agent Lag et Grafana-dashboard for responstider i dp-inntekt",
+          "scenario": "Opprett dashboard"
+        }
       ]
     },
     {
@@ -174,6 +229,17 @@
         "io.github.navikt/github-mcp/list_releases",
         "io.github.navikt/github-mcp/list_tags",
         "io.github.navikt/github-mcp/list_branches"
+      ],
+      "tags": ["research", "analysis", "codebase-exploration"],
+      "examples": [
+        {
+          "prompt": "@research-agent Finn alle steder fp-sak bruker deprecated Kafka-APIet",
+          "scenario": "Kodebase-analyse"
+        },
+        {
+          "prompt": "@research-agent Undersøk hvordan feilhåndtering fungerer i søknadsflyten i dp-soknad",
+          "scenario": "Undersøk mønstre"
+        }
       ]
     },
     {
@@ -208,6 +274,17 @@
         "io.github.navikt/github-mcp/list_releases",
         "io.github.navikt/github-mcp/list_tags",
         "io.github.navikt/github-mcp/list_branches"
+      ],
+      "tags": ["security", "compliance", "gdpr", "threat-modeling"],
+      "examples": [
+        {
+          "prompt": "@security-champion-agent Gjennomfør en trusselmodell for sosialhjelp-innsyn-api",
+          "scenario": "Trusselmodellering"
+        },
+        {
+          "prompt": "@security-champion-agent Følger lagringen av persondata i dp-soknad GDPR?",
+          "scenario": "GDPR-vurdering"
+        }
       ]
     },
     {
@@ -220,7 +297,14 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/database.instructions.md",
       "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fdatabase.instructions.md",
       "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fdatabase.instructions.md",
-      "applyTo": "**/db/migration/**/*.sql"
+      "applyTo": "**/db/migration/**/*.sql",
+      "tags": ["database", "flyway", "sql", "migration"],
+      "examples": [
+        {
+          "prompt": "Lag en Flyway-migrasjon som legger til en status-kolonne i vedtak-tabellen i dp-inntekt",
+          "scenario": "Database-migrasjon"
+        }
+      ]
     },
     {
       "id": "kotlin-ktor",
@@ -232,19 +316,33 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/kotlin-ktor.instructions.md",
       "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fkotlin-ktor.instructions.md",
       "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fkotlin-ktor.instructions.md",
-      "applyTo": "**/*.kt"
+      "applyTo": "**/*.kt",
+      "tags": ["kotlin", "ktor", "backend"],
+      "examples": [
+        {
+          "prompt": "Lag et nytt endepunkt i fp-sak med Azure AD-autentisering og feilhåndtering",
+          "scenario": "Ktor API-utvikling"
+        }
+      ]
     },
     {
       "id": "kotlin-spring",
       "name": "Spring Boot Framework Patterns",
       "description": "> Spring Boot patterns for Nav backends. Apply when the file uses Spring (`@RestController`, `@Service`, Spring Data etc.) — for Ktor/Rapids & Rivers apps, see `kotlin-ktor.instructions.md` instead.",
       "type": "instruction",
-      "domain": "general",
+      "domain": "backend",
       "filePath": ".github/instructions/kotlin-spring.instructions.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/kotlin-spring.instructions.md",
       "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fkotlin-spring.instructions.md",
       "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fkotlin-spring.instructions.md",
-      "applyTo": "**/*.kt"
+      "applyTo": "**/*.kt",
+      "tags": ["kotlin", "spring", "backend"],
+      "examples": [
+        {
+          "prompt": "Lag en REST-controller i kursportalen-backend med Spring Boot og validering",
+          "scenario": "Spring Boot API-utvikling"
+        }
+      ]
     },
     {
       "id": "nextjs-aksel",
@@ -256,7 +354,14 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/nextjs-aksel.instructions.md",
       "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fnextjs-aksel.instructions.md",
       "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fnextjs-aksel.instructions.md",
-      "applyTo": "src/**/*.{tsx,ts}"
+      "applyTo": "src/**/*.{tsx,ts}",
+      "tags": ["aksel", "design-system", "nextjs", "react", "ui"],
+      "examples": [
+        {
+          "prompt": "Lag en responsiv søknadsoversikt med Aksel Box og VStack",
+          "scenario": "Aksel-oppsett i Next.js"
+        }
+      ]
     },
     {
       "id": "testing",
@@ -268,7 +373,14 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/testing.instructions.md",
       "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Ftesting.instructions.md",
       "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Ftesting.instructions.md",
-      "applyTo": "**/*.test.{ts,tsx,kt,kts}"
+      "applyTo": "**/*.test.{ts,tsx,kt,kts}",
+      "tags": ["testing", "jest", "kotest", "quality"],
+      "examples": [
+        {
+          "prompt": "Skriv en test for validateSøknad() med grensetilfeller",
+          "scenario": "Enhetstesting"
+        }
+      ]
     },
     {
       "id": "aksel-component",
@@ -280,7 +392,14 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/prompts/aksel-component.prompt.md",
       "installUrl": "/install/prompt?url=vscode%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Faksel-component.prompt.md",
       "insidersInstallUrl": "/install/prompt?url=vscode-insiders%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Faksel-component.prompt.md",
-      "invocation": "#aksel-component"
+      "invocation": "#aksel-component",
+      "tags": ["aksel", "design-system", "react", "component"],
+      "examples": [
+        {
+          "prompt": "#aksel-component Lag en varslingsbanner med ikon og lukkeknapp",
+          "scenario": "Lag Aksel-komponent"
+        }
+      ]
     },
     {
       "id": "kafka-topic",
@@ -292,7 +411,14 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/prompts/kafka-topic.prompt.md",
       "installUrl": "/install/prompt?url=vscode%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fkafka-topic.prompt.md",
       "insidersInstallUrl": "/install/prompt?url=vscode-insiders%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fkafka-topic.prompt.md",
-      "invocation": "#kafka-topic"
+      "invocation": "#kafka-topic",
+      "tags": ["nais", "kafka", "rapids-rivers", "infrastructure"],
+      "examples": [
+        {
+          "prompt": "#kafka-topic Legg til et topic for sykmeldingshendelser",
+          "scenario": "Konfigurer Kafka-topic"
+        }
+      ]
     },
     {
       "id": "nais-manifest",
@@ -304,7 +430,14 @@
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/prompts/nais-manifest.prompt.md",
       "installUrl": "/install/prompt?url=vscode%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fnais-manifest.prompt.md",
       "insidersInstallUrl": "/install/prompt?url=vscode-insiders%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fnais-manifest.prompt.md",
-      "invocation": "#nais-manifest"
+      "invocation": "#nais-manifest",
+      "tags": ["nais", "kubernetes", "deployment", "infrastructure"],
+      "examples": [
+        {
+          "prompt": "#nais-manifest Generer et manifest for dp-soknad i prod-gcp",
+          "scenario": "Generer Nais-manifest"
+        }
+      ]
     },
     {
       "id": "aksel-spacing",
@@ -315,7 +448,14 @@
       "filePath": ".github/skills/aksel-spacing/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/aksel-spacing/SKILL.md",
       "installUrl": null,
-      "insidersInstallUrl": null
+      "insidersInstallUrl": null,
+      "tags": ["aksel", "design-system", "spacing", "responsive"],
+      "examples": [
+        {
+          "prompt": "Lag en responsiv to-kolonne layout med Aksel-spacing",
+          "scenario": "Responsivt oppsett med Aksel"
+        }
+      ]
     },
     {
       "id": "flyway-migration",
@@ -326,7 +466,14 @@
       "filePath": ".github/skills/flyway-migration/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/flyway-migration/SKILL.md",
       "installUrl": null,
-      "insidersInstallUrl": null
+      "insidersInstallUrl": null,
+      "tags": ["database", "flyway", "sql", "migration"],
+      "examples": [
+        {
+          "prompt": "Lag en Flyway-migrasjon som legger til en indeks på fødselsnummer",
+          "scenario": "Database-migrasjon med Flyway"
+        }
+      ]
     },
     {
       "id": "kotlin-app-config",
@@ -337,7 +484,14 @@
       "filePath": ".github/skills/kotlin-app-config/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/kotlin-app-config/SKILL.md",
       "installUrl": null,
-      "insidersInstallUrl": null
+      "insidersInstallUrl": null,
+      "tags": ["kotlin", "configuration", "sealed-class", "environment"],
+      "examples": [
+        {
+          "prompt": "Sett opp miljøkonfigurasjon med sealed classes i fp-sak for dev, prod og local",
+          "scenario": "Kotlin-oppsett"
+        }
+      ]
     },
     {
       "id": "observability-setup",
@@ -348,18 +502,36 @@
       "filePath": ".github/skills/observability-setup/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/observability-setup/SKILL.md",
       "installUrl": null,
-      "insidersInstallUrl": null
+      "insidersInstallUrl": null,
+      "tags": ["prometheus", "opentelemetry", "health", "metrics"],
+      "examples": [
+        {
+          "prompt": "Sett opp Prometheus-metrikker og helseendepunkter for dp-soknad",
+          "scenario": "Observability-oppsett"
+        }
+      ]
     },
     {
       "id": "security-review",
       "name": "security-review",
       "description": "Use when about to commit, push, or open a pull request and want to check if code is safe to merge",
       "type": "skill",
-      "domain": "general",
+      "domain": "auth",
       "filePath": ".github/skills/security-review/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/security-review/SKILL.md",
       "installUrl": null,
-      "insidersInstallUrl": null
+      "insidersInstallUrl": null,
+      "tags": ["security", "pre-commit", "vulnerability-scanning", "code-review"],
+      "examples": [
+        {
+          "prompt": "Kjør en sikkerhetssjekk på endringene i fp-sak før jeg pusher",
+          "scenario": "Sikkerhetssjekk før commit"
+        },
+        {
+          "prompt": "Er det trygt å merge denne PR-en i sosialhjelp-innsyn-api?",
+          "scenario": "Sikkerhetssjekk av PR"
+        }
+      ]
     },
     {
       "id": "tokenx-auth",
@@ -370,7 +542,14 @@
       "filePath": ".github/skills/tokenx-auth/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/tokenx-auth/SKILL.md",
       "installUrl": null,
-      "insidersInstallUrl": null
+      "insidersInstallUrl": null,
+      "tags": ["tokenx", "auth", "service-to-service", "nais"],
+      "examples": [
+        {
+          "prompt": "Sett opp TokenX-utveksling mellom dp-soknad og dp-inntekt",
+          "scenario": "TokenX mellom tjenester"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "domain": "backend",
+  "tags": ["kotlin", "ktor", "backend"],
+  "examples": [
+    {
+      "prompt": "Lag et nytt endepunkt i fp-sak med Azure AD-autentisering og feilhåndtering",
+      "scenario": "Ktor API-utvikling"
+    }
+  ]
+}

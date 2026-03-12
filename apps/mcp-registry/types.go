@@ -81,9 +81,15 @@ type RegistryExtensions struct {
 	IsLatest    bool      `json:"isLatest"`
 }
 
+type UsageExample struct {
+	Prompt   string `json:"prompt"`
+	Scenario string `json:"scenario"`
+}
+
 type NavRegistryMeta struct {
-	Tools []string `json:"tools,omitempty"`
-	Tags  []string `json:"tags,omitempty"`
+	Tools    []string       `json:"tools,omitempty"`
+	Tags     []string       `json:"tags,omitempty"`
+	Examples []UsageExample `json:"examples,omitempty"`
 }
 
 type ResponseMeta struct {
@@ -107,18 +113,19 @@ type ServerListResponse struct {
 }
 
 type StaticServerData struct {
-	Schema      string      `json:"$schema,omitempty"`
-	Name        string      `json:"name"`
-	Description string      `json:"description"`
-	Version     string      `json:"version"`
-	Status      string      `json:"status,omitempty"`
-	PublishedAt string      `json:"publishedAt,omitempty"`
-	WebsiteURL  string      `json:"websiteUrl,omitempty"`
-	Repository  *Repository `json:"repository,omitempty"`
-	Tools       []string    `json:"tools,omitempty"`
-	Tags        []string    `json:"tags,omitempty"`
-	Remotes     []Transport `json:"remotes,omitempty"`
-	Packages    []Package   `json:"packages,omitempty"`
+	Schema      string         `json:"$schema,omitempty"`
+	Name        string         `json:"name"`
+	Description string         `json:"description"`
+	Version     string         `json:"version"`
+	Status      string         `json:"status,omitempty"`
+	PublishedAt string         `json:"publishedAt,omitempty"`
+	WebsiteURL  string         `json:"websiteUrl,omitempty"`
+	Repository  *Repository    `json:"repository,omitempty"`
+	Tools       []string       `json:"tools,omitempty"`
+	Tags        []string       `json:"tags,omitempty"`
+	Examples    []UsageExample `json:"examples,omitempty"`
+	Remotes     []Transport    `json:"remotes,omitempty"`
+	Packages    []Package      `json:"packages,omitempty"`
 }
 
 type StaticRegistryData struct {

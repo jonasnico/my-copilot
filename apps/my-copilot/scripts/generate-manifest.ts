@@ -1,34 +1,28 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { Domain, UsageExample } from "../src/lib/manifest-types.ts";
+import { VALID_DOMAINS } from "../src/lib/manifest-types.ts";
 
 const REPO_ROOT = path.resolve(import.meta.dirname, "../../..");
 const GITHUB_DIR = path.join(REPO_ROOT, ".github");
 const RAW_BASE = "https://raw.githubusercontent.com/navikt/copilot/main/.github";
 const OUTPUT = path.resolve(import.meta.dirname, "../src/lib/copilot-manifest.json");
 
-type Domain = "platform" | "frontend" | "backend" | "auth" | "observability" | "general";
+interface Metadata {
+  domain?: Domain;
+  tags?: string[];
+  excluded?: boolean;
+  examples?: UsageExample[];
+}
 
-const DOMAIN_MAP: Record<string, Domain> = {
-  "nais-agent": "platform",
-  "auth-agent": "auth",
-  "kafka-agent": "backend",
-  "aksel-agent": "frontend",
-  "observability-agent": "observability",
-  "security-champion-agent": "auth",
-  "research-agent": "general",
-  "aksel-component": "frontend",
-  "kafka-topic": "backend",
-  "nais-manifest": "platform",
-  "aksel-spacing": "frontend",
-  "flyway-migration": "backend",
-  "kotlin-app-config": "backend",
-  "observability-setup": "observability",
-  "tokenx-auth": "auth",
-  database: "backend",
-  "kotlin-ktor": "backend",
-  "nextjs-aksel": "frontend",
-  testing: "general",
-};
+function loadMetadata(metadataPath: string): Metadata {
+  if (!fs.existsSync(metadataPath)) return {};
+  const raw = JSON.parse(fs.readFileSync(metadataPath, "utf-8")) as Metadata;
+  if (raw.domain && !VALID_DOMAINS.includes(raw.domain)) {
+    throw new Error(`Invalid domain "${raw.domain}" in ${metadataPath}. Valid: ${VALID_DOMAINS.join(", ")}`);
+  }
+  return raw;
+}
 
 function parseFrontmatter(content: string): { data: Record<string, string | string[]>; body: string } {
   const match = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
@@ -91,6 +85,8 @@ interface ManifestItem {
   tools?: string[];
   applyTo?: string;
   invocation?: string;
+  tags?: string[];
+  examples?: { prompt: string; scenario: string }[];
 }
 
 function getAgents(): ManifestItem[] {
@@ -107,6 +103,7 @@ function getAgents(): ManifestItem[] {
       const rawUrl = `${RAW_BASE}/agents/${file}`;
       const description = (data.description as string) || "";
       const tools = Array.isArray(data.tools) ? data.tools : [];
+      const meta = loadMetadata(path.join(dir, file.replace(".agent.md", ".metadata.json")));
 
       const firstParagraph = body
         .split("\n\n")
@@ -118,12 +115,14 @@ function getAgents(): ManifestItem[] {
         name,
         description: firstParagraph || description,
         type: "agent" as const,
-        domain: DOMAIN_MAP[name] || "general",
+        domain: meta.domain || "general",
         filePath: `.github/agents/${file}`,
         rawGitHubUrl: rawUrl,
         installUrl: buildInstallUrl("agent", rawUrl),
         insidersInstallUrl: buildInsidersInstallUrl("agent", rawUrl),
         tools,
+        ...(meta.tags && { tags: meta.tags }),
+        ...(meta.examples && { examples: meta.examples }),
       };
     });
 }
@@ -140,6 +139,7 @@ function getInstructions(): ManifestItem[] {
       const { data, body } = parseFrontmatter(content);
       const id = file.replace(".instructions.md", "");
       const applyTo = (data.applyTo as string) || "";
+      const meta = loadMetadata(path.join(dir, file.replace(".instructions.md", ".metadata.json")));
 
       const heading = body.match(/^#\s+(.+)$/m);
       const displayName = heading ? heading[1] : id;
@@ -156,12 +156,14 @@ function getInstructions(): ManifestItem[] {
         name: displayName,
         description: firstParagraph || `Instruksjoner for ${applyTo}`,
         type: "instruction" as const,
-        domain: DOMAIN_MAP[id] || "general",
+        domain: meta.domain || "general",
         filePath: `.github/instructions/${file}`,
         rawGitHubUrl: rawUrl,
         installUrl: buildInstallUrl("instructions", rawUrl),
         insidersInstallUrl: buildInsidersInstallUrl("instructions", rawUrl),
         applyTo,
+        ...(meta.tags && { tags: meta.tags }),
+        ...(meta.examples && { examples: meta.examples }),
       };
     });
 }
@@ -178,23 +180,24 @@ function getPrompts(): ManifestItem[] {
       const { data } = parseFrontmatter(content);
       const name = (data.name as string) || file.replace(".prompt.md", "");
       const rawUrl = `${RAW_BASE}/prompts/${file}`;
+      const meta = loadMetadata(path.join(dir, file.replace(".prompt.md", ".metadata.json")));
 
       return {
         id: name,
         name,
         description: (data.description as string) || "",
         type: "prompt" as const,
-        domain: DOMAIN_MAP[name] || "general",
+        domain: meta.domain || "general",
         filePath: `.github/prompts/${file}`,
         rawGitHubUrl: rawUrl,
         installUrl: buildInstallUrl("prompt", rawUrl),
         insidersInstallUrl: buildInsidersInstallUrl("prompt", rawUrl),
         invocation: `#${name}`,
+        ...(meta.tags && { tags: meta.tags }),
+        ...(meta.examples && { examples: meta.examples }),
       };
     });
 }
-
-const EXCLUDED_SKILLS = new Set(["ai-news-research"]);
 
 function getSkills(): ManifestItem[] {
   const dir = path.join(GITHUB_DIR, "skills");
@@ -202,12 +205,13 @@ function getSkills(): ManifestItem[] {
 
   return fs
     .readdirSync(dir)
-    .filter((f) => {
-      if (EXCLUDED_SKILLS.has(f)) return false;
-      const skillFile = path.join(dir, f, "SKILL.md");
-      return fs.existsSync(skillFile);
-    })
+    .filter((f) => fs.existsSync(path.join(dir, f, "SKILL.md")))
     .map((folder) => {
+      const meta = loadMetadata(path.join(dir, folder, "metadata.json"));
+      return { folder, meta };
+    })
+    .filter(({ meta }) => !meta.excluded)
+    .map(({ folder, meta }) => {
       const content = fs.readFileSync(path.join(dir, folder, "SKILL.md"), "utf-8");
       const { data } = parseFrontmatter(content);
       const name = (data.name as string) || folder;
@@ -217,11 +221,13 @@ function getSkills(): ManifestItem[] {
         name,
         description: (data.description as string) || "",
         type: "skill" as const,
-        domain: DOMAIN_MAP[name] || "general",
+        domain: meta.domain || "general",
         filePath: `.github/skills/${folder}/SKILL.md`,
         rawGitHubUrl: `${RAW_BASE}/skills/${folder}/SKILL.md`,
         installUrl: null,
         insidersInstallUrl: null,
+        ...(meta.tags && { tags: meta.tags }),
+        ...(meta.examples && { examples: meta.examples }),
       };
     });
 }

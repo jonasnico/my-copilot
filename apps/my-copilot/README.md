@@ -197,6 +197,48 @@ The customization detail drawer (`src/components/detail-drawer.tsx`) provides pe
 - **Deep link construction**: `buildMcpInstallUrl()` in `src/lib/mcp-registry.ts`
   - Format: `vscode:mcp/mcp-registry.nav.no/v0.1/servers/{encoded-name}/versions/latest`
 
+## Customization Metadata
+
+Each customization in `.github/` has a sibling `metadata.json` file that provides catalog metadata (domain, tags, usage examples). These files are **never loaded by Copilot** — they're only consumed by the manifest generator.
+
+### File placement
+
+| Type         | Pattern                                     | Example                       |
+| ------------ | ------------------------------------------- | ----------------------------- |
+| Agents       | `.github/agents/<name>.metadata.json`       | `aksel.metadata.json`         |
+| Instructions | `.github/instructions/<name>.metadata.json` | `nextjs-aksel.metadata.json`  |
+| Prompts      | `.github/prompts/<name>.metadata.json`      | `nais-manifest.metadata.json` |
+| Skills       | `.github/skills/<name>/metadata.json`       | `aksel-spacing/metadata.json` |
+| MCP servers  | `examples` field in `allowlist.json`        | See mcp-registry README       |
+
+### Schema
+
+```json
+{
+  "domain": "frontend",
+  "tags": ["aksel", "design-system", "react"],
+  "examples": [
+    {
+      "scenario": "Konverter Tailwind til Aksel",
+      "prompt": "@aksel-agent Konverter denne Tailwind-layouten til Aksel spacing tokens"
+    }
+  ]
+}
+```
+
+Valid domains: `platform`, `frontend`, `backend`, `auth`, `observability`, `general`, `testing`, `design`.
+
+### Regenerating the manifest
+
+After adding or editing metadata files, regenerate the manifest:
+
+```bash
+cd apps/my-copilot
+pnpm run generate
+```
+
+This produces `src/lib/copilot-manifest.json` which is committed to the repo.
+
 ## Learn More
 
 To learn more about the technologies used in this project, take a look at the following resources:
