@@ -51,30 +51,30 @@ func (s *SlackNotifier) NotifyIngestionResult(ctx context.Context, successCount,
 
 	totalDays := successCount + errorCount
 	emoji := "⚠️"
-	status := "partial failure"
+	status := "Partial Failure"
 	if successCount == 0 {
 		emoji = "🔴"
-		status = "complete failure"
+		status = "Failed"
 	}
 
 	var sb strings.Builder
-	fmt.Fprintf(&sb, "%s *copilot-metrics ingestion %s*\n", emoji, status)
-	fmt.Fprintf(&sb, "• Success: %d/%d days\n", successCount, totalDays)
-	fmt.Fprintf(&sb, "• Failed: %d/%d days\n", errorCount, totalDays)
+	fmt.Fprintf(&sb, "%s *Copilot Usage Metrics – %s*\n\n", emoji, status)
+	fmt.Fprintf(&sb, "Daily usage data failed to sync for *%d of %d* days.\n", errorCount, totalDays)
 
 	if len(failedDays) > 0 {
 		displayed := failedDays
-		if len(displayed) > 10 {
-			displayed = displayed[:10]
+		if len(displayed) > 5 {
+			displayed = displayed[:5]
 		}
-		fmt.Fprintf(&sb, "• Failed days: `%s`", strings.Join(displayed, "`, `"))
-		if len(failedDays) > 10 {
-			fmt.Fprintf(&sb, " … and %d more", len(failedDays)-10)
+		fmt.Fprintf(&sb, "• Missing dates: %s", strings.Join(displayed, ", "))
+		if len(failedDays) > 5 {
+			fmt.Fprintf(&sb, " (+%d more)", len(failedDays)-5)
 		}
 		sb.WriteString("\n")
 	}
 
-	sb.WriteString("Check logs in NAIS for details.")
+	sb.WriteString("\n📊 *Impact*: Usage dashboard in my-copilot may show incomplete data.\n")
+	sb.WriteString("👤 *Contact*: #copilot-support\n")
 
 	s.send(ctx, sb.String())
 }
@@ -84,7 +84,8 @@ func (s *SlackNotifier) NotifyError(ctx context.Context, message string) {
 	if s == nil {
 		return
 	}
-	s.send(ctx, fmt.Sprintf("🔴 *copilot-metrics*: %s", message))
+	text := fmt.Sprintf("🔴 *Copilot Usage Metrics – Failed*\n\n%s\n\n📊 *Impact*: Usage dashboard will not update until resolved.\n👤 *Contact*: #copilot-support", message)
+	s.send(ctx, text)
 }
 
 func (s *SlackNotifier) send(ctx context.Context, text string) {

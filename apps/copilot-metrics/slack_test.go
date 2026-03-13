@@ -51,11 +51,14 @@ func TestSlackNotifier_SendsOnFailure(t *testing.T) {
 		t.Fatalf("expected 1 block, got %d", len(received.Blocks))
 	}
 	text := received.Blocks[0].Text.Text
-	if !contains(text, "partial failure") {
-		t.Errorf("expected 'partial failure' in message, got: %s", text)
+	if !contains(text, "Partial Failure") {
+		t.Errorf("expected 'Partial Failure' in message, got: %s", text)
 	}
 	if !contains(text, "2026-03-11") {
 		t.Errorf("expected failed day in message, got: %s", text)
+	}
+	if !contains(text, "#copilot-support") {
+		t.Errorf("expected contact channel in message, got: %s", text)
 	}
 }
 
@@ -71,8 +74,11 @@ func TestSlackNotifier_CompleteFailure(t *testing.T) {
 	s.NotifyIngestionResult(context.Background(), 0, 3, []string{"2026-03-10", "2026-03-11", "2026-03-12"})
 
 	text := received.Blocks[0].Text.Text
-	if !contains(text, "complete failure") {
-		t.Errorf("expected 'complete failure' in message, got: %s", text)
+	if !contains(text, "Failed") {
+		t.Errorf("expected 'Failed' in message, got: %s", text)
+	}
+	if !contains(text, "Impact") {
+		t.Errorf("expected 'Impact' section in message, got: %s", text)
 	}
 }
 
