@@ -55,9 +55,7 @@ describe("enrichWithUsage", () => {
   });
 
   it("handles items without matching filePath pattern", () => {
-    const items: AnyCustomization[] = [
-      makeItem({ type: "agent", name: "mcp-server", filePath: "some/other/path.md" }),
-    ];
+    const items: AnyCustomization[] = [makeItem({ type: "agent", name: "mcp-server", filePath: "some/other/path.md" })];
 
     const result = enrichWithUsage(items, usage);
     expect(result[0].usageCount).toBe(0);

@@ -4,7 +4,7 @@ import type { CustomizationDetail } from "@/lib/types";
 import React, { useMemo, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { chartColors, commonHorizontalBarOptions, NO_DATA_MESSAGE } from "@/lib/chart-utils";
-import { Box, Heading, BodyShort, HGrid, HStack, Chips } from "@navikt/ds-react";
+import { Box, Heading, BodyShort, HGrid, HStack, VStack, Chips } from "@navikt/ds-react";
 import { getOfficialFileNames } from "@/lib/customizations";
 
 type OriginFilter = "all" | "official" | "custom";
@@ -98,8 +98,8 @@ const TopCustomizationsChart: React.FC<TopCustomizationsChartProps> = ({ data, m
   const categories = ["agents", "skills", "instructions", "prompts"];
 
   return (
-    <div>
-      <HStack gap="space-8" align="center" className="mb-[--a-spacing-16]">
+    <VStack gap="space-16">
+      <HStack gap="space-8" align="center">
         <BodyShort size="small" className="text-gray-500">
           Opprinnelse:
         </BodyShort>
@@ -120,7 +120,7 @@ const TopCustomizationsChart: React.FC<TopCustomizationsChartProps> = ({ data, m
           <CategoryChart key={category} category={category} items={grouped[category] ?? []} maxItems={maxItems} />
         ))}
       </HGrid>
-    </div>
+    </VStack>
   );
 };
 

@@ -89,7 +89,7 @@ export function CustomizationCard({ item, onClick }: CustomizationCardProps) {
           {item.description}
         </BodyShort>
 
-        <div className="flex items-center justify-between gap-[--a-spacing-8] mt-auto">
+        <div className="flex items-center justify-between gap-(--a-spacing-8) mt-auto">
           <HStack gap="space-8" align="center">
             {item.installUrl && (
               <a
@@ -111,7 +111,10 @@ export function CustomizationCard({ item, onClick }: CustomizationCardProps) {
 
           <HStack gap="space-8" align="center">
             {item.usageCount > 0 && (
-              <span className="inline-flex items-center gap-1 text-gray-400" title={`Brukt i ${item.usageCount} ${item.usageCount === 1 ? "repo" : "repoer"}`}>
+              <span
+                className="inline-flex items-center gap-1 text-gray-400"
+                title={`Brukt i ${item.usageCount} ${item.usageCount === 1 ? "repo" : "repoer"}`}
+              >
                 <ComponentIcon fontSize="0.875rem" aria-hidden />
                 <span className="text-xs">{item.usageCount}</span>
               </span>

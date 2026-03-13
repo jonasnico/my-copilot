@@ -13,12 +13,7 @@ import { Box, Heading, HGrid, Skeleton, VStack, BodyShort } from "@navikt/ds-rea
 import { PageHero } from "@/components/page-hero";
 import TeamTable from "@/components/team-table";
 import { formatNumber } from "@/lib/format";
-import {
-  calculateTeamStats,
-  calculateLanguageStats,
-  formatAdoptionRate,
-  formatScanDate,
-} from "@/lib/adoption-utils";
+import { calculateTeamStats, calculateLanguageStats, formatAdoptionRate, formatScanDate } from "@/lib/adoption-utils";
 import type { AdoptionData } from "@/lib/types";
 
 // Static header component
@@ -152,8 +147,16 @@ function LanguageContent({ data }: { data: AdoptionData }) {
           value={stats.topLanguage?.language ?? "—"}
           label="Høyest adopsjon"
           helpTitle="Høyest adopsjon"
-          helpText={stats.topLanguage ? `Språket med høyest Copilot-adopsjonsrate (${formatAdoptionRate(stats.topLanguage.adoption_rate)})` : "Ingen data"}
-          subtitle={stats.topLanguage ? `${formatAdoptionRate(stats.topLanguage.adoption_rate)} av ${stats.topLanguage.total_repos} repoer` : undefined}
+          helpText={
+            stats.topLanguage
+              ? `Språket med høyest Copilot-adopsjonsrate (${formatAdoptionRate(stats.topLanguage.adoption_rate)})`
+              : "Ingen data"
+          }
+          subtitle={
+            stats.topLanguage
+              ? `${formatAdoptionRate(stats.topLanguage.adoption_rate)} av ${stats.topLanguage.total_repos} repoer`
+              : undefined
+          }
         />
         <MetricCard
           value={formatNumber(stats.totalReposWithCustomizations)}

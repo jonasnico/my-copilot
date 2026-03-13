@@ -568,9 +568,7 @@ export function DetailDrawer({ item, open, onClose }: DetailDrawerProps) {
                             </span>
                           ))}
                           {item.usageCount > item.usedBy.length && (
-                            <span className="text-sm text-gray-500">
-                              +{item.usageCount - item.usedBy.length} andre
-                            </span>
+                            <span className="text-sm text-gray-500">+{item.usageCount - item.usedBy.length} andre</span>
                           )}
                         </HStack>
                       </VStack>

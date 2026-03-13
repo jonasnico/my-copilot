@@ -4,7 +4,7 @@ import type { TeamAdoption } from "@/lib/types";
 import React, { useMemo, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { chartColors, commonHorizontalBarOptions, NO_DATA_MESSAGE } from "@/lib/chart-utils";
-import { Box, Heading, HStack, ToggleGroup } from "@navikt/ds-react";
+import { Box, Heading, HStack, VStack, ToggleGroup } from "@navikt/ds-react";
 import { TooltipItem } from "chart.js";
 
 type ViewMode = "absolute" | "percentage";
@@ -26,9 +26,7 @@ const TeamAdoptionChart: React.FC<TeamAdoptionChartProps> = ({ data, maxTeams = 
         .sort((a, b) => b.adoption_rate - a.adoption_rate)
         .slice(0, maxTeams);
     }
-    return filtered
-      .sort((a, b) => b.repos_with_customizations - a.repos_with_customizations)
-      .slice(0, maxTeams);
+    return filtered.sort((a, b) => b.repos_with_customizations - a.repos_with_customizations).slice(0, maxTeams);
   }, [data, viewMode, maxTeams]);
 
   if (!data || data.length === 0) {
@@ -55,9 +53,7 @@ const TeamAdoptionChart: React.FC<TeamAdoptionChartProps> = ({ data, maxTeams = 
     datasets: [
       {
         data: topTeams.map((t) =>
-          viewMode === "percentage"
-            ? Math.round(t.adoption_rate * 100)
-            : t.repos_with_customizations,
+          viewMode === "percentage" ? Math.round(t.adoption_rate * 100) : t.repos_with_customizations
         ),
         backgroundColor: chartColors[1], // green
         borderRadius: 4,
@@ -75,8 +71,7 @@ const TeamAdoptionChart: React.FC<TeamAdoptionChartProps> = ({ data, maxTeams = 
         ...(viewMode === "percentage" ? { max: 100 } : {}),
         ticks: {
           ...commonHorizontalBarOptions.scales?.x?.ticks,
-          callback: (value: string | number) =>
-            viewMode === "percentage" ? `${value}%` : value,
+          callback: (value: string | number) => (viewMode === "percentage" ? `${value}%` : value),
         },
       },
     },
@@ -99,22 +94,20 @@ const TeamAdoptionChart: React.FC<TeamAdoptionChartProps> = ({ data, maxTeams = 
 
   return (
     <Box padding="space-16" borderRadius="8" className="bg-white border border-gray-200">
-      <HStack justify="space-between" align="center" gap="space-8" className="mb-[--a-spacing-16]">
-        <Heading size="small" level="4">
-          {viewMode === "percentage" ? "Team med høyest adopsjonsrate" : "Team med flest tilpasninger"}
-        </Heading>
-        <ToggleGroup
-          size="small"
-          value={viewMode}
-          onChange={(val) => setViewMode(val as ViewMode)}
-        >
-          <ToggleGroup.Item value="absolute">Antall</ToggleGroup.Item>
-          <ToggleGroup.Item value="percentage">Prosent</ToggleGroup.Item>
-        </ToggleGroup>
-      </HStack>
-      <div style={{ height: Math.max(300, topTeams.length * 28) }}>
-        <Bar data={chartData} options={options} />
-      </div>
+      <VStack gap="space-16">
+        <HStack justify="space-between" align="center" gap="space-8">
+          <Heading size="small" level="4">
+            {viewMode === "percentage" ? "Team med høyest adopsjonsrate" : "Team med flest tilpasninger"}
+          </Heading>
+          <ToggleGroup size="small" value={viewMode} onChange={(val) => setViewMode(val as ViewMode)}>
+            <ToggleGroup.Item value="absolute">Antall</ToggleGroup.Item>
+            <ToggleGroup.Item value="percentage">Prosent</ToggleGroup.Item>
+          </ToggleGroup>
+        </HStack>
+        <div style={{ height: Math.max(300, topTeams.length * 28) }}>
+          <Bar data={chartData} options={options} />
+        </div>
+      </VStack>
     </Box>
   );
 };

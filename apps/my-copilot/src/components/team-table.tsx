@@ -41,13 +41,8 @@ export default function TeamTable({ teams }: TeamTableProps) {
         </TableBody>
       </Table>
       {totalPages > 1 && (
-        <HStack justify="center" className="mt-[--a-spacing-16]">
-          <Pagination
-            page={page}
-            onPageChange={setPage}
-            count={totalPages}
-            size="small"
-          />
+        <HStack justify="center" className="mt-(--a-spacing-16)">
+          <Pagination page={page} onPageChange={setPage} count={totalPages} size="small" />
         </HStack>
       )}
     </div>

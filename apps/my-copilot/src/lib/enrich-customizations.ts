@@ -53,10 +53,7 @@ function buildUsageMap(usage: CustomizationUsage[]): Map<string, CustomizationUs
  * Enrich catalog items with usage data from BigQuery.
  * Items without matching usage data get usageCount: 0 and usedBy: [].
  */
-export function enrichWithUsage(
-  items: AnyCustomization[],
-  usage: CustomizationUsage[],
-): EnrichedCustomization[] {
+export function enrichWithUsage(items: AnyCustomization[], usage: CustomizationUsage[]): EnrichedCustomization[] {
   const usageMap = buildUsageMap(usage);
 
   return items.map((item) => {
