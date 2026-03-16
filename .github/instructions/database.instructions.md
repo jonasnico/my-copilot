@@ -198,6 +198,56 @@ fun main() {
 }
 ```
 
+## PostgreSQL Query Optimization
+
+### EXPLAIN ANALYZE
+
+Always analyze new or changed queries:
+
+```sql
+EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
+SELECT * FROM vedtak
+WHERE bruker_id = '12345678901' AND status = 'aktiv'
+ORDER BY opprettet_dato DESC LIMIT 10;
+```
+
+Red flags: `Seq Scan` on large tables, `Sort external merge`, high discrepancy between estimated/actual rows.
+
+### JSONB Patterns
+
+```sql
+-- GIN index for containment queries
+CREATE INDEX idx_metadata_gin ON hendelser USING GIN (metadata);
+
+-- Query JSONB
+SELECT * FROM hendelser WHERE metadata @> '{"type": "vedtak"}';
+
+-- Extract fields
+SELECT id, metadata->>'type' AS type FROM hendelser;
+```
+
+### Window Functions
+
+```sql
+-- Latest per group
+SELECT * FROM (
+    SELECT *, ROW_NUMBER() OVER (
+        PARTITION BY bruker_id ORDER BY opprettet_dato DESC
+    ) AS rn
+    FROM vedtak
+) sub WHERE rn = 1;
+```
+
+### Large Table Migrations
+
+```sql
+-- Add column with default (instant in PostgreSQL 11+)
+ALTER TABLE stor_tabell ADD COLUMN ny_kolonne BOOLEAN DEFAULT false;
+
+-- Create index without locking
+CREATE INDEX CONCURRENTLY idx_ny ON stor_tabell(ny_kolonne);
+```
+
 ## Testing Migrations
 
 ```kotlin

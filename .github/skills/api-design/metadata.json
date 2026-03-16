@@ -1,0 +1,11 @@
+{
+  "domain": "backend",
+  "tags": ["api", "rest", "design", "openapi", "error-handling"],
+  "examples": [
+    "Design REST API endpoints for vedtak",
+    "Add error handling with ProblemDetail",
+    "Set up pagination for list endpoints",
+    "Review API design for best practices",
+    "Create OpenAPI annotations for endpoints"
+  ]
+}

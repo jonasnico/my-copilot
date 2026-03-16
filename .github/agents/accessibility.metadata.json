@@ -1,0 +1,12 @@
+{
+  "domain": "frontend",
+  "tags": ["wcag", "a11y", "universell-utforming", "aksel", "aria"],
+  "examples": [
+    "Check this component for accessibility issues",
+    "Review WCAG compliance for this page",
+    "Add ARIA attributes to this form",
+    "Set up axe-core testing",
+    "Fix heading hierarchy",
+    "Make this modal accessible"
+  ]
+}

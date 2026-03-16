@@ -1,0 +1,11 @@
+{
+  "domain": "backend",
+  "tags": ["postgresql", "sql", "optimization", "review", "indexing"],
+  "examples": [
+    "Review this SQL query for performance",
+    "Optimize a slow PostgreSQL query",
+    "Suggest indexes for this table",
+    "Check for N+1 query problems",
+    "Review JSONB usage patterns"
+  ]
+}

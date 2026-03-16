@@ -54,6 +54,11 @@ apps/
 docs/                 # Documentation
 ```
 
+### Customization Language
+
+- **YAML descriptions**: Norwegian (shown on the my-copilot website)
+- **Body content**: English for backend, infra, security, and database topics; Norwegian for UI/UX, Aksel, and accessibility topics
+
 ## Code Style
 
 ### Go (mcp-onboarding, mcp-registry)

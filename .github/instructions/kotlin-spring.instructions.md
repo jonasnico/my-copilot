@@ -113,11 +113,96 @@ logger.info("Processing event: eventId={}", eventId)
 MDC.put("x_request_id", request.getHeader("X-Request-ID"))
 ```
 
+## Error Handling (ProblemDetail)
+
+```kotlin
+@RestControllerAdvice
+class ErrorHandler {
+    @ExceptionHandler(ResourceNotFoundException::class)
+    fun handleNotFound(ex: ResourceNotFoundException): ProblemDetail =
+        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message ?: "Ressurs ikke funnet")
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidation(ex: MethodArgumentNotValidException): ProblemDetail =
+        ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validering feilet").apply {
+            setProperty("feil", ex.bindingResult.fieldErrors.map {
+                mapOf("felt" to it.field, "melding" to it.defaultMessage)
+            })
+        }
+}
+```
+
+## Configuration Properties
+
+```kotlin
+@ConfigurationProperties(prefix = "app")
+data class AppProperties(
+    val externalApiUrl: String,
+    val maxRetries: Int = 3,
+    val featureFlags: FeatureFlags = FeatureFlags(),
+) {
+    data class FeatureFlags(
+        val nyFunksjon: Boolean = false,
+    )
+}
+
+// Enable in Application.kt
+@SpringBootApplication
+@EnableConfigurationProperties(AppProperties::class)
+class Application
+```
+
 ## Testing
+
+### Full integration test
 
 - Use `@SpringBootTest` for integration tests
 - Use Testcontainers for integration tests with real databases
 - Use MockOAuth2Server for auth testing
+
+### Test Slices (faster, isolated tests)
+
+```kotlin
+// Controller-only test — no database, no service
+@WebMvcTest(ResourceController::class)
+class ResourceControllerSliceTest {
+    @Autowired lateinit var mockMvc: MockMvc
+    @MockkBean lateinit var service: ResourceService
+
+    @Test
+    fun `should return 200`() {
+        every { service.findAll() } returns listOf(testResource())
+        mockMvc.get("/api/resources") {
+            header("Authorization", "Bearer ${token()}")
+        }.andExpect { status { isOk() } }
+    }
+}
+
+// Repository-only test — real database, no controllers
+@DataJpaTest
+@Testcontainers
+class ResourceRepositorySliceTest {
+    @Autowired lateinit var repository: ResourceRepository
+
+    companion object {
+        @Container val postgres = PostgreSQLContainer("postgres:15")
+
+        @DynamicPropertySource @JvmStatic
+        fun configure(registry: DynamicPropertyRegistry) {
+            registry.add("spring.datasource.url") { postgres.jdbcUrl }
+            registry.add("spring.datasource.username") { postgres.username }
+            registry.add("spring.datasource.password") { postgres.password }
+        }
+    }
+
+    @Test
+    fun `should save and find`() {
+        val saved = repository.save(ResourceEntity(name = "test"))
+        val found = repository.findById(saved.id!!)
+        found shouldNotBe null
+    }
+}
+```
 - Use `@MockkBean` for mocking Spring beans (requires `com.ninja-squad:springmockk` — verify it is in `build.gradle.kts` before using)
 
 ```kotlin

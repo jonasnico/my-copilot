@@ -1,7 +1,39 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-16T12:03:25.834Z",
+  "generatedAt": "2026-03-16T20:26:05.826Z",
   "items": [
+    {
+      "id": "accessibility-agent",
+      "name": "accessibility-agent",
+      "description": "Du er en ekspert på universell utforming (UU) og WCAG 2.1/2.2 for Nav-applikasjoner. Du hjelper utviklere med å bygge tilgjengelige løsninger som oppfyller norske lovkrav.",
+      "type": "agent",
+      "domain": "frontend",
+      "filePath": ".github/agents/accessibility.agent.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/accessibility.agent.md",
+      "installUrl": "/install/agent?url=vscode%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fagents%2Faccessibility.agent.md",
+      "insidersInstallUrl": "/install/agent?url=vscode-insiders%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fagents%2Faccessibility.agent.md",
+      "tools": [
+        "execute",
+        "read",
+        "edit",
+        "search",
+        "web",
+        "todo",
+        "runSubagent",
+        "ms-vscode.vscode-websearchforcopilot/websearch",
+        "com.figma/figma-mcp/get_design_context",
+        "com.figma/figma-mcp/get_screenshot"
+      ],
+      "tags": ["wcag", "a11y", "universell-utforming", "aksel", "aria"],
+      "examples": [
+        "Check this component for accessibility issues",
+        "Review WCAG compliance for this page",
+        "Add ARIA attributes to this form",
+        "Set up axe-core testing",
+        "Fix heading hierarchy",
+        "Make this modal accessible"
+      ]
+    },
     {
       "id": "aksel-agent",
       "name": "aksel-agent",
@@ -310,7 +342,7 @@
       "name": "security-champion-agent",
       "description": "Security architect for Nav applications. Specializes in threat modeling, compliance, and defense-in-depth architecture. Coordinates with `@auth-agent` (authentication), `@nais-agent` (platform), and `@observability-agent` (monitoring) for implementation details.",
       "type": "agent",
-      "domain": "auth",
+      "domain": "general",
       "filePath": ".github/agents/security-champion.agent.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/security-champion.agent.md",
       "installUrl": "/install/agent?url=vscode%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fagents%2Fsecurity-champion.agent.md",
@@ -352,6 +384,25 @@
       ]
     },
     {
+      "id": "accessibility",
+      "name": "Accessibility (UU) Standards",
+      "description": "Universell utforming er lovpålagt i Norge. All frontend-kode i Nav skal oppfylle WCAG 2.1 AA.",
+      "type": "instruction",
+      "domain": "frontend",
+      "filePath": ".github/instructions/accessibility.instructions.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/accessibility.instructions.md",
+      "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Faccessibility.instructions.md",
+      "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Faccessibility.instructions.md",
+      "applyTo": "src/**/*.{tsx,jsx}",
+      "tags": ["accessibility", "wcag", "a11y", "universell-utforming"],
+      "examples": [
+        {
+          "prompt": "Legg til riktige ARIA-attributter på dette skjemaet",
+          "scenario": "Tilgjengelighet i skjema"
+        }
+      ]
+    },
+    {
       "id": "database",
       "name": "Database Migration Standards (Flyway)",
       "description": "Follow Flyway naming convention: `V{version}__{description}.sql`",
@@ -367,6 +418,44 @@
         {
           "prompt": "Lag en Flyway-migrasjon som legger til en status-kolonne i vedtak-tabellen i dp-inntekt",
           "scenario": "Database-migrasjon"
+        }
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Dockerfile Standards",
+      "description": "Reference: [Chainguard base images — sikkerhet.nav.no](https://sikkerhet.nav.no/docs/verktoy/chainguard-dockerimages)",
+      "type": "instruction",
+      "domain": "platform",
+      "filePath": ".github/instructions/docker.instructions.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/docker.instructions.md",
+      "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fdocker.instructions.md",
+      "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fdocker.instructions.md",
+      "applyTo": "**/Dockerfile",
+      "tags": ["docker", "dockerfile", "container", "multi-stage"],
+      "examples": [
+        {
+          "prompt": "Lag en multi-stage Dockerfile for en Spring Boot-applikasjon",
+          "scenario": "Dockerfile for JVM-app"
+        }
+      ]
+    },
+    {
+      "id": "github-actions",
+      "name": "GitHub Actions CI/CD Standards",
+      "description": "Pin all actions to full commit SHA, never just a major tag:",
+      "type": "instruction",
+      "domain": "platform",
+      "filePath": ".github/instructions/github-actions.instructions.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/github-actions.instructions.md",
+      "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fgithub-actions.instructions.md",
+      "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fgithub-actions.instructions.md",
+      "applyTo": ".github/workflows/*.{yml,yaml}",
+      "tags": ["github-actions", "ci-cd", "workflow", "deployment"],
+      "examples": [
+        {
+          "prompt": "Lag en GitHub Actions workflow som bygger og deployer til Nais",
+          "scenario": "CI/CD-oppsett"
         }
       ]
     },
@@ -410,8 +499,8 @@
     },
     {
       "id": "nextjs-aksel",
-      "name": "Next.js with Aksel Design System",
-      "description": "**CRITICAL**: Always use Nav DS spacing tokens, never Tailwind padding/margin utilities.",
+      "name": "Next.js med Aksel Design System",
+      "description": "**VIKTIG**: Bruk alltid Nav DS spacing-tokens, aldri Tailwind padding/margin.",
       "type": "instruction",
       "domain": "frontend",
       "filePath": ".github/instructions/nextjs-aksel.instructions.md",
@@ -449,7 +538,7 @@
     {
       "id": "aksel-component",
       "name": "aksel-component",
-      "description": "Scaffold a responsive React component using Aksel Design System with correct spacing tokens",
+      "description": "Scaffold en responsiv React-komponent med Aksel Design System og riktige spacing-tokens",
       "type": "prompt",
       "domain": "frontend",
       "filePath": ".github/prompts/aksel-component.prompt.md",
@@ -468,7 +557,7 @@
     {
       "id": "kafka-topic",
       "name": "kafka-topic",
-      "description": "Add Kafka topic configuration to Nais manifest and create Rapids & Rivers event handler",
+      "description": "Legg til Kafka-topic-konfigurasjon i Nais-manifest og lag Rapids & Rivers event handler",
       "type": "prompt",
       "domain": "backend",
       "filePath": ".github/prompts/kafka-topic.prompt.md",
@@ -487,7 +576,7 @@
     {
       "id": "nais-manifest",
       "name": "nais-manifest",
-      "description": "Generate a production-ready Nais application manifest for Kubernetes deployment",
+      "description": "Generer et produksjonsklart Nais-applikasjonsmanifest for Kubernetes-deployment",
       "type": "prompt",
       "domain": "platform",
       "filePath": ".github/prompts/nais-manifest.prompt.md",
@@ -504,9 +593,47 @@
       ]
     },
     {
+      "id": "nextjs-api-route",
+      "name": "nextjs-api-route",
+      "description": "Scaffold en Next.js App Router API-rute med validering, feilhåndtering, auth og test",
+      "type": "prompt",
+      "domain": "frontend",
+      "filePath": ".github/prompts/nextjs-api-route.prompt.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/prompts/nextjs-api-route.prompt.md",
+      "installUrl": "/install/prompt?url=vscode%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fnextjs-api-route.prompt.md",
+      "insidersInstallUrl": "/install/prompt?url=vscode-insiders%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fnextjs-api-route.prompt.md",
+      "invocation": "#nextjs-api-route",
+      "tags": ["nextjs", "api-route", "app-router", "scaffold"],
+      "examples": [
+        {
+          "prompt": "#api-route Lag en API-route for å hente brukerdata fra BigQuery",
+          "scenario": "Scaffold API-route"
+        }
+      ]
+    },
+    {
+      "id": "spring-boot-endpoint",
+      "name": "spring-boot-endpoint",
+      "description": "Scaffold et Spring Boot REST-endepunkt med Controller, Service, Repository, Test og Nais-konfig",
+      "type": "prompt",
+      "domain": "backend",
+      "filePath": ".github/prompts/spring-boot-endpoint.prompt.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/prompts/spring-boot-endpoint.prompt.md",
+      "installUrl": "/install/prompt?url=vscode%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fspring-boot-endpoint.prompt.md",
+      "insidersInstallUrl": "/install/prompt?url=vscode-insiders%3Achat-prompt%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fprompts%2Fspring-boot-endpoint.prompt.md",
+      "invocation": "#spring-boot-endpoint",
+      "tags": ["spring-boot", "kotlin", "rest", "endpoint", "scaffold"],
+      "examples": [
+        {
+          "prompt": "#spring-boot-endpoint Lag et CRUD-endepunkt for vedtak med PostgreSQL",
+          "scenario": "Scaffold REST-endepunkt"
+        }
+      ]
+    },
+    {
       "id": "aksel-spacing",
       "name": "aksel-spacing",
-      "description": "Responsive layout patterns using Aksel spacing tokens with Box, VStack, HStack, and HGrid",
+      "description": "Responsiv layout med Aksel spacing-tokens og Box, VStack, HStack og HGrid",
       "type": "skill",
       "domain": "frontend",
       "filePath": ".github/skills/aksel-spacing/SKILL.md",
@@ -522,9 +649,46 @@
       ]
     },
     {
+      "id": "api-design",
+      "name": "api-design",
+      "description": "REST API-designmønstre, versjonering, feilhåndtering (RFC 7807) og OpenAPI-konvensjoner for Nav-tjenester",
+      "type": "skill",
+      "domain": "backend",
+      "filePath": ".github/skills/api-design/SKILL.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/api-design/SKILL.md",
+      "installUrl": null,
+      "insidersInstallUrl": null,
+      "tags": ["api", "rest", "design", "openapi", "error-handling"],
+      "examples": [
+        "Design REST API endpoints for vedtak",
+        "Add error handling with ProblemDetail",
+        "Set up pagination for list endpoints",
+        "Review API design for best practices",
+        "Create OpenAPI annotations for endpoints"
+      ]
+    },
+    {
+      "id": "conventional-commit",
+      "name": "conventional-commit",
+      "description": "Generer conventional commit-meldinger med Nav-relevante scopes og breaking change-format",
+      "type": "skill",
+      "domain": "general",
+      "filePath": ".github/skills/conventional-commit/SKILL.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/conventional-commit/SKILL.md",
+      "installUrl": null,
+      "insidersInstallUrl": null,
+      "tags": ["git", "commit", "conventional-commits", "changelog"],
+      "examples": [
+        "Generate a commit message for my staged changes",
+        "Write a conventional commit for this fix",
+        "Create a breaking change commit message",
+        "What type of commit is this change?"
+      ]
+    },
+    {
       "id": "flyway-migration",
       "name": "flyway-migration",
-      "description": "Database migration patterns using Flyway with versioned SQL scripts",
+      "description": "Databasemigrasjonsmønstre med Flyway og versjonerte SQL-skript",
       "type": "skill",
       "domain": "backend",
       "filePath": ".github/skills/flyway-migration/SKILL.md",
@@ -542,7 +706,7 @@
     {
       "id": "kotlin-app-config",
       "name": "kotlin-app-config",
-      "description": "Sealed class configuration pattern for Kotlin applications with environment-specific settings",
+      "description": "Sealed class-konfigurasjon for Kotlin-applikasjoner med miljøspesifikke innstillinger",
       "type": "skill",
       "domain": "backend",
       "filePath": ".github/skills/kotlin-app-config/SKILL.md",
@@ -560,7 +724,7 @@
     {
       "id": "observability-setup",
       "name": "observability-setup",
-      "description": "Setting up Prometheus metrics, OpenTelemetry tracing, and health endpoints for Nais applications",
+      "description": "Sett opp Prometheus-metrikker, OpenTelemetry-tracing og health check-endepunkter for Nais-applikasjoner",
       "type": "skill",
       "domain": "observability",
       "filePath": ".github/skills/observability-setup/SKILL.md",
@@ -576,11 +740,49 @@
       ]
     },
     {
+      "id": "playwright-testing",
+      "name": "playwright-testing",
+      "description": "Generer og kjør Playwright E2E-tester for webapplikasjoner med page objects, auth fixtures og tilgjengelighetstester",
+      "type": "skill",
+      "domain": "testing",
+      "filePath": ".github/skills/playwright-testing/SKILL.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/playwright-testing/SKILL.md",
+      "installUrl": null,
+      "insidersInstallUrl": null,
+      "tags": ["playwright", "e2e", "testing", "accessibility", "responsive"],
+      "examples": [
+        "Generate Playwright test for login page",
+        "Create E2E tests for the søknad form",
+        "Set up Playwright with auth fixtures",
+        "Add accessibility tests for all pages",
+        "Test responsive layout with Playwright"
+      ]
+    },
+    {
+      "id": "postgresql-review",
+      "name": "postgresql-review",
+      "description": "PostgreSQL query review, optimalisering og beste praksis for Nav-applikasjoner",
+      "type": "skill",
+      "domain": "backend",
+      "filePath": ".github/skills/postgresql-review/SKILL.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/postgresql-review/SKILL.md",
+      "installUrl": null,
+      "insidersInstallUrl": null,
+      "tags": ["postgresql", "sql", "optimization", "review", "indexing"],
+      "examples": [
+        "Review this SQL query for performance",
+        "Optimize a slow PostgreSQL query",
+        "Suggest indexes for this table",
+        "Check for N+1 query problems",
+        "Review JSONB usage patterns"
+      ]
+    },
+    {
       "id": "security-review",
       "name": "security-review",
-      "description": "Use when about to commit, push, or open a pull request and want to check if code is safe to merge",
+      "description": "Bruk før commit, push eller pull request for å sjekke at koden er trygg å merge",
       "type": "skill",
-      "domain": "auth",
+      "domain": "general",
       "filePath": ".github/skills/security-review/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/security-review/SKILL.md",
       "installUrl": null,
@@ -598,9 +800,27 @@
       ]
     },
     {
+      "id": "spring-boot-scaffold",
+      "name": "spring-boot-scaffold",
+      "description": "Scaffold et nytt Spring Boot Kotlin-prosjekt med Nais-konfigurasjon, Flyway og standard Nav-mønstre",
+      "type": "skill",
+      "domain": "backend",
+      "filePath": ".github/skills/spring-boot-scaffold/SKILL.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/spring-boot-scaffold/SKILL.md",
+      "installUrl": null,
+      "insidersInstallUrl": null,
+      "tags": ["spring-boot", "kotlin", "scaffold", "nais", "project-setup"],
+      "examples": [
+        "Create a new Spring Boot Kotlin project",
+        "Scaffold a Nais-ready Spring Boot app",
+        "Set up a Spring Boot API with database",
+        "Generate project structure for new backend service"
+      ]
+    },
+    {
       "id": "tokenx-auth",
       "name": "tokenx-auth",
-      "description": "Service-to-service authentication using TokenX token exchange in Nais",
+      "description": "Tjeneste-til-tjeneste-autentisering med TokenX token exchange i Nais",
       "type": "skill",
       "domain": "auth",
       "filePath": ".github/skills/tokenx-auth/SKILL.md",
@@ -618,7 +838,7 @@
     {
       "id": "web-design-reviewer",
       "name": "web-design-reviewer",
-      "description": "Visual inspection of websites to identify and fix design issues. Triggers on requests like \"review website design\", \"check the UI\", \"fix the layout\", \"find design problems\". Detects issues with responsive design, accessibility, visual consistency, and layout breakage, then performs fixes at the source code level.",
+      "description": "Visuell inspeksjon av nettsider for å identifisere og fikse designproblemer. Trigges av forespørsler som \"sjekk designet\", \"gå gjennom UI-en\", \"fiks layouten\", \"finn designfeil\". Finner problemer med responsivt design, tilgjengelighet, visuell konsistens og layout, og fikser dem i kildekoden.",
       "type": "skill",
       "domain": "frontend",
       "filePath": ".github/skills/web-design-reviewer/SKILL.md",

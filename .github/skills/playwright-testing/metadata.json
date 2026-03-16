@@ -1,0 +1,11 @@
+{
+  "domain": "testing",
+  "tags": ["playwright", "e2e", "testing", "accessibility", "responsive"],
+  "examples": [
+    "Generate Playwright test for login page",
+    "Create E2E tests for the søknad form",
+    "Set up Playwright with auth fixtures",
+    "Add accessibility tests for all pages",
+    "Test responsive layout with Playwright"
+  ]
+}
