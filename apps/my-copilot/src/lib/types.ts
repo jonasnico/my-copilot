@@ -239,9 +239,13 @@ export interface AdoptionSummary {
   total_repos: number;
   active_repos: number;
   archived_repos: number;
+  active_repos_with_recent_commits: number;
+  dormant_repos: number;
+  unknown_last_commit_repos: number;
   repos_with_any_customization: number;
   repos_without_customization: number;
   adoption_rate: number;
+  adoption_rate_active_only: number;
   repos_with_copilot_instructions: number;
   repos_with_agents_md: number;
   repos_with_agents: number;

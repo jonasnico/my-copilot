@@ -46,15 +46,17 @@ function OverviewContent({ data }: { data: AdoptionData }) {
   }
 
   const adoptionPercent = formatAdoptionRate(summary.adoption_rate, 1);
+  const activeOnlyPercent = formatAdoptionRate(summary.adoption_rate_active_only, 1);
 
   return (
     <VStack gap="space-24">
       <HGrid columns={{ xs: 1, sm: 2, lg: 3 }} gap="space-16">
         <MetricCard
-          value={adoptionPercent}
-          label="Adopsjonsrate"
-          helpTitle="Adopsjonsrate"
-          helpText="Andel aktive repoer med minst én Copilot-tilpasning"
+          value={activeOnlyPercent}
+          label="Adopsjonsrate (aktive repoer)"
+          helpTitle="Adopsjonsrate for aktive repoer"
+          helpText="Andel repoer med commit siste 90 dager som har minst én Copilot-tilpasning"
+          subtitle={`${adoptionPercent} inkl. sovende`}
         />
         <MetricCard
           value={formatNumber(summary.repos_with_any_customization)}
