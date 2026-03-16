@@ -36,14 +36,18 @@ function parseFrontmatter(content: string): { data: Record<string, string | stri
   let arrayValues: string[] = [];
 
   for (const line of raw.split("\n")) {
-    const keyValue = line.match(/^(\w[\w-]*)\s*:\s*"?([^"]*)"?\s*$/);
-    if (keyValue) {
+    const keyMatch = line.match(/^(\w[\w-]*)\s*:\s*(.*)$/);
+    if (keyMatch) {
       if (currentKey && arrayValues.length > 0) {
         data[currentKey] = arrayValues;
         arrayValues = [];
       }
-      currentKey = keyValue[1];
-      const value = keyValue[2].trim();
+      currentKey = keyMatch[1];
+      let value = keyMatch[2].trim();
+      // Strip matching quotes (single or double)
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
       if (value) {
         data[currentKey] = value;
         currentKey = null;
