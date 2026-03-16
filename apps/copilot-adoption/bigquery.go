@@ -19,22 +19,23 @@ type BigQueryClient struct {
 }
 
 type RepoScanRow struct {
-	ScanDate           string    `bigquery:"scan_date"`
-	Org                string    `bigquery:"org"`
-	Repo               string    `bigquery:"repo"`
-	DefaultBranch      string    `bigquery:"default_branch"`
-	PrimaryLanguage    string    `bigquery:"primary_language"`
-	IsArchived         bool      `bigquery:"is_archived"`
-	IsFork             bool      `bigquery:"is_fork"`
-	Visibility         string    `bigquery:"visibility"`
-	CreatedAt          time.Time `bigquery:"created_at"`
-	PushedAt           time.Time `bigquery:"pushed_at"`
-	Topics             []string  `bigquery:"topics"`
-	Teams              string    `bigquery:"teams"`
-	Customizations     string    `bigquery:"customizations"`
-	HasAny             bool      `bigquery:"has_any_customization"`
-	CustomizationCount int       `bigquery:"customization_count"`
-	LoadedAt           time.Time `bigquery:"loaded_at"`
+	ScanDate                string     `bigquery:"scan_date"`
+	Org                     string     `bigquery:"org"`
+	Repo                    string     `bigquery:"repo"`
+	DefaultBranch           string     `bigquery:"default_branch"`
+	PrimaryLanguage         string     `bigquery:"primary_language"`
+	IsArchived              bool       `bigquery:"is_archived"`
+	IsFork                  bool       `bigquery:"is_fork"`
+	Visibility              string     `bigquery:"visibility"`
+	CreatedAt               time.Time  `bigquery:"created_at"`
+	PushedAt                time.Time  `bigquery:"pushed_at"`
+	DefaultBranchLastCommit *time.Time `bigquery:"default_branch_last_commit"`
+	Topics                  []string   `bigquery:"topics"`
+	Teams                   string     `bigquery:"teams"`
+	Customizations          string     `bigquery:"customizations"`
+	HasAny                  bool       `bigquery:"has_any_customization"`
+	CustomizationCount      int        `bigquery:"customization_count"`
+	LoadedAt                time.Time  `bigquery:"loaded_at"`
 }
 
 func NewBigQueryClient(ctx context.Context, cfg *Config) (*BigQueryClient, error) {
@@ -59,35 +60,16 @@ func (c *BigQueryClient) EnsureTableExists(ctx context.Context) error {
 	dataset := c.client.Dataset(c.dataset)
 	table := dataset.Table(c.table)
 
-	_, err := table.Metadata(ctx)
+	md, err := table.Metadata(ctx)
 	if err == nil {
 		slog.Debug("Table already exists", "dataset", c.dataset, "table", c.table)
-		return nil
+		return c.ensureColumns(ctx, table, md)
 	}
 
 	slog.Info("Creating table", "dataset", c.dataset, "table", c.table)
 
-	schema := bigquery.Schema{
-		{Name: "scan_date", Type: bigquery.DateFieldType, Required: true, Description: "Date of the scan"},
-		{Name: "org", Type: bigquery.StringFieldType, Required: true, Description: "GitHub organization"},
-		{Name: "repo", Type: bigquery.StringFieldType, Required: true, Description: "Repository name"},
-		{Name: "default_branch", Type: bigquery.StringFieldType, Description: "Default branch name"},
-		{Name: "primary_language", Type: bigquery.StringFieldType, Description: "Primary programming language"},
-		{Name: "is_archived", Type: bigquery.BooleanFieldType, Required: true, Description: "Whether the repo is archived"},
-		{Name: "is_fork", Type: bigquery.BooleanFieldType, Required: true, Description: "Whether the repo is a fork"},
-		{Name: "visibility", Type: bigquery.StringFieldType, Required: true, Description: "public, private, or internal"},
-		{Name: "created_at", Type: bigquery.TimestampFieldType, Description: "Repo creation time"},
-		{Name: "pushed_at", Type: bigquery.TimestampFieldType, Description: "Last push time"},
-		{Name: "topics", Type: bigquery.StringFieldType, Repeated: true, Description: "Repository topics"},
-		{Name: "teams", Type: bigquery.JSONFieldType, Description: "Teams with access [{slug, name, permission}]"},
-		{Name: "customizations", Type: bigquery.JSONFieldType, Required: true, Description: "Search results per category"},
-		{Name: "has_any_customization", Type: bigquery.BooleanFieldType, Required: true, Description: "Quick filter: any customization found"},
-		{Name: "customization_count", Type: bigquery.IntegerFieldType, Required: true, Description: "Number of distinct categories found"},
-		{Name: "loaded_at", Type: bigquery.TimestampFieldType, Required: true, Description: "When the row was inserted"},
-	}
-
 	metadata := &bigquery.TableMetadata{
-		Schema: schema,
+		Schema: desiredSchema(),
 		TimePartitioning: &bigquery.TimePartitioning{
 			Type:  bigquery.DayPartitioningType,
 			Field: "scan_date",
@@ -103,6 +85,62 @@ func (c *BigQueryClient) EnsureTableExists(ctx context.Context) error {
 	}
 
 	slog.Info("Table created successfully")
+	return nil
+}
+
+// desiredSchema returns the canonical schema for the repo_scan table.
+// Used both for table creation and for detecting missing columns.
+func desiredSchema() bigquery.Schema {
+	return bigquery.Schema{
+		{Name: "scan_date", Type: bigquery.DateFieldType, Required: true, Description: "Date of the scan"},
+		{Name: "org", Type: bigquery.StringFieldType, Required: true, Description: "GitHub organization"},
+		{Name: "repo", Type: bigquery.StringFieldType, Required: true, Description: "Repository name"},
+		{Name: "default_branch", Type: bigquery.StringFieldType, Description: "Default branch name"},
+		{Name: "primary_language", Type: bigquery.StringFieldType, Description: "Primary programming language"},
+		{Name: "is_archived", Type: bigquery.BooleanFieldType, Required: true, Description: "Whether the repo is archived"},
+		{Name: "is_fork", Type: bigquery.BooleanFieldType, Required: true, Description: "Whether the repo is a fork"},
+		{Name: "visibility", Type: bigquery.StringFieldType, Required: true, Description: "public, private, or internal"},
+		{Name: "created_at", Type: bigquery.TimestampFieldType, Description: "Repo creation time"},
+		{Name: "pushed_at", Type: bigquery.TimestampFieldType, Description: "Last push time"},
+		{Name: "default_branch_last_commit", Type: bigquery.TimestampFieldType, Description: "Last commit to default branch"},
+		{Name: "topics", Type: bigquery.StringFieldType, Repeated: true, Description: "Repository topics"},
+		{Name: "teams", Type: bigquery.JSONFieldType, Description: "Teams with access [{slug, name, permission}]"},
+		{Name: "customizations", Type: bigquery.JSONFieldType, Required: true, Description: "Search results per category"},
+		{Name: "has_any_customization", Type: bigquery.BooleanFieldType, Required: true, Description: "Quick filter: any customization found"},
+		{Name: "customization_count", Type: bigquery.IntegerFieldType, Required: true, Description: "Number of distinct categories found"},
+		{Name: "loaded_at", Type: bigquery.TimestampFieldType, Required: true, Description: "When the row was inserted"},
+	}
+}
+
+// ensureColumns adds any columns present in desiredSchema() but missing from the live table.
+func (c *BigQueryClient) ensureColumns(ctx context.Context, table *bigquery.Table, md *bigquery.TableMetadata) error {
+	existing := make(map[string]bool, len(md.Schema))
+	for _, f := range md.Schema {
+		existing[f.Name] = true
+	}
+
+	var missing bigquery.Schema
+	for _, f := range desiredSchema() {
+		if !existing[f.Name] {
+			missing = append(missing, f)
+		}
+	}
+
+	if len(missing) == 0 {
+		return nil
+	}
+
+	newSchema := append(md.Schema, missing...)
+	update := bigquery.TableMetadataToUpdate{Schema: newSchema}
+	if _, err := table.Update(ctx, update, md.ETag); err != nil {
+		return fmt.Errorf("failed to add columns %v: %w", missing, err)
+	}
+
+	names := make([]string, len(missing))
+	for i, f := range missing {
+		names[i] = f.Name
+	}
+	slog.Info("Added missing columns to table", "columns", names)
 	return nil
 }
 
@@ -131,22 +169,23 @@ func (c *BigQueryClient) InsertScanResults(ctx context.Context, scanDate time.Ti
 		}
 
 		rows = append(rows, &RepoScanRow{
-			ScanDate:           dateStr,
-			Org:                r.Org,
-			Repo:               r.Repo,
-			DefaultBranch:      r.DefaultBranch,
-			PrimaryLanguage:    r.PrimaryLanguage,
-			IsArchived:         r.IsArchived,
-			IsFork:             r.IsFork,
-			Visibility:         r.Visibility,
-			CreatedAt:          r.CreatedAt,
-			PushedAt:           r.PushedAt,
-			Topics:             r.Topics,
-			Teams:              string(teamsJSON),
-			Customizations:     string(customizationsJSON),
-			HasAny:             r.HasAny,
-			CustomizationCount: r.CustomizationCount,
-			LoadedAt:           loadedAt,
+			ScanDate:                dateStr,
+			Org:                     r.Org,
+			Repo:                    r.Repo,
+			DefaultBranch:           r.DefaultBranch,
+			PrimaryLanguage:         r.PrimaryLanguage,
+			IsArchived:              r.IsArchived,
+			IsFork:                  r.IsFork,
+			Visibility:              r.Visibility,
+			CreatedAt:               r.CreatedAt,
+			PushedAt:                r.PushedAt,
+			DefaultBranchLastCommit: r.DefaultBranchLastCommit,
+			Topics:                  r.Topics,
+			Teams:                   string(teamsJSON),
+			Customizations:          string(customizationsJSON),
+			HasAny:                  r.HasAny,
+			CustomizationCount:      r.CustomizationCount,
+			LoadedAt:                loadedAt,
 		})
 	}
 
@@ -158,7 +197,7 @@ func (c *BigQueryClient) InsertScanResults(ctx context.Context, scanDate time.Ti
 	// Create JSONL data in memory
 	var buf bytes.Buffer
 	for _, row := range rows {
-		jsonRow, err := json.Marshal(map[string]any{
+		jsonMap := map[string]any{
 			"scan_date":             row.ScanDate,
 			"org":                   row.Org,
 			"repo":                  row.Repo,
@@ -175,7 +214,11 @@ func (c *BigQueryClient) InsertScanResults(ctx context.Context, scanDate time.Ti
 			"has_any_customization": row.HasAny,
 			"customization_count":   row.CustomizationCount,
 			"loaded_at":             row.LoadedAt.Format(time.RFC3339),
-		})
+		}
+		if row.DefaultBranchLastCommit != nil {
+			jsonMap["default_branch_last_commit"] = row.DefaultBranchLastCommit.Format(time.RFC3339)
+		}
+		jsonRow, err := json.Marshal(jsonMap)
 		if err != nil {
 			return fmt.Errorf("failed to marshal row for %s: %w", row.Repo, err)
 		}
