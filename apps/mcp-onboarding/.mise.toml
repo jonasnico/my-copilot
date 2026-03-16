@@ -61,17 +61,23 @@ run = '''
 #!/usr/bin/env bash
 set -e
 
+MANIFEST="internal/discovery/copilot-manifest.json"
+TMPFILE=$(mktemp)
+trap 'rm -f "$TMPFILE"' EXIT
+
+cp "$MANIFEST" "$TMPFILE"
+
 echo "Generating manifest..."
 go run ./cmd/generate-manifest
 
-if git diff --exit-code internal/discovery/copilot-manifest.json > /dev/null 2>&1; then
+if diff -q "$TMPFILE" "$MANIFEST" > /dev/null 2>&1; then
   echo "✅ Manifest is up to date"
   exit 0
 else
   echo "❌ Manifest is out of date. Run 'mise generate' to update it."
   echo ""
   echo "Differences:"
-  git diff internal/discovery/copilot-manifest.json
+  diff -u "$TMPFILE" "$MANIFEST" || true
   exit 1
 fi
 '''

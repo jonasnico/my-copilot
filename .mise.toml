@@ -103,6 +103,33 @@ echo ""
 echo "✅ All apps built successfully"
 '''
 
+[tasks.generate]
+description = "Generate all generated files across all apps"
+run = '''
+#!/usr/bin/env bash
+set -e
+
+echo "🔄 Generating files across all apps..."
+echo ""
+
+echo "📦 mcp-onboarding:"
+(cd apps/mcp-onboarding && mise run generate)
+echo ""
+
+echo "📦 my-copilot:"
+(cd apps/my-copilot && mise run generate)
+echo ""
+
+echo "✅ All files generated"
+'''
+
 [tasks.all]
 description = "Run all checks, tests, and builds across all apps"
-depends = ["check", "test", "build"]
+run = '''
+#!/usr/bin/env bash
+set -e
+mise run generate
+mise run check
+mise run test
+mise run build
+'''
