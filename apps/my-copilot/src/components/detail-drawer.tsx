@@ -588,6 +588,26 @@ export function DetailDrawer({ item, open, onClose }: DetailDrawerProps) {
                     {item.type === "mcp" ? <McpDetails item={item} /> : <StaticCustomizationDetails item={item} />}
                   </VStack>
                 </Box>
+
+                <Box
+                  paddingBlock="space-12"
+                  paddingInline="space-20"
+                  style={{ borderTop: "1px solid var(--ax-border-neutral)" }}
+                >
+                  <a
+                    href={
+                      item.type === "mcp" && item.repository?.url
+                        ? item.repository.url
+                        : `https://github.com/navikt/copilot/blob/main/${item.filePath}`
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    <ExternalLinkIcon className="w-4 h-4" />
+                    Vis kildekode på GitHub
+                  </a>
+                </Box>
               </div>
             </DialogPanel>
           </div>
