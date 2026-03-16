@@ -7,7 +7,14 @@ tools:
   - edit
   - search
   - web
+  - todo
   - ms-vscode.vscode-websearchforcopilot/websearch
+  - com.figma/figma-mcp/get_design_context
+  - com.figma/figma-mcp/get_screenshot
+  - com.figma/figma-mcp/get_metadata
+  - com.figma/figma-mcp/get_variable_defs
+  - com.figma/figma-mcp/get_code_connect_map
+  - com.figma/figma-mcp/get_code_connect_suggestions
   - io.github.navikt/github-mcp/get_file_contents
   - io.github.navikt/github-mcp/search_code
   - io.github.navikt/github-mcp/search_repositories

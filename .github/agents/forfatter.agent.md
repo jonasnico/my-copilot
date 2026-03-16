@@ -2,14 +2,15 @@
 name: forfatter
 description: "Redigerer norsk teknisk tekst: fjerner AI-markører, forenkler språk, bruker etablerte engelske fagtermer."
 tools:
+  - execute
   - read
   - edit
   - search
   - vscode
-  - agent
+  - web
   - todo
-  - com.figma/figma-mcp/*
-  - io.github.navikt/github-mcp/*
+  - io.github.navikt/github-mcp/get_file_contents
+  - io.github.navikt/github-mcp/search_code
 ---
 
 # Tekstforfatter

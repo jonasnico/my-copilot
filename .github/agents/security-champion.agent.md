@@ -7,6 +7,7 @@ tools:
   - edit
   - search
   - web
+  - todo
   - ms-vscode.vscode-websearchforcopilot/websearch
   - io.github.navikt/github-mcp/get_file_contents
   - io.github.navikt/github-mcp/search_code
