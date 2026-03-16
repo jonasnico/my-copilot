@@ -1,275 +1,275 @@
 ---
 name: web-design-reviewer
-description: 'Visual inspection of websites to identify and fix design issues. Triggers on requests like "review website design", "check the UI", "fix the layout", "find design problems". Detects issues with responsive design, accessibility, visual consistency, and layout breakage, then performs fixes at the source code level.'
+description: 'Visuell inspeksjon av nettsider for å identifisere og fikse designproblemer. Trigges av forespørsler som "sjekk designet", "gå gjennom UI-en", "fiks layouten", "finn designfeil". Finner problemer med responsivt design, tilgjengelighet, visuell konsistens og layout, og fikser dem i kildekoden.'
 ---
 
-# Web Design Reviewer
+# Nettside-designgjennomgang
 
-This skill enables visual inspection and validation of website design quality, identifying and fixing issues at the source code level.
+Visuell inspeksjon og validering av designkvalitet på nettsider. Identifiserer og fikser problemer på kildekodenivå.
 
-## Scope of Application
+## Anvendelse
 
-- Static sites (HTML/CSS/JS)
-- SPA frameworks such as React / Vue / Angular / Svelte
-- Full-stack frameworks such as Next.js / Nuxt / SvelteKit
-- Any other web application
+- Statiske nettsider (HTML/CSS/JS)
+- SPA-rammeverk som React / Vue / Angular / Svelte
+- Fullstack-rammeverk som Next.js / Nuxt / SvelteKit
+- Andre webapplikasjoner
 
-## Prerequisites
+## Forutsetninger
 
-### Required
+### Påkrevd
 
-1. **Target website must be running**
-   - Local development server (e.g., `http://localhost:3000`)
-   - Staging environment
-   - Production environment (for read-only reviews)
+1. **Nettsiden må kjøre**
+   - Lokal utviklingsserver (f.eks. `http://localhost:3000`)
+   - Staging-miljø
+   - Produksjon (kun for gjennomgang uten endringer)
 
-2. **Browser automation must be available**
-   - Screenshot capture
-   - Page navigation
-   - DOM information retrieval
+2. **Browser-automatisering må være tilgjengelig**
+   - Screenshots
+   - Sidenavigasjon
+   - DOM-informasjon
 
-3. **Access to source code (when making fixes)**
-   - Project must exist within the workspace
+3. **Tilgang til kildekode (ved feilretting)**
+   - Prosjektet må finnes i workspace
 
-## Workflow Overview
+## Arbeidsflyt
 
 ```mermaid
 flowchart TD
-    A[Step 1: Information Gathering] --> B[Step 2: Visual Inspection]
-    B --> C[Step 3: Issue Fixing]
-    C --> D[Step 4: Re-verification]
-    D --> E{Issues Remaining?}
-    E -->|Yes| B
-    E -->|No| F[Completion Report]
+    A[Steg 1: Informasjonsinnhenting] --> B[Steg 2: Visuell inspeksjon]
+    B --> C[Steg 3: Feilretting]
+    C --> D[Steg 4: Verifikasjon]
+    D --> E{Flere feil?}
+    E -->|Ja| B
+    E -->|Nei| F[Ferdig rapport]
 ```
 
 ---
 
-## Step 1: Information Gathering Phase
+## Steg 1: Informasjonsinnhenting
 
-### 1.1 URL Confirmation
+### 1.1 URL-bekreftelse
 
-If the URL is not provided, ask the user:
+Hvis URL ikke er oppgitt, spør:
 
-> Please provide the URL of the website to review (e.g., `http://localhost:3000`)
+> Oppgi URL-en til nettsiden som skal gjennomgås (f.eks. `http://localhost:3000`)
 
-### 1.2 Understanding Project Structure
+### 1.2 Prosjektstruktur
 
-When making fixes, gather the following information:
+Ved feilretting, finn ut følgende:
 
-| Item | Example Question |
-|------|------------------|
-| Framework | Are you using React / Vue / Next.js, etc.? |
-| Styling Method | CSS / SCSS / Tailwind / CSS-in-JS, etc.? |
-| Source Location | Where are style files and components located? |
-| Review Scope | Specific pages only or entire site? |
+| Element | Eksempel |
+|---------|----------|
+| Rammeverk | React / Vue / Next.js etc.? |
+| Styling | CSS / SCSS / Tailwind / CSS-in-JS? |
+| Kildeplassering | Hvor ligger stil- og komponentfiler? |
+| Omfang | Spesifikke sider eller hele nettstedet? |
 
-### 1.3 Automatic Project Detection
+### 1.3 Automatisk prosjektdeteksjon
 
-Attempt automatic detection from files in the workspace:
+Forsøk automatisk deteksjon fra filer i workspace:
 
 ```
-Detection targets:
-├── package.json     → Framework and dependencies
-├── tsconfig.json    → TypeScript usage
+Deteksjonsmål:
+├── package.json     → Rammeverk og avhengigheter
+├── tsconfig.json    → TypeScript-bruk
 ├── tailwind.config  → Tailwind CSS
 ├── next.config      → Next.js
 ├── vite.config      → Vite
 ├── nuxt.config      → Nuxt
-└── src/ or app/     → Source directory
+└── src/ eller app/  → Kildekatalog
 ```
 
-### 1.4 Identifying Styling Method
+### 1.4 Identifisering av stilmetode
 
-| Method | Detection | Edit Target |
-|--------|-----------|-------------|
-| Pure CSS | `*.css` files | Global CSS or component CSS |
-| SCSS/Sass | `*.scss`, `*.sass` | SCSS files |
-| CSS Modules | `*.module.css` | Module CSS files |
-| Tailwind CSS | `tailwind.config.*` | className in components |
-| styled-components | `styled.` in code | JS/TS files |
-| Emotion | `@emotion/` imports | JS/TS files |
-| CSS-in-JS (other) | Inline styles | JS/TS files |
+| Metode | Deteksjon | Redigeringsmål |
+|--------|-----------|----------------|
+| Ren CSS | `*.css`-filer | Global CSS eller komponent-CSS |
+| SCSS/Sass | `*.scss`, `*.sass` | SCSS-filer |
+| CSS Modules | `*.module.css` | Modul-CSS-filer |
+| Tailwind CSS | `tailwind.config.*` | className i komponenter |
+| styled-components | `styled.` i koden | JS/TS-filer |
+| Emotion | `@emotion/`-imports | JS/TS-filer |
+| CSS-in-JS (annet) | Inline-stiler | JS/TS-filer |
 
 ---
 
-## Step 2: Visual Inspection Phase
+## Steg 2: Visuell inspeksjon
 
-### 2.1 Page Traversal
+### 2.1 Sidetraversering
 
-1. Navigate to the specified URL
-2. Capture screenshots
-3. Retrieve DOM structure/snapshot (if possible)
-4. If additional pages exist, traverse through navigation
+1. Naviger til oppgitt URL
+2. Ta screenshot
+3. Hent DOM-struktur/snapshot (hvis mulig)
+4. Traverser gjennom navigasjon hvis flere sider finnes
 
-### 2.2 Inspection Items
+### 2.2 Inspeksjonspunkter
 
-#### Layout Issues
+#### Layout-problemer
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Element Overflow | Content overflows from parent element or viewport | High |
-| Element Overlap | Unintended overlapping of elements | High |
-| Alignment Issues | Grid or flex alignment problems | Medium |
-| Inconsistent Spacing | Padding/margin inconsistencies | Medium |
-| Text Clipping | Long text not handled properly | Medium |
+| Problem | Beskrivelse | Alvorlighet |
+|---------|-------------|-------------|
+| Overflow | Innhold flyter utenfor forelder eller viewport | Høy |
+| Overlapping | Utilsiktet overlapping av elementer | Høy |
+| Alignment-feil | Grid- eller flex-alignment-problemer | Middels |
+| Inkonsistent spacing | Padding/margin-inkonsistens | Middels |
+| Text overflow | Lang tekst håndteres ikke riktig | Middels |
 
-#### Responsive Issues
+#### Responsive problemer
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Non-mobile Friendly | Layout breaks on small screens | High |
-| Breakpoint Issues | Unnatural transitions when screen size changes | Medium |
-| Touch Targets | Buttons too small on mobile | Medium |
+| Problem | Beskrivelse | Alvorlighet |
+|---------|-------------|-------------|
+| Ikke mobilvennlig | Layout brekker på små skjermer | Høy |
+| Breakpoint-problemer | Unaturlige overganger ved skjermendring | Middels |
+| Touch targets | Knapper for små på mobil | Middels |
 
-#### Accessibility Issues
+#### Tilgjengelighetsproblemer
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Insufficient Contrast | Low contrast ratio between text and background | High |
-| No Focus State | Cannot determine state during keyboard navigation | High |
-| Missing alt Text | No alternative text for images | Medium |
+| Problem | Beskrivelse | Alvorlighet |
+|---------|-------------|-------------|
+| Utilstrekkelig kontrast | Lav kontrastforhold mellom tekst og bakgrunn | Høy |
+| Ingen fokustilstand | Kan ikke se fokus ved tastaturnavigasjon | Høy |
+| Manglende alt-tekst | Ingen alternativtekst for bilder | Middels |
 
-#### Visual Consistency
+#### Visuell konsistens
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Font Inconsistency | Mixed font families | Medium |
-| Color Inconsistency | Non-unified brand colors | Medium |
-| Spacing Inconsistency | Non-uniform spacing between similar elements | Low |
+| Problem | Beskrivelse | Alvorlighet |
+|---------|-------------|-------------|
+| Fontinkonsistens | Blanding av fontfamilier | Middels |
+| Fargeinkonsistens | Ikke-enhetlige merkefarger | Middels |
+| Spacing-inkonsistens | Ulik spacing mellom like elementer | Lav |
 
-### 2.3 Viewport Testing (Responsive)
+### 2.3 Viewport-testing (responsiv)
 
-Test at the following viewports:
+Test ved følgende viewports:
 
-| Name | Width | Representative Device |
-|------|-------|----------------------|
-| Mobile | 375px | iPhone SE/12 mini |
-| Tablet | 768px | iPad |
+| Navn | Bredde | Representativ enhet |
+|------|--------|---------------------|
+| Mobil | 375px | iPhone SE/12 mini |
+| Nettbrett | 768px | iPad |
 | Desktop | 1280px | Standard PC |
-| Wide | 1920px | Large display |
+| Bred | 1920px | Stor skjerm |
 
 ---
 
-## Step 3: Issue Fixing Phase
+## Steg 3: Feilretting
 
-### 3.1 Issue Prioritization
+### 3.1 Prioritering
 
-| Priority | Description |
-|----------|-------------|
-| P1 | Fix Immediately — Layout issues affecting functionality |
-| P2 | Fix Next — Visual issues degrading UX |
-| P3 | Fix If Possible — Minor visual inconsistencies |
+| Prioritet | Beskrivelse |
+|-----------|-------------|
+| P1 | Fiks umiddelbart — Layout-problemer som påvirker funksjonalitet |
+| P2 | Fiks snart — Visuelle problemer som forringer UX |
+| P3 | Fiks hvis mulig — Mindre visuelle inkonsistenser |
 
-### 3.2 Identifying Source Files
+### 3.2 Finne kildefiler
 
-Identify source files from problematic elements:
+Identifiser kildefiler fra problematiske elementer:
 
-1. **Selector-based Search**
-   - Search codebase by class name or ID
-   - Explore style definitions with `grep_search`
+1. **Selektor-basert søk**
+   - Søk i kodebasen etter klassenavn eller ID
+   - Utforsk stildefinisjoner med `grep_search`
 
-2. **Component-based Search**
-   - Identify components from element text or structure
-   - Explore related files with `semantic_search`
+2. **Komponent-basert søk**
+   - Identifiser komponenter fra elementtekst eller struktur
+   - Utforsk relaterte filer med `semantic_search`
 
-3. **File Pattern Filtering**
+3. **Filmønsterfiltrering**
    ```
-   Style files: src/**/*.css, styles/**/*
-   Components: src/components/**/*
-   Pages: src/pages/**, app/**
+   Stilfiler: src/**/*.css, styles/**/*
+   Komponenter: src/components/**/*
+   Sider: src/pages/**, app/**
    ```
 
-### 3.3 Applying Fixes
+### 3.3 Gjennomføre fiks
 
-See [references/framework-fixes.md](references/framework-fixes.md) for framework-specific fix guidelines.
+Se [references/framework-fixes.md](references/framework-fixes.md) for rammeverksspesifikke retningslinjer.
 
-#### Fix Principles
+#### Fiks-prinsipper
 
-1. **Minimal Changes**: Only make the minimum changes necessary to resolve the issue
-2. **Respect Existing Patterns**: Follow existing code style in the project
-3. **Avoid Breaking Changes**: Be careful not to affect other areas
-4. **Add Comments**: Add comments to explain the reason for fixes where appropriate
-
----
-
-## Step 4: Re-verification Phase
-
-### 4.1 Post-fix Confirmation
-
-1. Reload browser (or wait for development server HMR)
-2. Capture screenshots of fixed areas
-3. Compare before and after
-
-### 4.2 Regression Testing
-
-- Verify that fixes haven't affected other areas
-- Confirm responsive display is not broken
-
-### 4.3 Iteration Decision
-
-**Iteration Limit**: If more than 3 fix attempts are needed for a specific issue, consult the user
+1. **Minimale endringer**: Gjør kun nødvendige endringer for å løse problemet
+2. **Respekter eksisterende mønstre**: Følg eksisterende kodestil i prosjektet
+3. **Unngå breaking changes**: Vær forsiktig så du ikke påvirker andre områder
+4. **Legg til kommentarer**: Forklar fiksen der det er relevant
 
 ---
 
-## Output Format
+## Steg 4: Verifikasjon
 
-### Review Results Report
+### 4.1 Bekreftelse etter fiks
+
+1. Last inn nettleseren på nytt (eller vent på HMR)
+2. Ta screenshot av fiksede områder
+3. Sammenlign før og etter
+
+### 4.2 Regresjonstesting
+
+- Verifiser at fiksen ikke har påvirket andre områder
+- Bekreft at responsiv visning fortsatt fungerer
+
+### 4.3 Iterasjonsbeslutning
+
+**Iterasjonsgrense**: Hvis mer enn 3 fiks-forsøk trengs for ett problem, konsulter brukeren
+
+---
+
+## Rapportformat
+
+### Gjennomgangsresultat
 
 ```markdown
-# Web Design Review Results
+# Designgjennomgang — resultater
 
-## Summary
+## Sammendrag
 
-| Item | Value |
-|------|-------|
-| Target URL | {URL} |
-| Framework | {Detected framework} |
+| Element | Verdi |
+|---------|-------|
+| URL | {URL} |
+| Rammeverk | {Detektert rammeverk} |
 | Styling | {CSS / Tailwind / etc.} |
-| Tested Viewports | Desktop, Mobile |
-| Issues Detected | {N} |
-| Issues Fixed | {M} |
+| Testede viewports | Desktop, Mobil |
+| Problemer funnet | {N} |
+| Problemer fikset | {M} |
 
-## Detected Issues
+## Problemer funnet
 
-### [P1] {Issue Title}
+### [P1] {Problemtittel}
 
-- **Page**: {Page path}
-- **Element**: {Selector or description}
-- **Issue**: {Detailed description of the issue}
-- **Fixed File**: `{File path}`
-- **Fix Details**: {Description of changes}
-- **Screenshot**: Before/After
+- **Side**: {Sidesti}
+- **Element**: {Selektor eller beskrivelse}
+- **Problem**: {Detaljert beskrivelse}
+- **Fikset fil**: `{Filsti}`
+- **Fiks**: {Beskrivelse av endringer}
+- **Screenshot**: Før/Etter
 
-### [P2] {Issue Title}
+### [P2] {Problemtittel}
 ...
 
-## Unfixed Issues (if any)
+## Ikke-fiksede problemer (hvis aktuelt)
 
-### {Issue Title}
-- **Reason**: {Why it was not fixed/could not be fixed}
-- **Recommended Action**: {Recommendations for user}
+### {Problemtittel}
+- **Årsak**: {Hvorfor det ikke ble fikset}
+- **Anbefalt handling**: {Anbefalinger til bruker}
 
-## Recommendations
+## Anbefalinger
 
-- {Suggestions for future improvements}
+- {Forslag til fremtidige forbedringer}
 ```
 
 ---
 
-## Best Practices
+## Beste praksis
 
-### DO (Recommended)
+### GJØR
 
-- Always save screenshots before making fixes
-- Fix one issue at a time and verify each
-- Follow the project's existing code style
-- Confirm with user before major changes
-- Document fix details thoroughly
+- Ta alltid screenshot før du fikser
+- Fiks ett problem om gangen og verifiser hver
+- Følg prosjektets eksisterende kodestil
+- Bekreft med bruker før store endringer
+- Dokumenter fiks-detaljer grundig
 
-### DON'T (Not Recommended)
+### IKKE GJØR
 
-- Large-scale refactoring without confirmation
-- Ignoring design systems or brand guidelines
-- Fixes that ignore performance
-- Fixing multiple issues at once (difficult to verify)
+- Stor refaktorering uten bekreftelse
+- Ignorere design system eller brand guidelines
+- Fikser som ignorerer ytelse
+- Fikse flere problemer samtidig (vanskelig å verifisere)

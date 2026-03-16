@@ -93,7 +93,7 @@ spec:
 ### A01: Broken Access Control
 
 ```kotlin
-// ✅ Korrekt — sjekk at bruker har tilgang til ressursen
+// ✅ Correct — check that user has access to the resource
 @GetMapping("/api/vedtak/{id}")
 fun getVedtak(@PathVariable id: UUID): ResponseEntity<VedtakDTO> {
     val bruker = hentInnloggetBruker()
@@ -104,7 +104,7 @@ fun getVedtak(@PathVariable id: UUID): ResponseEntity<VedtakDTO> {
     return ResponseEntity.ok(vedtak.toDTO())
 }
 
-// ❌ Feil — ingen tilgangskontroll (IDOR)
+// ❌ Wrong — no access control (IDOR)
 @GetMapping("/api/vedtak/{id}")
 fun getVedtak(@PathVariable id: UUID) = vedtakService.findById(id)
 ```
@@ -112,17 +112,17 @@ fun getVedtak(@PathVariable id: UUID) = vedtakService.findById(id)
 ### A03: Injection
 
 ```kotlin
-// ✅ Korrekt — parameterisert spørring
+// ✅ Correct — parameterized query
 jdbcTemplate.query("SELECT * FROM bruker WHERE fnr = ?", mapper, fnr)
 
-// ❌ Feil — strengkonkatenering
+// ❌ Wrong — string concatenation
 jdbcTemplate.query("SELECT * FROM bruker WHERE fnr = '$fnr'", mapper)
 ```
 
 ### A05: Security Misconfiguration
 
 ```kotlin
-// ✅ Korrekt — CORS kun for kjente domener
+// ✅ Correct — CORS only for known domains
 @Bean
 fun corsFilter() = CorsFilter(CorsConfiguration().apply {
     allowedOrigins = listOf("https://my-app.intern.nav.no")
@@ -130,28 +130,28 @@ fun corsFilter() = CorsFilter(CorsConfiguration().apply {
     allowedHeaders = listOf("Authorization", "Content-Type")
 })
 
-// ❌ Feil — åpen CORS
+// ❌ Wrong — open CORS
 allowedOrigins = listOf("*")
 ```
 
 ### A07: Cross-Site Scripting (XSS)
 
 ```tsx
-// ✅ Korrekt — React escaper automatisk
+// ✅ Correct — React escapes automatically
 <BodyShort>{bruker.navn}</BodyShort>
 
-// ❌ Feil — rå HTML-injeksjon
+// ❌ Wrong — raw HTML injection
 <div dangerouslySetInnerHTML={{ __html: userInput }} />
 ```
 
 ### A08: Insecure Deserialization
 
 ```kotlin
-// ✅ Korrekt — valider input etter deserialisering
+// ✅ Correct — validate input after deserialization
 @PostMapping("/api/vedtak")
 fun create(@RequestBody @Valid request: CreateVedtakRequest): ResponseEntity<VedtakDTO>
 
-// ✅ Begrens Jackson til kjente typer
+// ✅ Limit Jackson to known types
 objectMapper.apply {
     activateDefaultTyping(
         polymorphicTypeValidator,
@@ -163,23 +163,23 @@ objectMapper.apply {
 ### A09: Logging & Monitoring
 
 ```kotlin
-// ✅ Korrekt — strukturert logging med korrelerings-ID, ingen PII
+// ✅ Correct — structured logging with correlation ID, no PII
 log.info("Vedtak opprettet", kv("vedtakId", vedtak.id), kv("sakId", sak.id))
 
-// ❌ Feil — PII i logger
+// ❌ Wrong — PII in logs
 log.info("Vedtak for bruker ${bruker.fnr} opprettet")
 ```
 
 ## File Upload Security
 
 ```kotlin
-// ✅ Korrekt — valider filtype, størrelse, og magic bytes
+// ✅ Correct — validate file type, size, and magic bytes
 fun validateUpload(file: MultipartFile) {
-    require(file.size <= 10 * 1024 * 1024) { "Filen er for stor (maks 10 MB)" }
-    require(file.contentType in ALLOWED_TYPES) { "Ugyldig filtype" }
+    require(file.size <= 10 * 1024 * 1024) { "File too large (max 10 MB)" }
+    require(file.contentType in ALLOWED_TYPES) { "Invalid file type" }
 
     val bytes = file.bytes.take(8).toByteArray()
-    require(verifyMagicBytes(bytes, file.contentType!!)) { "Filinnhold matcher ikke type" }
+    require(verifyMagicBytes(bytes, file.contentType!!)) { "File content does not match type" }
 }
 
 private val ALLOWED_TYPES = setOf("application/pdf", "image/png", "image/jpeg")
@@ -188,30 +188,30 @@ private val ALLOWED_TYPES = setOf("application/pdf", "image/png", "image/jpeg")
 ## Dependency Management
 
 ```kotlin
-// build.gradle.kts — pin versjoner, bruk BOM
+// build.gradle.kts — pin versions, use BOM
 dependencyManagement {
     imports {
         mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.1")
     }
 }
 
-// Sjekk sårbare avhengigheter
+// Check vulnerable dependencies
 // ./gradlew dependencyCheckAnalyze
 // trivy repo .
 ```
 
 ## Expanded Checklist
 
-- [ ] SQL-spørringer er parameteriserte (ingen strengkonkatenering)
-- [ ] Ingen PII i logger (fnr, navn, adresse)
-- [ ] Hemmeligheter kun fra environment/secrets
-- [ ] Nais accessPolicy er eksplisitt (ingen åpen inbound)
-- [ ] CORS er begrenset til kjente domener
-- [ ] Input er validert og sanitert
-- [ ] Tilgangskontroll sjekker eierskap (ikke bare auth)
-- [ ] Filopplasting validerer type, størrelse, og innhold
-- [ ] Avhengigheter er oppdaterte og sårbarhetsskannet
-- [ ] Ingen `dangerouslySetInnerHTML` uten sanitering
+- [ ] SQL queries are parameterized (no string concatenation)
+- [ ] No PII in logs (fnr, name, address)
+- [ ] Secrets only from environment/secrets
+- [ ] Nais accessPolicy is explicit (no open inbound)
+- [ ] CORS is restricted to known domains
+- [ ] Input is validated and sanitized
+- [ ] Access control checks ownership (not just auth)
+- [ ] File upload validates type, size, and content
+- [ ] Dependencies are up to date and vulnerability-scanned
+- [ ] No `dangerouslySetInnerHTML` without sanitization
 
 ## Dependency Management
 

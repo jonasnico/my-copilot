@@ -2,13 +2,13 @@
 applyTo: "src/**/*.{tsx,ts}"
 ---
 
-# Next.js with Aksel Design System
+# Next.js med Aksel Design System
 
-## Spacing Rules
+## Spacing-regler
 
-**CRITICAL**: Always use Nav DS spacing tokens, never Tailwind padding/margin utilities.
+**VIKTIG**: Bruk alltid Nav DS spacing-tokens, aldri Tailwind padding/margin.
 
-### ✅ Correct Patterns
+### ✅ Riktig
 
 ```tsx
 import { Box, VStack, HGrid } from "@navikt/ds-react";
@@ -23,35 +23,35 @@ import { Box, VStack, HGrid } from "@navikt/ds-react";
   </Box>
 </main>
 
-// Component with responsive padding
+// Komponent med responsiv padding
 <Box
   background="surface-subtle"
   padding={{ xs: "space-12", sm: "space-16", md: "space-24" }}
   borderRadius="large"
 >
-  <Heading size="large" level="2">Title</Heading>
-  <BodyShort>Content</BodyShort>
+  <Heading size="large" level="2">Tittel</Heading>
+  <BodyShort>Innhold</BodyShort>
 </Box>
 
-// Directional padding
+// Retningsbestemt padding
 <Box
-  paddingBlock="space-16"    // Top and bottom
-  paddingInline="space-24"   // Left and right
+  paddingBlock="space-16"    // Topp og bunn
+  paddingInline="space-24"   // Venstre og høyre
 >
 ```
 
-### ❌ Incorrect Patterns
+### ❌ Feil
 
 ```tsx
-// Never use Tailwind padding/margin
-<div className="p-4 md:p-6">  // ❌ Wrong
-<div className="mx-4 my-2">   // ❌ Wrong
-<Box padding="4">             // ❌ Wrong - no space- prefix
+// Aldri bruk Tailwind padding/margin
+<div className="p-4 md:p-6">  // ❌ Feil
+<div className="mx-4 my-2">   // ❌ Feil
+<Box padding="4">             // ❌ Feil — mangler space-prefiks
 ```
 
-## Spacing Tokens
+## Spacing-tokens
 
-Available spacing tokens (always with `space-` prefix):
+Tilgjengelige tokens (alltid med `space-`-prefiks):
 
 - `space-4` (4px)
 - `space-8` (8px)
@@ -62,11 +62,11 @@ Available spacing tokens (always with `space-` prefix):
 - `space-32` (32px)
 - `space-40` (40px)
 
-## Responsive Design
+## Responsiv design
 
-Mobile-first approach with breakpoints:
+Mobil først med breakpoints:
 
-- `xs`: 0px (mobile)
+- `xs`: 0px (mobil)
 - `sm`: 480px
 - `md`: 768px
 - `lg`: 1024px
@@ -82,68 +82,68 @@ Mobile-first approach with breakpoints:
 >
 ```
 
-## Component Patterns
+## Komponentmønstre
 
-### Layout Components
+### Layout-komponenter
 
 ```tsx
 import { Box, VStack, HStack, HGrid } from "@navikt/ds-react";
 
-// Vertical stack with spacing
+// Vertikal stack med mellomrom
 <VStack gap="4">
-  <Component1 />
-  <Component2 />
-  <Component3 />
+  <Komponent1 />
+  <Komponent2 />
+  <Komponent3 />
 </VStack>
 
-// Horizontal stack
+// Horisontal stack
 <HStack gap="4" align="center">
   <Icon />
   <Text />
 </HStack>
 
-// Responsive grid
+// Responsiv grid
 <HGrid columns={{ xs: 1, md: 2, lg: 3 }} gap="4">
-  {/* Grid items */}
+  {/* Grid-elementer */}
 </HGrid>
 ```
 
-### Typography
+### Typografi
 
 ```tsx
 import { Heading, BodyShort, Label } from "@navikt/ds-react";
 
 <Heading size="large|medium|small" level="1-6">
-  Title
+  Tittel
 </Heading>
 
 <BodyShort size="large|medium|small">
-  Regular text content
+  Vanlig tekstinnhold
 </BodyShort>
 
 <BodyShort weight="semibold">
-  Bold text
+  Halvfet tekst
 </BodyShort>
 
 <Label size="large|medium|small">
-  Input label
+  Skjemaetikett
 </Label>
 ```
 
-### Background Colors
+### Bakgrunnsfarger
 
 ```tsx
-<Box background="surface-default">     {/* White */}
-<Box background="surface-subtle">      {/* Light gray */}
-<Box background="surface-action-subtle">  {/* Light blue */}
-<Box background="surface-success-subtle"> {/* Light green */}
-<Box background="surface-warning-subtle"> {/* Light orange */}
-<Box background="surface-danger-subtle">  {/* Light red */}
+<Box background="surface-default">     {/* Hvit */}
+<Box background="surface-subtle">      {/* Lys grå */}
+<Box background="surface-action-subtle">  {/* Lys blå */}
+<Box background="surface-success-subtle"> {/* Lys grønn */}
+<Box background="surface-warning-subtle"> {/* Lys oransje */}
+<Box background="surface-danger-subtle">  {/* Lys rød */}
 ```
 
-## Number Formatting
+## Tallformatering
 
-Always use Norwegian locale for number formatting:
+Bruk alltid norsk locale for tallformatering:
 
 ```typescript
 import { formatNumber } from "@/lib/format";
@@ -246,6 +246,109 @@ export function InteractiveComponent() {
   const [count, setCount] = useState(0);
 
   return <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>;
+}
+```
+
+## Loading and Error States
+
+```tsx
+// src/app/oversikt/loading.tsx — shown during server component loading
+import { Loader, Box } from "@navikt/ds-react";
+
+export default function Loading() {
+  return (
+    <Box padding="space-24" className="flex justify-center">
+      <Loader size="xlarge" title="Laster data..." />
+    </Box>
+  );
+}
+
+// src/app/oversikt/error.tsx — shown on uncaught errors
+"use client";
+
+import { Alert, Button, VStack } from "@navikt/ds-react";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return (
+    <VStack gap="4">
+      <Alert variant="error">
+        Noe gikk galt. Prøv igjen senere.
+      </Alert>
+      <Button variant="secondary" onClick={reset}>Prøv igjen</Button>
+    </VStack>
+  );
+}
+```
+
+## Streaming with Suspense
+
+```tsx
+import { Suspense } from "react";
+import { Skeleton } from "@navikt/ds-react";
+
+export default function Page() {
+  return (
+    <VStack gap="8">
+      <Heading size="large" level="1">Oversikt</Heading>
+      <Suspense fallback={<Skeleton variant="rounded" height={200} />}>
+        <SlowDataComponent />
+      </Suspense>
+    </VStack>
+  );
+}
+
+// This component can load independently
+async function SlowDataComponent() {
+  const data = await fetchSlowData(); // streams in when ready
+  return <DataTable data={data} />;
+}
+```
+
+## Server Actions
+
+```tsx
+// src/app/vedtak/actions.ts
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { getUser } from "@/lib/auth";
+
+export async function createVedtak(formData: FormData) {
+  const user = await getUser();
+
+  const tittel = formData.get("tittel") as string;
+  if (!tittel) {
+    return { error: "Tittel er påkrevd" };
+  }
+
+  await saveToDatabase({ tittel, opprettetAv: user.name });
+  revalidatePath("/vedtak");
+  return { success: true };
+}
+```
+
+```tsx
+// src/app/vedtak/page.tsx
+"use client";
+
+import { useActionState } from "react";
+import { createVedtak } from "./actions";
+
+export default function VedtakForm() {
+  const [state, action, isPending] = useActionState(createVedtak, null);
+
+  return (
+    <form action={action}>
+      <TextField name="tittel" label="Tittel" error={state?.error} />
+      <Button type="submit" loading={isPending}>Opprett</Button>
+    </form>
+  );
 }
 ```
 
