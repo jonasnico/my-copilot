@@ -8,10 +8,10 @@ Agenter, instruksjoner, skills og MCP-servere som gjør GitHub Copilot smartere 
 
 En kuratert samling Copilot-tilpasninger for Nav-økosystemet:
 
-- **🤖 [6 Agenter](#-agenter)** — Spesialiserte AI-assistenter for Nais, Aksel, Kafka, Auth, Observability og Sikkerhet
-- **📋 [4 Instruksjoner](#-instruksjoner)** — Kodestandarder som aktiveres automatisk basert på filmønster
-- **⚡ [3 Prompts](#-prompts)** — Scaffolding-maler for vanlige Nav-mønstre
-- **🎯 [5 Ferdigheter](#-skills)** — Produksjonsmønstre fra ekte Nav-repoer
+- **🤖 [10 Agenter](#-agenter)** — Spesialiserte AI-assistenter for kodegjennomgang, sikkerhet, tilgjengelighet, Nais, Aksel, Kafka, Auth, Observability m.fl.
+- **📋 [8 Instruksjoner](#-instruksjoner)** — Kodestandarder som aktiveres automatisk basert på filmønster
+- **⚡ [5 Prompts](#-prompts)** — Scaffolding-maler for vanlige Nav-mønstre
+- **🎯 [13 Ferdigheter](#-skills)** — Produksjonsmønstre fra ekte Nav-repoer
 - **🔌 [6 MCP-servere](#-mcp-servere)** — GitHub, Figma, Next.js, Svelte, Playwright og Nav Onboarding
 
 Alle tilpasninger er tilgjengelige fra **[Verktøy-siden](https://min-copilot.ansatt.nav.no/verktoy)** med søk, domenefiltrering og installasjonsinstruksjoner.
@@ -27,7 +27,7 @@ Gå til **[min-copilot.ansatt.nav.no/verktoy](https://min-copilot.ansatt.nav.no/
 - **[Agenter →](docs/README.agents.md)** — VS Code one-click, JetBrains via coding agent
 - **[Instruksjoner →](docs/README.instructions.md)** — Alle editorer
 - **[Prompts →](docs/README.prompts.md)** — VS Code, JetBrains
-- **[Ferdigheter →](docs/README.skills.md)** — VS Code
+- **[Skills →](docs/README.skills.md)** — VS Code
 - **[MCP-servere →](docs/README.mcp.md)** — Alle editorer
 
 ### Med MCP Onboarding
@@ -40,7 +40,7 @@ Bruk **MCP Onboarding**-serveren for å utforske tilpasninger, sjekke agent-read
 
 Spesialiserte AI-assistenter for Nav-domener. Bruk med `@agent-name` i Copilot Chat eller ved tildeling av issues til Copilot coding agent.
 
-**Tilgjengelige:** @nais-agent, @auth-agent, @kafka-agent, @aksel-agent, @observability-agent, @security-champion-agent
+**Tilgjengelige:** @nais-agent, @auth-agent, @kafka-agent, @aksel-agent, @observability-agent, @security-champion-agent, @research-agent, @forfatter, @code-review-agent, @accessibility-agent
 
 👉 **[Full dokumentasjon →](docs/README.agents.md)**
 
@@ -50,7 +50,7 @@ Spesialiserte AI-assistenter for Nav-domener. Bruk med `@agent-name` i Copilot C
 
 Regler som Copilot aktiverer automatisk basert på filmønster (f.eks. `*.kt`, `*.tsx`, `*.sql`).
 
-**Tilgjengelige:** Testing, Kotlin/Ktor, Next.js/Aksel, Database-migrasjoner
+**Tilgjengelige:** Kotlin/Ktor, Kotlin/Spring, Next.js/Aksel, Testing, Accessibility, Database, Docker, GitHub Actions
 
 👉 **[Full dokumentasjon →](docs/README.instructions.md)**
 
@@ -60,17 +60,17 @@ Regler som Copilot aktiverer automatisk basert på filmønster (f.eks. `*.kt`, `
 
 Scaffolding-maler tilgjengelig via `/prompt-name` eller `#prompt-name` i Copilot Chat.
 
-**Tilgjengelige:** #aksel-component, #kafka-topic, #nais-manifest
+**Tilgjengelige:** #aksel-component, #kafka-topic, #nais-manifest, #spring-boot-endpoint, #nextjs-api-route
 
 👉 **[Full dokumentasjon →](docs/README.prompts.md)**
 
 ---
 
-## 🎯 Ferdigheter
+## 🎯 Skills
 
 Produksjonsmønstre med innebygde maler og referanser.
 
-**Tilgjengelige:** TokenX Auth, Observability Setup, Aksel Spacing, Kotlin App Config, Flyway Migration
+**Tilgjengelige:** TokenX Auth, Observability Setup, Aksel Spacing, Kotlin App Config, Flyway Migration, Security Review, API Design, Conventional Commit, Spring Boot Scaffold, PostgreSQL Review, Playwright Testing, AI News Research, Web Design Reviewer
 
 👉 **[Full dokumentasjon →](docs/README.skills.md)**
 

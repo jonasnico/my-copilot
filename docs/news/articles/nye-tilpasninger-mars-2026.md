@@ -1,14 +1,15 @@
 ---
-title: "16 nye Copilot-tilpasninger for Nav-utviklere"
-date: 2026-03-16
+title: "17 nye Copilot-tilpasninger for Nav-utviklere"
+date: 2026-03-17
 category: nav
-excerpt: "Tre instruksjoner, fem skills, en tilgjengelighetsagent og to prompts som dekker Spring Boot, Playwright, PostgreSQL, Docker med Chainguard og WCAG-tilgjengelighet."
+excerpt: "Tre instruksjoner, fem skills, to agenter, to prompts og seks utvidelser. Dekker kodegjennomgang, Spring Boot, Playwright, PostgreSQL, Docker med Chainguard og WCAG-tilgjengelighet."
 tags:
   - customizations
   - instructions
   - skills
   - agents
   - prompts
+  - code-review
   - accessibility
   - spring-boot
   - playwright
@@ -16,7 +17,7 @@ tags:
   - docker
 ---
 
-Vi har analysert [github/awesome-copilot](https://github.com/github/awesome-copilot) opp mot hva Nav-utviklere faktisk bruker — Java, Kotlin, Spring Boot, Ktor, Next.js, React, Aksel, PostgreSQL — og laget tilpasninger som dekker hullene. Resultatet er 16 nye filer og fem utvidelser av eksisterende.
+Vi har analysert [github/awesome-copilot](https://github.com/github/awesome-copilot) opp mot hva Nav-utviklere faktisk bruker — Java, Kotlin, Spring Boot, Ktor, Next.js, React, Aksel, PostgreSQL — og laget tilpasninger som dekker hullene. Resultatet er 17 nye filer og fem utvidelser av eksisterende.
 
 ## Tre nye instruksjoner
 
@@ -30,7 +31,7 @@ Instruksjoner aktiveres automatisk når du redigerer filer som matcher mønstere
 
 ## Fem nye skills
 
-Ferdigheter lastes på forespørsel — agenten henter SKILL.md når oppgaven matcher.
+Skills lastes på forespørsel — agenten henter SKILL.md når oppgaven matcher.
 
 | Ferdighet                                                      | Hva den gjør                                                                        |
 | -------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -40,7 +41,21 @@ Ferdigheter lastes på forespørsel — agenten henter SKILL.md når oppgaven ma
 | [**api-design**](/verktoy?item=api-design)                     | REST-konvensjoner, ProblemDetail (RFC 7807), paginering, OpenAPI                    |
 | [**conventional-commit**](/verktoy?item=conventional-commit)   | Commit-meldinger med `feat`/`fix`/`docs`, Nav-scopes og breaking change-format      |
 
-## Ny agent: [`@accessibility-agent`](/verktoy?item=accessibility-agent)
+## Nye agenter
+
+### [`@code-review-agent`](/verktoy?item=code-review-agent)
+
+Gjennomgår kode på tvers av Navs stack — Kotlin/Spring, Kotlin/Ktor, TypeScript/Next.js, Go, Dockerfile og GitHub Actions. Agenten:
+
+- Prioriterer funn med 🔴 Blocker, 🟡 Forslag og 💭 Småplukk
+- Kjører `mise check` for lint og typesjekk
+- Sjekker sikkerhet, feilhåndtering, testing og Nais-krav
+- Delegerer til spesialistagenter (`@security-champion-agent`, `@accessibility-agent`, `@aksel-agent`)
+- Rapporterer funn i en tabell — fikser ikke kode selv
+
+Bruk: `@code-review-agent Gå gjennom endringene mine før jeg lager PR`
+
+### [`@accessibility-agent`](/verktoy?item=accessibility-agent)
 
 En WCAG 2.1/2.2-ekspert du kan spørre direkte i chatten. Agenten kan:
 

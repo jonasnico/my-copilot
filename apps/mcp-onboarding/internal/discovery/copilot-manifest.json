@@ -69,6 +69,28 @@
     },
     {
       "type": "agent",
+      "name": "code-review-agent",
+      "displayName": "@code-review-agent",
+      "description": "Kodegjennomgang for Nav-applikasjoner — finner feil, sikkerhetsproblemer og brudd på Nav-konvensjoner",
+      "filePath": ".github/agents/code-review.agent.md",
+      "useCases": [
+        "Creating .nais/app.yaml manifests",
+        "Adding PostgreSQL/Kafka",
+        "Azure AD integration",
+        "TokenX token exchange",
+        "Creating Kafka event consumers",
+        "Designing event schemas",
+        "Converting Tailwind to Aksel tokens",
+        "Responsive layouts",
+        "Network policies",
+        "Secrets management",
+        "GDPR compliance"
+      ],
+      "installUrl": "vscode:chat-agent/install?url=https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/code-review.agent.md",
+      "rawUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/code-review.agent.md"
+    },
+    {
+      "type": "agent",
       "name": "forfatter",
       "displayName": "@forfatter",
       "description": "Norsk teknisk redaktør: klarspråk, AI-markører, anglismer, fagtermer, mikrotekst.",

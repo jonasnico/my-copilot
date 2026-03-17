@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-16T20:59:09.292Z",
+  "generatedAt": "2026-03-17T09:15:26.906Z",
   "items": [
     {
       "id": "accessibility-agent",
@@ -118,6 +118,45 @@
         {
           "prompt": "@auth-agent Hvordan validerer jeg et ID-porten-token i dp-soknad?",
           "scenario": "ID-porten-validering"
+        }
+      ]
+    },
+    {
+      "id": "code-review-agent",
+      "name": "code-review-agent",
+      "description": "Gjennomgår Kotlin, TypeScript, Go, Dockerfiles og GitHub Actions for feil, sikkerhetsproblemer og brudd på Nav-konvensjoner. Rapporterer funn — fikser ikke kode selv.",
+      "type": "agent",
+      "domain": "general",
+      "filePath": ".github/agents/code-review.agent.md",
+      "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/agents/code-review.agent.md",
+      "installUrl": "/install/agent?url=vscode%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fagents%2Fcode-review.agent.md",
+      "insidersInstallUrl": "/install/agent?url=vscode-insiders%3Achat-agent%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Fagents%2Fcode-review.agent.md",
+      "tools": [
+        "execute",
+        "read",
+        "search",
+        "web",
+        "todo",
+        "ms-vscode.vscode-websearchforcopilot/websearch",
+        "io.github.navikt/github-mcp/get_file_contents",
+        "io.github.navikt/github-mcp/search_code",
+        "io.github.navikt/github-mcp/pull_request_read",
+        "io.github.navikt/github-mcp/list_pull_requests",
+        "io.github.navikt/github-mcp/search_pull_requests"
+      ],
+      "tags": ["code-review", "quality", "conventions", "pre-merge"],
+      "examples": [
+        {
+          "prompt": "@code-review-agent Gå gjennom endringene mine før jeg lager PR",
+          "scenario": "Pre-PR gjennomgang"
+        },
+        {
+          "prompt": "@code-review-agent Sjekk denne Kotlin-kontrolleren for sikkerhetsproblemer",
+          "scenario": "Sikkerhetssjekk"
+        },
+        {
+          "prompt": "@code-review-agent Sjekk src/app/usage/page.tsx for Nav-konvensjoner",
+          "scenario": "Konvensjonssjekk"
         }
       ]
     },
