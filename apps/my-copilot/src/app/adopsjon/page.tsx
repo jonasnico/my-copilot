@@ -105,10 +105,10 @@ function TeamContent({ data }: { data: AdoptionData }) {
           subtitle={`${stats.adoptionPercent.toFixed(0)}% av team`}
         />
         <MetricCard
-          value={formatNumber(stats.totalReposWithCustomizations)}
+          value={formatNumber(data.summary?.repos_with_any_customization ?? 0)}
           label="Tilpassede repoer"
           helpTitle="Tilpassede repoer"
-          helpText="Repoer med Copilot-tilpasninger, summert på tvers av team"
+          helpText="Antall unike repoer med minst én Copilot-tilpasning"
         />
       </HGrid>
 
@@ -161,10 +161,10 @@ function LanguageContent({ data }: { data: AdoptionData }) {
           }
         />
         <MetricCard
-          value={formatNumber(stats.totalReposWithCustomizations)}
+          value={formatNumber(data.summary?.repos_with_any_customization ?? 0)}
           label="Repoer med tilpasninger"
           helpTitle="Repoer med tilpasninger"
-          helpText="Repoer med tilpasninger, summert på tvers av språk"
+          helpText="Antall unike repoer med minst én Copilot-tilpasning"
         />
       </HGrid>
 
@@ -204,9 +204,9 @@ function TopCustomizationsContent({ data }: { data: AdoptionData }) {
         />
         <MetricCard
           value={formatNumber(totalActiveRepoUsages)}
-          label="Bruk i aktive repoer"
-          helpTitle="Bruk i aktive repoer"
-          helpText="Antall tilpasningsfiler i bruk i repoer med commit siste 90 dager"
+          label="Tilpasningsfiler i bruk"
+          helpTitle="Tilpasningsfiler i bruk"
+          helpText="Antall tilpasningsfiler i aktive repoer. Repoer med flere filer telles flere ganger."
           subtitle={`${formatNumber(totalRepoUsages)} totalt`}
         />
       </HGrid>

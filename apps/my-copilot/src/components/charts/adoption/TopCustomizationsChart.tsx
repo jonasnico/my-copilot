@@ -75,7 +75,7 @@ function CategoryChart({
 }
 
 const TopCustomizationsChart: React.FC<TopCustomizationsChartProps> = ({ data, maxItems = 10 }) => {
-  const [originFilter, setOriginFilter] = useState<OriginFilter>("all");
+  const [originFilter, setOriginFilter] = useState<OriginFilter>("official");
   const [scope, setScope] = useState<AdoptionScope>("active");
   const officialNames = useMemo(() => getOfficialFileNames(), []);
 
