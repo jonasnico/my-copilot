@@ -3,6 +3,14 @@
 [tools]
 "go:github.com/sethvargo/ratchet" = "latest"
 
+[tasks."docs:generate"]
+description = "Generate docs from customization files"
+run = "(cd scripts/generate-docs && go run .)"
+
+[tasks."docs:check"]
+description = "Check if docs are in sync with customization files"
+run = "(cd scripts/generate-docs && go run . --check)"
+
 [tasks."ratchet:pin"]
 description = "Pin GitHub Actions to specific commit SHAs"
 run = "ratchet pin .github/workflows/*.y?ml"
@@ -42,6 +50,10 @@ echo ""
 
 echo "📦 my-copilot:"
 (cd apps/my-copilot && mise check)
+echo ""
+
+echo "📄 docs:"
+mise run docs:check
 echo ""
 
 echo "✅ All checks passed"
@@ -118,6 +130,10 @@ echo ""
 
 echo "📦 my-copilot:"
 (cd apps/my-copilot && mise run generate)
+echo ""
+
+echo "📄 docs:"
+mise run docs:generate
 echo ""
 
 echo "✅ All files generated"

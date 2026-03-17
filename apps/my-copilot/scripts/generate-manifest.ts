@@ -9,6 +9,8 @@ const RAW_BASE = "https://raw.githubusercontent.com/navikt/copilot/main/.github"
 const OUTPUT = path.resolve(import.meta.dirname, "../src/lib/copilot-manifest.json");
 
 interface Metadata {
+  displayName?: string;
+  description?: string;
   domain?: Domain;
   tags?: string[];
   excluded?: boolean;
@@ -109,15 +111,10 @@ function getAgents(): ManifestItem[] {
       const tools = Array.isArray(data.tools) ? data.tools : [];
       const meta = loadMetadata(path.join(dir, file.replace(".agent.md", ".metadata.json")));
 
-      const firstParagraph = body
-        .split("\n\n")
-        .find((p) => p.trim() && !p.startsWith("#"))
-        ?.trim();
-
       return {
         id: name,
         name,
-        description: firstParagraph || description,
+        description,
         type: "agent" as const,
         domain: meta.domain || "general",
         filePath: `.github/agents/${file}`,
@@ -145,20 +142,12 @@ function getInstructions(): ManifestItem[] {
       const applyTo = (data.applyTo as string) || "";
       const meta = loadMetadata(path.join(dir, file.replace(".instructions.md", ".metadata.json")));
 
-      const heading = body.match(/^#\s+(.+)$/m);
-      const displayName = heading ? heading[1] : id;
-
-      const firstParagraph = body
-        .split("\n\n")
-        .find((p) => p.trim() && !p.startsWith("#"))
-        ?.trim();
-
       const rawUrl = `${RAW_BASE}/instructions/${file}`;
 
       return {
         id,
-        name: displayName,
-        description: firstParagraph || `Instruksjoner for ${applyTo}`,
+        name: meta.displayName || id,
+        description: meta.description || `Instruksjoner for ${applyTo}`,
         type: "instruction" as const,
         domain: meta.domain || "general",
         filePath: `.github/instructions/${file}`,

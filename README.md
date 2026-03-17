@@ -8,11 +8,13 @@ Agenter, instruksjoner, skills og MCP-servere som gjør GitHub Copilot smartere 
 
 En kuratert samling Copilot-tilpasninger for Nav-økosystemet:
 
-- **🤖 [10 Agenter](#-agenter)** — Spesialiserte AI-assistenter for kodegjennomgang, sikkerhet, tilgjengelighet, Nais, Aksel, Kafka, Auth, Observability m.fl.
-- **📋 [8 Instruksjoner](#-instruksjoner)** — Kodestandarder som aktiveres automatisk basert på filmønster
-- **⚡ [5 Prompts](#-prompts)** — Scaffolding-maler for vanlige Nav-mønstre
-- **🎯 [13 Ferdigheter](#-skills)** — Produksjonsmønstre fra ekte Nav-repoer
-- **🔌 [6 MCP-servere](#-mcp-servere)** — GitHub, Figma, Next.js, Svelte, Playwright og Nav Onboarding
+<!-- BEGIN GENERATED COUNTS -->
+- **🤖 [10 Agenter](docs/README.agents.md)** — Spesialiserte AI-assistenter for Nav-domener
+- **📋 [8 Instruksjoner](docs/README.instructions.md)** — Kodestandarder som aktiveres automatisk basert på filmønster
+- **⚡ [5 Prompts](docs/README.prompts.md)** — Scaffolding-maler for vanlige Nav-mønstre
+- **🎯 [12 Skills](docs/README.skills.md)** — Produksjonsmønstre fra ekte Nav-repoer
+- **🔌 [MCP-servere](docs/README.mcp.md)** — Nav-godkjente MCP-servere fra registeret
+<!-- END GENERATED COUNTS -->
 
 Alle tilpasninger er tilgjengelige fra **[Verktøy-siden](https://min-copilot.ansatt.nav.no/verktoy)** med søk, domenefiltrering og installasjonsinstruksjoner.
 
@@ -36,60 +38,15 @@ Bruk **MCP Onboarding**-serveren for å utforske tilpasninger, sjekke agent-read
 
 ---
 
-## 🤖 Agenter
+## Tilpasninger
 
-Spesialiserte AI-assistenter for Nav-domener. Bruk med `@agent-name` i Copilot Chat eller ved tildeling av issues til Copilot coding agent.
-
-**Tilgjengelige:** @nais-agent, @auth-agent, @kafka-agent, @aksel-agent, @observability-agent, @security-champion-agent, @research-agent, @forfatter, @code-review-agent, @accessibility-agent
-
-👉 **[Full dokumentasjon →](docs/README.agents.md)**
-
----
-
-## 📋 Instruksjoner
-
-Regler som Copilot aktiverer automatisk basert på filmønster (f.eks. `*.kt`, `*.tsx`, `*.sql`).
-
-**Tilgjengelige:** Kotlin/Ktor, Kotlin/Spring, Next.js/Aksel, Testing, Accessibility, Database, Docker, GitHub Actions
-
-👉 **[Full dokumentasjon →](docs/README.instructions.md)**
-
----
-
-## ⚡ Prompts
-
-Scaffolding-maler tilgjengelig via `/prompt-name` eller `#prompt-name` i Copilot Chat.
-
-**Tilgjengelige:** #aksel-component, #kafka-topic, #nais-manifest, #spring-boot-endpoint, #nextjs-api-route
-
-👉 **[Full dokumentasjon →](docs/README.prompts.md)**
-
----
-
-## 🎯 Skills
-
-Produksjonsmønstre med innebygde maler og referanser.
-
-**Tilgjengelige:** TokenX Auth, Observability Setup, Aksel Spacing, Kotlin App Config, Flyway Migration, Security Review, API Design, Conventional Commit, Spring Boot Scaffold, PostgreSQL Review, Playwright Testing, AI News Research, Web Design Reviewer
-
-👉 **[Full dokumentasjon →](docs/README.skills.md)**
-
----
-
-## 🔌 MCP-servere
-
-Nav-godkjente MCP-servere fra [MCP-registeret](https://mcp-registry.nav.no). Serverne dukker automatisk opp i VS Code og JetBrains når registeret er konfigurert på organisasjonsnivå.
-
-| Server                 | Beskrivelse                                              | Type         |
-| ---------------------- | -------------------------------------------------------- | ------------ |
-| **GitHub MCP**         | Repos, issues, PRs via GitHub API                        | Remote       |
-| **Nav MCP Onboarding** | Utforsk tilpasninger, agent-readiness, generer AGENTS.md | Remote       |
-| **Figma MCP**          | Designkontekst fra Figma til kode                        | Remote       |
-| **Next.js DevTools**   | Diagnostikk og dokumentasjon fra Next.js dev-server      | npm-pakke    |
-| **Svelte MCP**         | Søk i Svelte 5/SvelteKit-dokumentasjon                   | Remote + npm |
-| **Playwright MCP**     | Browser-automatisering for testing (Nav-sikret)          | npm-pakke    |
-
-👉 **[Full dokumentasjon →](docs/README.mcp.md)**
+| Type                | Beskrivelse                                                                             | Dokumentasjon                                      |
+| ------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| 🤖 **Agenter**       | Spesialiserte AI-assistenter for Nav-domener — bruk med `@agent-name` i Copilot Chat    | **[Agenter →](docs/README.agents.md)**             |
+| 📋 **Instruksjoner** | Kodestandarder som aktiveres automatisk basert på filmønster (`*.kt`, `*.tsx`, `*.sql`) | **[Instruksjoner →](docs/README.instructions.md)** |
+| ⚡ **Prompts**       | Scaffolding-maler tilgjengelig via `#prompt-name` i Copilot Chat                        | **[Prompts →](docs/README.prompts.md)**            |
+| 🎯 **Skills**        | Produksjonsmønstre med innebygde maler og referanser                                    | **[Skills →](docs/README.skills.md)**              |
+| 🔌 **MCP-servere**   | Nav-godkjente servere fra [MCP-registeret](https://mcp-registry.nav.no)                 | **[MCP-servere →](docs/README.mcp.md)**            |
 
 ---
 
@@ -208,7 +165,7 @@ Tilpasningene dekker Navs kjernestack:
 
 To add new customizations:
 
-1. **Agents**: Add `*.agent.md` to `.github/agents/` following the [agent naming conventions](#-agenter)
+1. **Agents**: Add `*.agent.md` to `.github/agents/` following the [agent docs](docs/README.agents.md)
 2. **Instructions**: Add `*.instructions.md` to `.github/instructions/`
 3. **Prompts**: Add `*.prompt.md` to `.github/prompts/`
 4. **Skills**: Add folder with `SKILL.md` to `.github/skills/`

@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-17T09:15:26.906Z",
+  "generatedAt": "2026-03-17T10:48:13.552Z",
   "items": [
     {
       "id": "accessibility-agent",
       "name": "accessibility-agent",
-      "description": "Du er en ekspert på universell utforming (UU) og WCAG 2.1/2.2 for Nav-applikasjoner. Du hjelper utviklere med å bygge tilgjengelige løsninger som oppfyller norske lovkrav.",
+      "description": "Ekspert på WCAG 2.1/2.2, universell utforming, Aksel accessibility-mønstre og automatisert UU-testing",
       "type": "agent",
       "domain": "frontend",
       "filePath": ".github/agents/accessibility.agent.md",
@@ -36,7 +36,7 @@
     {
       "id": "aksel-agent",
       "name": "aksel-agent",
-      "description": "Nav's Aksel Design System expert (@navikt/ds-react >= v7.x). Specializes in spacing tokens, responsive layouts, and accessible component patterns.",
+      "description": "Ekspert på Navs Aksel Design System, spacing-tokens, responsiv layout og komponentmønstre",
       "type": "agent",
       "domain": "frontend",
       "filePath": ".github/agents/aksel.agent.md",
@@ -84,7 +84,7 @@
     {
       "id": "auth-agent",
       "name": "auth-agent",
-      "description": "Authentication and authorization expert for Nav applications. Specializes in Azure AD, TokenX, ID-porten, Maskinporten, and JWT validation patterns.",
+      "description": "Ekspert på Azure AD, TokenX, ID-porten, Maskinporten og JWT-validering for Nav-applikasjoner",
       "type": "agent",
       "domain": "auth",
       "filePath": ".github/agents/auth.agent.md",
@@ -124,7 +124,7 @@
     {
       "id": "code-review-agent",
       "name": "code-review-agent",
-      "description": "Gjennomgår Kotlin, TypeScript, Go, Dockerfiles og GitHub Actions for feil, sikkerhetsproblemer og brudd på Nav-konvensjoner. Rapporterer funn — fikser ikke kode selv.",
+      "description": "Kodegjennomgang for Nav-applikasjoner — finner feil, sikkerhetsproblemer og brudd på Nav-konvensjoner",
       "type": "agent",
       "domain": "general",
       "filePath": ".github/agents/code-review.agent.md",
@@ -163,7 +163,7 @@
     {
       "id": "forfatter",
       "name": "forfatter",
-      "description": "Du er en norsk teknisk redaktør. Du redigerer tekst på norsk bokmål for utviklere, driftere og arkitekter i Nav.",
+      "description": "Norsk teknisk redaktør: klarspråk, AI-markører, anglismer, fagtermer, mikrotekst.",
       "type": "agent",
       "domain": "general",
       "filePath": ".github/agents/forfatter.agent.md",
@@ -208,7 +208,7 @@
     {
       "id": "kafka-agent",
       "name": "kafka-agent",
-      "description": "Kafka and Rapids & Rivers expert for Nav applications. Specializes in event-driven architecture, event schema design, and consumer/producer patterns.",
+      "description": "Ekspert på Rapids & Rivers eventdrevet arkitektur, Kafka-mønstre og event schema-design",
       "type": "agent",
       "domain": "backend",
       "filePath": ".github/agents/kafka.agent.md",
@@ -248,7 +248,7 @@
     {
       "id": "nais-agent",
       "name": "nais-agent",
-      "description": "Nais platform expert for Nav applications. Specializes in Kubernetes deployment, GCP resources (PostgreSQL, Kafka), and platform troubleshooting.",
+      "description": "Ekspert på Nais-deployment, GCP-ressurser, Kafka-topics og plattform-feilsøking",
       "type": "agent",
       "domain": "platform",
       "filePath": ".github/agents/nais.agent.md",
@@ -291,7 +291,7 @@
     {
       "id": "observability-agent",
       "name": "observability-agent",
-      "description": "Observability expert for Nav applications. Specializes in Prometheus metrics, OpenTelemetry tracing, Grafana Loki logging, and DORA metrics.",
+      "description": "Ekspert på Prometheus-metrikker, OpenTelemetry-tracing, Grafana-dashboards og varsling",
       "type": "agent",
       "domain": "observability",
       "filePath": ".github/agents/observability.agent.md",
@@ -331,7 +331,7 @@
     {
       "id": "research-agent",
       "name": "research-agent",
-      "description": "Research specialist for Nav codebases. Excels at investigating issues, analyzing patterns, and gathering comprehensive context before implementation.",
+      "description": "Ekspert på å utforske kodebaser, undersøke problemer, analysere mønstre og samle kontekst før implementering",
       "type": "agent",
       "domain": "general",
       "filePath": ".github/agents/research.agent.md",
@@ -374,7 +374,7 @@
     {
       "id": "security-champion-agent",
       "name": "security-champion-agent",
-      "description": "Security architect for Nav applications. Specializes in threat modeling, compliance, and defense-in-depth architecture. Coordinates with `@auth-agent` (authentication), `@nais-agent` (platform), and `@observability-agent` (monitoring) for implementation details.",
+      "description": "Ekspert på Navs sikkerhetsarkitektur, trusselmodellering, compliance og helhetlig sikkerhetspraksis",
       "type": "agent",
       "domain": "general",
       "filePath": ".github/agents/security-champion.agent.md",
@@ -419,8 +419,8 @@
     },
     {
       "id": "accessibility",
-      "name": "Accessibility (UU) Standards",
-      "description": "Universell utforming er lovpålagt i Norge. All frontend-kode i Nav skal oppfylle WCAG 2.1 AA.",
+      "name": "Accessibility (UU)",
+      "description": "WCAG 2.1 AA, semantisk HTML, ARIA, Aksel a11y-patterns, keyboard-navigasjon.",
       "type": "instruction",
       "domain": "frontend",
       "filePath": ".github/instructions/accessibility.instructions.md",
@@ -433,8 +433,8 @@
     },
     {
       "id": "database",
-      "name": "Database Migration Standards (Flyway)",
-      "description": "Standarder for databasemigrasjoner med Flyway: navnekonvensjoner, sikre endringer og idempotente skript.",
+      "name": "Database Development",
+      "description": "Flyway migration standards, PostgreSQL schema patterns, safe alterations.",
       "type": "instruction",
       "domain": "backend",
       "filePath": ".github/instructions/database.instructions.md",
@@ -448,7 +448,7 @@
     {
       "id": "docker",
       "name": "Dockerfile Standards",
-      "description": "Standarder for Dockerfile i Nav: Chainguard base images, multi-stage builds og sikkerhetspraksis.",
+      "description": "Multi-stage builds, distroless base images, layer caching, non-root.",
       "type": "instruction",
       "domain": "platform",
       "filePath": ".github/instructions/docker.instructions.md",
@@ -461,8 +461,8 @@
     },
     {
       "id": "github-actions",
-      "name": "GitHub Actions CI/CD Standards",
-      "description": "Standarder for CI/CD-workflows med GitHub Actions på Nais: SHA-pinning, Nais deploy og caching.",
+      "name": "GitHub Actions CI/CD",
+      "description": "Action pinning, permissions, Nais deploy, caching, reusable workflows.",
       "type": "instruction",
       "domain": "platform",
       "filePath": ".github/instructions/github-actions.instructions.md",
@@ -475,8 +475,8 @@
     },
     {
       "id": "kotlin-ktor",
-      "name": "Kotlin/Ktor Development Standards",
-      "description": "Ktor- og Rapids & Rivers-mønstre for Nav-backends: ApplicationBuilder, sealed config, Kotliquery og feilhåndtering.",
+      "name": "Kotlin/Ktor Development",
+      "description": "ApplicationBuilder pattern, sealed classes, kotliquery/HikariCP, Rapids & Rivers.",
       "type": "instruction",
       "domain": "backend",
       "filePath": ".github/instructions/kotlin-ktor.instructions.md",
@@ -489,8 +489,8 @@
     },
     {
       "id": "kotlin-spring",
-      "name": "Spring Boot Framework Patterns",
-      "description": "Spring Boot-mønstre for Nav-backends: controller, service, repository, validering og feilhåndtering.",
+      "name": "Kotlin/Spring Development",
+      "description": "Spring Boot patterns: @RestController, @Service, Spring Data.",
       "type": "instruction",
       "domain": "backend",
       "filePath": ".github/instructions/kotlin-spring.instructions.md",
@@ -503,8 +503,8 @@
     },
     {
       "id": "nextjs-aksel",
-      "name": "Next.js med Aksel Design System",
-      "description": "Standarder for Next.js-apper med Aksel: spacing-tokens, responsive props og komponentmønstre.",
+      "name": "Next.js/Aksel Development",
+      "description": "Aksel spacing tokens (never Tailwind p-/m-), mobile-first responsive design.",
       "type": "instruction",
       "domain": "frontend",
       "filePath": ".github/instructions/nextjs-aksel.instructions.md",
@@ -518,7 +518,7 @@
     {
       "id": "testing",
       "name": "Testing Standards",
-      "description": "Teststandarder for Nav: Kotest-matchers i Kotlin, Jest i TypeScript og felles testprinsipper.",
+      "description": "Kotlin (Kotest/JUnit) and TypeScript (Jest) test patterns and coverage.",
       "type": "instruction",
       "domain": "general",
       "filePath": ".github/instructions/testing.instructions.md",

@@ -1,0 +1,44 @@
+name: docs check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/agents/**'
+      - '.github/instructions/**'
+      - '.github/prompts/**'
+      - '.github/skills/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'scripts/generate-docs/**'
+      - '.github/workflows/docs.yaml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/agents/**'
+      - '.github/instructions/**'
+      - '.github/prompts/**'
+      - '.github/skills/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'scripts/generate-docs/**'
+      - '.github/workflows/docs.yaml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Docs in sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # ratchet:actions/setup-go@v5
+        with:
+          go-version-file: scripts/generate-docs/go.mod
+      - run: cd scripts/generate-docs && go run . --check

@@ -35,22 +35,23 @@ rm -rf /tmp/nav-copilot
 
 ## Available Skills
 
+<!-- BEGIN GENERATED TABLE -->
 | Name | Description | Location |
 | ---- | ----------- | -------- |
-<!-- ai-news-research is excluded from the public registry (metadata.json has "excluded: true") — internal-only skill -->
-<!-- | **ai-news-research**     | Research and write monthly AI coding news summaries in Norwegian with working source links       | [`.github/skills/ai-news-research/`](../.github/skills/ai-news-research/SKILL.md)         | -->
-| **aksel-spacing**        | Responsive layout patterns using Aksel spacing tokens with Box, VStack, HStack, and HGrid        | [`.github/skills/aksel-spacing/`](../.github/skills/aksel-spacing/SKILL.md)               |
-| **flyway-migration**     | Database migration patterns using Flyway with versioned SQL scripts                              | [`.github/skills/flyway-migration/`](../.github/skills/flyway-migration/SKILL.md)         |
-| **kotlin-app-config**    | Sealed class configuration pattern for Kotlin applications with environment-specific settings    | [`.github/skills/kotlin-app-config/`](../.github/skills/kotlin-app-config/SKILL.md)       |
-| **observability-setup**  | Setting up Prometheus metrics, OpenTelemetry tracing, and health endpoints for Nais applications | [`.github/skills/observability-setup/`](../.github/skills/observability-setup/SKILL.md)   |
-| **security-review**      | Pre-commit/PR security checks — use when about to commit, push, or open a pull request           | [`.github/skills/security-review/`](../.github/skills/security-review/SKILL.md)           |
-| **tokenx-auth**          | Service-to-service authentication using TokenX token exchange in Nais                            | [`.github/skills/tokenx-auth/`](../.github/skills/tokenx-auth/SKILL.md)                   |
-| **web-design-reviewer**  | Visual inspection of websites to identify and fix responsive, accessibility, and layout issues   | [`.github/skills/web-design-reviewer/`](../.github/skills/web-design-reviewer/SKILL.md)   |
-| **playwright-testing**   | Generate and run Playwright E2E tests with page objects, auth fixtures, and accessibility checks | [`.github/skills/playwright-testing/`](../.github/skills/playwright-testing/SKILL.md)     |
-| **postgresql-review**    | PostgreSQL query review, optimization, EXPLAIN analysis, JSONB patterns, and anti-patterns       | [`.github/skills/postgresql-review/`](../.github/skills/postgresql-review/SKILL.md)       |
-| **spring-boot-scaffold** | Scaffold a new Spring Boot Kotlin project with Nais config, Flyway, Azure AD, and Docker         | [`.github/skills/spring-boot-scaffold/`](../.github/skills/spring-boot-scaffold/SKILL.md) |
-| **api-design**           | REST API design patterns, versioning, ProblemDetail error handling, and OpenAPI conventions      | [`.github/skills/api-design/`](../.github/skills/api-design/SKILL.md)                     |
-| **conventional-commit**  | Generate conventional commit messages with Nav-relevant scopes and breaking change format        | [`.github/skills/conventional-commit/`](../.github/skills/conventional-commit/SKILL.md)   |
+<!-- | **ai-news-research** | Skriv månedlige oppsummeringer av AI-nyheter for utviklere på norsk med fungerende kildelenker. Bruk for å skrive nyheter, oppsummere AI-trender, lage månedlig oppdatering, eller undersøke hva som er nytt i GitHub Copilot, coding agents, AGENTS.md, skills, memory, agentic workflows eller developer experience. | [`.github/skills/ai-news-research/`](../.github/skills/ai-news-research/SKILL.md) | -->
+| **aksel-spacing** | Responsiv layout med Aksel spacing-tokens og Box, VStack, HStack og HGrid | [`.github/skills/aksel-spacing/`](../.github/skills/aksel-spacing/SKILL.md) |
+| **api-design** | REST API-designmønstre, versjonering, feilhåndtering (RFC 7807) og OpenAPI-konvensjoner for Nav-tjenester | [`.github/skills/api-design/`](../.github/skills/api-design/SKILL.md) |
+| **conventional-commit** | Generer conventional commit-meldinger med Nav-relevante scopes og breaking change-format | [`.github/skills/conventional-commit/`](../.github/skills/conventional-commit/SKILL.md) |
+| **flyway-migration** | Databasemigrasjonsmønstre med Flyway og versjonerte SQL-skript | [`.github/skills/flyway-migration/`](../.github/skills/flyway-migration/SKILL.md) |
+| **kotlin-app-config** | Sealed class-konfigurasjon for Kotlin-applikasjoner med miljøspesifikke innstillinger | [`.github/skills/kotlin-app-config/`](../.github/skills/kotlin-app-config/SKILL.md) |
+| **observability-setup** | Sett opp Prometheus-metrikker, OpenTelemetry-tracing og health check-endepunkter for Nais-applikasjoner | [`.github/skills/observability-setup/`](../.github/skills/observability-setup/SKILL.md) |
+| **playwright-testing** | Generer og kjør Playwright E2E-tester for webapplikasjoner med page objects, auth fixtures og tilgjengelighetstester | [`.github/skills/playwright-testing/`](../.github/skills/playwright-testing/SKILL.md) |
+| **postgresql-review** | PostgreSQL query review, optimalisering og beste praksis for Nav-applikasjoner | [`.github/skills/postgresql-review/`](../.github/skills/postgresql-review/SKILL.md) |
+| **security-review** | Bruk før commit, push eller pull request for å sjekke at koden er trygg å merge | [`.github/skills/security-review/`](../.github/skills/security-review/SKILL.md) |
+| **spring-boot-scaffold** | Scaffold et nytt Spring Boot Kotlin-prosjekt med Nais-konfigurasjon, Flyway og standard Nav-mønstre | [`.github/skills/spring-boot-scaffold/`](../.github/skills/spring-boot-scaffold/SKILL.md) |
+| **tokenx-auth** | Tjeneste-til-tjeneste-autentisering med TokenX token exchange i Nais | [`.github/skills/tokenx-auth/`](../.github/skills/tokenx-auth/SKILL.md) |
+| **web-design-reviewer** | Visuell inspeksjon av nettsider for å identifisere og fikse designproblemer. Trigges av forespørsler som "sjekk designet", "gå gjennom UI-en", "fiks layouten", "finn designfeil". Finner problemer med responsivt design, tilgjengelighet, visuell konsistens og layout, og fikser dem i kildekoden. | [`.github/skills/web-design-reviewer/`](../.github/skills/web-design-reviewer/SKILL.md) |
+<!-- END GENERATED TABLE -->
 
 ## Creating Nav Skills
 

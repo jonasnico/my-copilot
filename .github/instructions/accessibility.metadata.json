@@ -1,4 +1,6 @@
 {
+  "displayName": "Accessibility (UU)",
+  "description": "WCAG 2.1 AA, semantisk HTML, ARIA, Aksel a11y-patterns, keyboard-navigasjon.",
   "domain": "frontend",
   "tags": ["accessibility", "wcag", "a11y", "universell-utforming"],
   "examples": [
