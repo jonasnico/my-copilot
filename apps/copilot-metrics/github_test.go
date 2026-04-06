@@ -177,7 +177,13 @@ func TestFetchMetricsFromURL_ValidResponse(t *testing.T) {
 	}
 	reportJSON, _ := json.Marshal(reportResp)
 
-	reportServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+	reportServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got := r.Header.Get("Accept"); got != "application/vnd.github+json" {
+			t.Errorf("Accept header = %q, want %q", got, "application/vnd.github+json")
+		}
+		if got := r.Header.Get("X-GitHub-Api-Version"); got != "2026-03-10" {
+			t.Errorf("X-GitHub-Api-Version = %q, want %q", got, "2026-03-10")
+		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write(reportJSON)

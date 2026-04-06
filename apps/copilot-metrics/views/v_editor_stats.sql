@@ -1,18 +1,13 @@
 CREATE OR REPLACE VIEW `%s.%s.v_editor_stats` AS
 SELECT
   day,
-  JSON_VALUE(editor, '$.name') AS editor,
-  CAST(JSON_VALUE(editor, '$.total_engaged_users') AS INT64) AS engaged_users,
-  IFNULL(
-    (SELECT SUM(CAST(JSON_VALUE(lang, '$.total_code_suggestions') AS INT64))
-     FROM UNNEST(JSON_QUERY_ARRAY(model, '$.languages')) AS lang), 0
-  ) AS suggestions,
-  IFNULL(
-    (SELECT SUM(CAST(JSON_VALUE(lang, '$.total_code_acceptances') AS INT64))
-     FROM UNNEST(JSON_QUERY_ARRAY(model, '$.languages')) AS lang), 0
-  ) AS acceptances
+  JSON_VALUE(ide, '$.ide') AS editor,
+  CAST(JSON_VALUE(ide, '$.code_generation_activity_count') AS INT64) AS generations,
+  CAST(JSON_VALUE(ide, '$.code_acceptance_activity_count') AS INT64) AS acceptances,
+  CAST(JSON_VALUE(ide, '$.loc_suggested_to_add_sum') AS INT64) AS lines_suggested,
+  CAST(JSON_VALUE(ide, '$.loc_added_sum') AS INT64) AS lines_accepted,
+  CAST(JSON_VALUE(ide, '$.user_initiated_interaction_count') AS INT64) AS interactions
 FROM `%s.%s.%s`,
-  UNNEST(JSON_QUERY_ARRAY(raw_record, '$.copilot_ide_code_completions.editors')) AS editor,
-  UNNEST(JSON_QUERY_ARRAY(editor, '$.models')) AS model
-WHERE JSON_VALUE(editor, '$.name') IS NOT NULL
-ORDER BY day, engaged_users DESC;
+  UNNEST(JSON_QUERY_ARRAY(raw_record, '$.totals_by_ide')) AS ide
+WHERE JSON_VALUE(ide, '$.ide') IS NOT NULL
+ORDER BY day, generations DESC;
