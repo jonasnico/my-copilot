@@ -7,13 +7,13 @@
     "dev": "next dev",
     "build": "next build --experimental-build-mode compile",
     "start": "node .next/standalone/server.js",
-    "check": "eslint . --fix && tsc --noEmit && prettier --write . --list-different && knip && jest",
+    "check": "eslint . --fix && tsc --noEmit && prettier --write . --list-different && knip && vitest run",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write . --list-different",
     "format:check": "prettier --list-different .",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
+    "test": "vitest run",
     "knip": "knip",
     "generate": "node --experimental-strip-types scripts/generate-manifest.ts"
   },
@@ -41,21 +41,18 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.27",
     "eslint": "~9.39.4",
     "eslint-config-next": "~16.2.1",
-    "jest": "^30.3.0",
-    "jest-fetch-mock": "^3.0.3",
     "knip": "^5.88.1",
     "postcss": "^8.5.8",
     "postcss-load-config": "^6.0.1",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.2.2",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

@@ -1,10 +1,11 @@
+import { vi } from "vitest";
 import { loadBigQueryConfig, tableRef, viewRef } from "./bigquery-config";
 
 describe("loadBigQueryConfig", () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
     process.env = { ...originalEnv };
   });
 
