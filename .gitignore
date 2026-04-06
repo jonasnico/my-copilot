@@ -47,3 +47,4 @@ kubeconfig.yaml
 Thumbs.db
 apps/copilot-adoption/copilot-adoption
 apps/copilot-adoption/bin/copilot-adoption
+apps/mcp-registry/mcp-registry
