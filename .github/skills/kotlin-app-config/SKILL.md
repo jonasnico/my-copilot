@@ -86,16 +86,20 @@ data class KafkaConfig(
 data class AzureConfig(
     val issuer: String
 )
-val config = AppConfig(
+
+val config = EnvironmentVariables()
+
+val appConfig = AppConfig(
     database = DatabaseConfig(
-        url = EnvironmentVariables()["DATABASE_URL"]
+        url = config.getOrNull(Key("DATABASE_URL", stringType))
             ?: "jdbc:postgresql://localhost:5432/myapp"
     ),
     kafka = KafkaConfig(
-        brokers = EnvironmentVariables()["KAFKA_BROKERS"] ?: "localhost:9092"
+        brokers = config.getOrNull(Key("KAFKA_BROKERS", stringType))
+            ?: "localhost:9092"
     ),
     azure = AzureConfig(
-        issuer = EnvironmentVariables()["AZURE_OPENID_CONFIG_ISSUER"]
+        issuer = config.getOrNull(Key("AZURE_OPENID_CONFIG_ISSUER", stringType))
             ?: "http://localhost:8080/azuread"
     )
 )
