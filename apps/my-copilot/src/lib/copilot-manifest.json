@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-10T10:02:11.053Z",
+  "generatedAt": "2026-04-10T10:16:25.679Z",
   "items": [
     {
       "id": "accessibility-agent",
@@ -450,7 +450,7 @@
       "domain": "backend",
       "filePath": ".github/instructions/database.instructions.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/instructions/database.instructions.md",
-      "contentHash": "d7cf6a057733a0b7f4d4af48b52c1a7914c6cd0f5fb7c385813779828f0bf345",
+      "contentHash": "4d32105b5289803b9e239d46b773670ec70ccd29610998f7fd81fe39db69bb68",
       "installUrl": "/install/instructions?url=vscode%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fdatabase.instructions.md",
       "insidersInstallUrl": "/install/instructions?url=vscode-insiders%3Achat-instructions%2Finstall%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fnavikt%2Fcopilot%2Fmain%2F.github%2Finstructions%2Fdatabase.instructions.md",
       "applyTo": "**/db/migration/**/*.sql",
@@ -724,7 +724,7 @@
       "domain": "backend",
       "filePath": ".github/skills/kotlin-app-config/SKILL.md",
       "rawGitHubUrl": "https://raw.githubusercontent.com/navikt/copilot/main/.github/skills/kotlin-app-config/SKILL.md",
-      "contentHash": "2f23b5d9e610cea5d76568c62e89836944b8a9630897bb5269860c7547464cae",
+      "contentHash": "eb122934680f56ead18d5c42f526c6bf19a4974d908f53c20f68b99112e3ce67",
       "installUrl": null,
       "insidersInstallUrl": null,
       "tags": ["kotlin", "configuration", "sealed-class", "environment"],
