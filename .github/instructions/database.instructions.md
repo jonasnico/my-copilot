@@ -249,16 +249,14 @@ ALTER TABLE stor_tabell ADD COLUMN ny_kolonne BOOLEAN DEFAULT false;
 -- Standard Flyway migration (runs in a transaction)
 CREATE INDEX idx_ny ON stor_tabell(ny_kolonne);
 
--- Use CREATE INDEX CONCURRENTLY only in its own non-transactional migration
--- Recommended Flyway setup:
---   1. Put the statement in a dedicated migration, for example:
+-- Use CREATE INDEX CONCURRENTLY only in its own dedicated migration
+-- with no other statements in the file.
+-- Example Flyway migration:
 --      V5__add_idx_ny_concurrently.sql
---   2. Add a sibling config file next to it:
---      V5__add_idx_ny_concurrently.sql.conf
---   3. Put this in the .conf file:
---      executeInTransaction=false
 -- Example migration content:
 --      CREATE INDEX CONCURRENTLY idx_ny ON stor_tabell(ny_kolonne);
+-- This migration must run without being wrapped in a transaction,
+-- so configure Flyway's transaction handling accordingly for your setup.
 ```
 
 ## Testing Migrations
