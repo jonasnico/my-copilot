@@ -165,6 +165,58 @@ Tilpasningene dekker Navs kjernestack:
 
 ## 🤝 Contributing
 
+### Development Setup
+
+**Prerequisites:** [mise](https://mise.jdx.dev) and [fnox](https://fnox.jdx.dev)
+
+```bash
+mise install          # Install all tools
+```
+
+**Secrets** are managed with fnox + macOS Keychain — no `.env` files needed. Each app has a `fnox.toml` listing required secrets. Two Keychain services are used:
+
+| Service | Apps | Secrets |
+|---|---|---|
+| `copilot-portal` | my-copilot | GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, GITHUB_APP_INSTALLATION_ID |
+| `copilot-jobs` | copilot-adoption, copilot-metrics, mcp-onboarding | GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY, GITHUB_APP_INSTALLATION_ID, SLACK_WEBHOOK_URL |
+
+```bash
+cd apps/my-copilot
+fnox set GITHUB_APP_ID              # Prompts for value, stores in Keychain
+fnox set GITHUB_APP_PRIVATE_KEY
+fnox set GITHUB_APP_INSTALLATION_ID
+
+cd ../copilot-adoption
+fnox set GITHUB_APP_ID              # Different GitHub App — different credentials
+fnox set GITHUB_APP_PRIVATE_KEY
+fnox set GITHUB_APP_INSTALLATION_ID
+fnox set SLACK_WEBHOOK_URL
+```
+
+Non-secret config (org names, BigQuery datasets, etc.) is in each app's `.mise.toml` under `[env]`.
+
+**Using a different secret backend?** The committed `fnox.toml` defaults to macOS Keychain, but you can override with any provider (1Password, GCP Secret Manager, etc.) in a gitignored `fnox.local.toml`:
+
+```toml
+# fnox.local.toml — your personal override
+[providers]
+op = { type = "1password", vault = "Nav Dev" }
+
+[secrets]
+GITHUB_APP_ID = { provider = "op", value = "copilot-portal/GITHUB_APP_ID" }
+```
+
+See [fnox providers](https://fnox.jdx.dev/providers/) for all supported backends.
+
+**Run an app:**
+
+```bash
+cd apps/my-copilot && mise dev      # Injects secrets via fnox automatically
+cd apps/copilot-adoption && mise dev
+```
+
+### Adding Customizations
+
 To add new customizations:
 
 1. **Agents**: Add `*.agent.md` to `.github/agents/` following the [agent docs](docs/README.agents.md)
