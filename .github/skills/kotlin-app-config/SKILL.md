@@ -43,7 +43,7 @@ sealed class Environment(
 
     companion object {
         fun from(env: Map<String, String>): Environment {
-            return when (env["Nais_CLUSTER_NAME"]) {
+            return when (env["NAIS_CLUSTER_NAME"]) {
                 "dev-gcp" -> Dev(env)
                 "prod-gcp" -> Prod(env)
                 else -> Local
@@ -78,7 +78,27 @@ data class AppConfig(
 )
 
 data class DatabaseConfig(
-    val url: String,
+    val url: String
+)
+data class KafkaConfig(
+    val brokers: String
+)
+data class AzureConfig(
+    val issuer: String
+)
+val config = AppConfig(
+    database = DatabaseConfig(
+        url = EnvironmentVariables()["DATABASE_URL"]
+            ?: "jdbc:postgresql://localhost:5432/myapp"
+    ),
+    kafka = KafkaConfig(
+        brokers = EnvironmentVariables()["KAFKA_BROKERS"] ?: "localhost:9092"
+    ),
+    azure = AzureConfig(
+        issuer = EnvironmentVariables()["AZURE_OPENID_CONFIG_ISSUER"]
+            ?: "http://localhost:8080/azuread"
+    )
+)
 ```
 
 ## Alternative: Sealed Interface Pattern (navikt/hotlibs)
@@ -101,7 +121,7 @@ sealed interface Environment {
         )
 
         val current: Environment by lazy {
-            val cluster = System.getenv("Nais_CLUSTER_NAME")
+            val cluster = System.getenv("NAIS_CLUSTER_NAME")
             all.find { it.cluster == cluster } ?: LocalEnvironment
         }
     }
